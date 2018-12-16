@@ -14,14 +14,14 @@
 <meta property="og:site_name" content="vlzf">
 <meta property="og:description" content="一、属性 __proto__ 与 prototype说到继承，就必须得说说 __proto__ 与 prototype 这两个属性。  prototype ：原型，是函数特有的属性。 __proto__ ：隐式原型，是对象特有的属性，也被写作 [[prototype]]。  我们都知道，一个使用了原型模式的构造函数创建了一个实例后，其实例将会继承构造函数的原型（prototype），那么该原型被实">
 <meta property="og:locale" content="zh-cn">
-<meta property="og:image" content="https://vlzf.github.io/image/继承1.png">
-<meta property="og:image" content="https://vlzf.github.io/image/继承2.png">
-<meta property="og:image" content="https://vlzf.github.io/image/继承3.jpg">
-<meta property="og:updated_time" content="2018-12-16T12:05:45.057Z">
+<meta property="og:image" content="https://github.com/vlzf/personalNotes/tree/master/image/继承1.png">
+<meta property="og:image" content="https://github.com/vlzf/personalNotes/tree/master/image/继承2.png">
+<meta property="og:image" content="https://github.com/vlzf/personalNotes/tree/master/image/继承3.jpg">
+<meta property="og:updated_time" content="2018-12-16T12:29:16.288Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="继承">
 <meta name="twitter:description" content="一、属性 __proto__ 与 prototype说到继承，就必须得说说 __proto__ 与 prototype 这两个属性。  prototype ：原型，是函数特有的属性。 __proto__ ：隐式原型，是对象特有的属性，也被写作 [[prototype]]。  我们都知道，一个使用了原型模式的构造函数创建了一个实例后，其实例将会继承构造函数的原型（prototype），那么该原型被实">
-<meta name="twitter:image" content="https://vlzf.github.io/image/继承1.png">
+<meta name="twitter:image" content="https://github.com/vlzf/personalNotes/tree/master/image/继承1.png">
   
     <link rel="alternate" href="/atom.xml" title="vlzf" type="application/atom+xml">
   
@@ -101,12 +101,12 @@
 </ul>
 <p>我们都知道，一个使用了原型模式的构造函数创建了一个实例后，其实例将会继承构造函数的原型（<code>prototype</code>），那么该原型被实例记录在哪呢？就是记录在实例的 <code>__proto__</code> 上。如：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Person</span>(<span class="params"></span>)</span>&#123;&#125;</span><br><span class="line">Person.prototype.say = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="string">'Person'</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> a = <span class="keyword">new</span> Person()</span><br><span class="line">a.__proto__ === Person.prototype <span class="comment">// true</span></span><br></pre></td></tr></table></figure></p>
 <p>我们可以看到实例 <code>a</code> 的 <code>__proto__</code> 就是构造函数 <code>Person</code> 的 <code>prototype</code>。在控制台可以看到：  </p>
-<p><img src="/image/继承1.png" alt=""></p>
-<p><img src="/image/继承2.png" alt=""></p>
+<p><img src="https://github.com/vlzf/personalNotes/tree/master/image/继承1.png" alt=""></p>
+<p><img src="https://github.com/vlzf/personalNotes/tree/master/image/继承2.png" alt=""></p>
 <p>所以，实例的 <code>__proto__</code> 是实例继承其构造器的 <code>prototype</code> 的结果。</p>
 <hr>
 <h2 id="二、原型链"><a href="#二、原型链" class="headerlink" title="二、原型链"></a>二、原型链</h2><p>什么是原型链？<br>在 <code>js</code> 中，万物均为对象。实例继承其构造器的原型；构造器也是对象，它也是由构造器构造的，所以它又继承了其构造器的原型；不断的继承就形成了原型链。</p>
-<p><img src="/image/继承3.jpg" alt=""></p>
+<p><img src="https://github.com/vlzf/personalNotes/tree/master/image/继承3.jpg" alt=""></p>
 <ul>
 <li>这里有一个 <code>Person</code> 的实例 <code>will</code>，该实例继承了 <code>Person</code> 构造函数的原型。</li>
 <li><code>Person</code> 构造函数也是一个对象，它由 <code>Function</code> 构造器生成。所以，<code>Person</code> 构造函数继承了 <code>Function</code> 构造器的原型。</li>
@@ -129,7 +129,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://vlzf.github.io/2018/12/13/继承/" data-id="cjpquoks7000xu0u3hbd8fh1q" class="article-share-link">Share</a>
+      <a data-url="https://vlzf.github.io/2018/12/13/继承/" data-id="cjpqvc6jd000wv8u3ovpwhxn3" class="article-share-link">Share</a>
       
       
     </footer>

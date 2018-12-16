@@ -14,12 +14,12 @@
 <meta property="og:site_name" content="vlzf">
 <meta property="og:description" content="前言浏览器的缓存策略到底是用来做什么的？浏览器缓存也就是 http 缓存。该缓存策略是服务器端来进行配置的。它是用来尽可能防止资源重复下载、减少资源下载次数、提高页面加载速度、减低宽带成本等。 浏览器的缓存策略的缓存控制分为两种：  强缓存 协商缓存   一、强缓存在 http 1.0 版本，缓存是由 header 的 expires 字段来控制过期时间的。但由于客户端与服务器的时间相差很大，导致">
 <meta property="og:locale" content="zh-cn">
-<meta property="og:image" content="https://vlzf.github.io/image/浏览器缓存策略1.jpg">
-<meta property="og:updated_time" content="2018-12-16T12:05:25.037Z">
+<meta property="og:image" content="https://github.com/vlzf/personalNotes/tree/master/image/浏览器缓存策略1.jpg">
+<meta property="og:updated_time" content="2018-12-16T12:28:42.402Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="浏览器缓存策略">
 <meta name="twitter:description" content="前言浏览器的缓存策略到底是用来做什么的？浏览器缓存也就是 http 缓存。该缓存策略是服务器端来进行配置的。它是用来尽可能防止资源重复下载、减少资源下载次数、提高页面加载速度、减低宽带成本等。 浏览器的缓存策略的缓存控制分为两种：  强缓存 协商缓存   一、强缓存在 http 1.0 版本，缓存是由 header 的 expires 字段来控制过期时间的。但由于客户端与服务器的时间相差很大，导致">
-<meta name="twitter:image" content="https://vlzf.github.io/image/浏览器缓存策略1.jpg">
+<meta name="twitter:image" content="https://github.com/vlzf/personalNotes/tree/master/image/浏览器缓存策略1.jpg">
   
     <link rel="alternate" href="/atom.xml" title="vlzf" type="application/atom+xml">
   
@@ -123,14 +123,14 @@
 <p><code>Etag</code> 是对文件内容的 <code>Hash</code> 值，所以只要文件内容未改变，<code>Etag</code> 就不会改变。当服务端给浏览器返回 <code>Etag</code> 之后，下次浏览器去请求的时候就会携带 <code>if-none-match</code> ，服务器会比对两者，从而做相应处理。和 <code>last-modified</code> 类似。但是需要注意的是，<code>Etag</code> 的优先级是要高于 <code>last-modified</code> 的。</p>
 <hr>
 <h2 id="三、总结"><a href="#三、总结" class="headerlink" title="三、总结"></a>三、总结</h2><p>当浏览器发请求时，先判断是否已存在缓存，如果没有，则向服务器发起资源请求。如果有，判断缓存是否过期（强缓存阶段），如果未过期，则直接使用缓存资源。如果已过期，浏览器向服务器发送带 <code>if-none-match</code>（即<code>Etag</code>的内容记录） 和 <code>if-modified-since</code>（即<code>last-modified</code>的内容记录） 字段（没有就不带）的请求，服务器优先判断 <code>if-none-match</code>（即<code>Etag</code>的内容记录） 再判断 <code>if-modified-since</code>（即<code>last-modified</code>的内容记录）。如果有 <code>Etag</code> 的记录，就不需要判断 <code>last-modified</code> 的记录。</p>
-<p><img src="/image/浏览器缓存策略1.jpg" alt=""></p>
+<p><img src="https://github.com/vlzf/personalNotes/tree/master/image/浏览器缓存策略1.jpg" alt=""></p>
 <hr>
 <p>END</p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://vlzf.github.io/2018/12/13/浏览器缓存策略/" data-id="cjpquokrx000uu0u3a8r3h0kk" class="article-share-link">Share</a>
+      <a data-url="https://vlzf.github.io/2018/12/13/浏览器缓存策略/" data-id="cjpqvc6j8000tv8u3u1j7hrow" class="article-share-link">Share</a>
       
       
     </footer>

@@ -184,7 +184,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://vlzf.github.io/2018/12/16/字符串的扩展/" data-id="cjpquokrd000hu0u3m5cjyrov" class="article-share-link">Share</a>
+      <a data-url="https://vlzf.github.io/2018/12/16/字符串的扩展/" data-id="cjpqvc6i0000gv8u3lgfqowie" class="article-share-link">Share</a>
       
       
     </footer>
@@ -305,7 +305,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://vlzf.github.io/2018/12/16/数组的扩展/" data-id="cjpquokrx000ru0u3xctdci4x" class="article-share-link">Share</a>
+      <a data-url="https://vlzf.github.io/2018/12/16/数组的扩展/" data-id="cjpqvc6iz000qv8u33fp17206" class="article-share-link">Share</a>
       
       
     </footer>
@@ -396,7 +396,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://vlzf.github.io/2018/12/16/数值的扩展/" data-id="cjpquokrd000ku0u33e2j2fuk" class="article-share-link">Share</a>
+      <a data-url="https://vlzf.github.io/2018/12/16/数值的扩展/" data-id="cjpqvc6i5000jv8u3o3sx27oc" class="article-share-link">Share</a>
       
       
     </footer>
@@ -504,7 +504,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://vlzf.github.io/2018/12/16/函数的扩展/" data-id="cjpquokr3000du0u3svawykwx" class="article-share-link">Share</a>
+      <a data-url="https://vlzf.github.io/2018/12/16/函数的扩展/" data-id="cjpqvc6hr000dv8u36ys1yfzc" class="article-share-link">Share</a>
       
       
     </footer>
@@ -577,7 +577,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://vlzf.github.io/2018/12/16/Promise对象/" data-id="cjpquokq90004u0u380jdsmcd" class="article-share-link">Share</a>
+      <a data-url="https://vlzf.github.io/2018/12/16/Promise对象/" data-id="cjpqvc6gv0002v8u3rynhuyk9" class="article-share-link">Share</a>
       
       
     </footer>
@@ -603,7 +603,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://vlzf.github.io/2018/12/16/import与require/" data-id="cjpquokpp0000u0u3t7hrcimi" class="article-share-link">Share</a>
+      <a data-url="https://vlzf.github.io/2018/12/16/import与require/" data-id="cjpqvc6fi0000v8u3n2971px8" class="article-share-link">Share</a>
       
       
     </footer>
@@ -692,7 +692,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://vlzf.github.io/2018/12/16/Generator生成器/" data-id="cjpquokq90002u0u33a6y3tco" class="article-share-link">Share</a>
+      <a data-url="https://vlzf.github.io/2018/12/16/Generator生成器/" data-id="cjpqvc6gx0003v8u3o5pxclzy" class="article-share-link">Share</a>
       
       
     </footer>
@@ -728,7 +728,7 @@
 <p>可以看到，<code>async</code> 函数因为内置执行器，所以不需要使用 <code>next</code> 方法启动。</p>
 <hr>
 <h2 id="二、关键字-await"><a href="#二、关键字-await" class="headerlink" title="二、关键字 await"></a>二、关键字 <code>await</code></h2><p><code>Generator</code> 函数有 <code>yield</code>，<code>async</code> 函数有 <code>await</code>。<code>await</code> 的用法与 <code>yield</code> 基本相同，都是用来停止命令执行的。不过，由于 <code>async</code> 函数因为内置执行器，等到异步指令执行完成后，被停止的命令会自动开始执行。如：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">out</span>(<span class="params">number</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function"><span class="keyword">function</span>(<span class="params">resolve, reject</span>)</span>&#123;</span><br><span class="line">        setTimeout(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">            <span class="built_in">console</span>.log(number)</span><br><span class="line">            resolve(number)</span><br><span class="line">        &#125;, <span class="number">2000</span>)</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">async</span> <span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">await</span> out(<span class="number">1</span>)</span><br><span class="line">    <span class="keyword">await</span> out(<span class="number">2</span>)</span><br><span class="line">    <span class="keyword">var</span> r = <span class="keyword">await</span> out(<span class="number">3</span>)</span><br><span class="line">    <span class="keyword">return</span> r + <span class="number">1</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> a = foo().then(<span class="function"><span class="keyword">function</span>(<span class="params">r</span>)</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(r)</span><br><span class="line">&#125;)</span><br><span class="line"><span class="comment">// 1</span></span><br><span class="line"><span class="comment">// 2</span></span><br><span class="line"><span class="comment">// 3</span></span><br><span class="line"><span class="comment">// 4</span></span><br></pre></td></tr></table></figure></p>
-<p>看过我的 <a href="./Generator生成器.md"><code>Generator</code> 生成器</a> 的人是不是觉得 <code>async</code> 函数就像 <code>Generator</code> 函数自带了一个已经封装好了的执行器一样呢！</p>
+<p>看过我的 <code>Generator</code> 生成器的人是不是觉得 <code>async</code> 函数就像 <code>Generator</code> 函数自带了一个已经封装好了的执行器一样呢！</p>
 <ul>
 <li><p>若 <code>await</code> 表达式后面的值是一个 <code>Promise</code> 对象，则这个表达式返回 <code>Promise</code> 的 <code>resolve</code> 或 <code>reject</code> 出来的值。</p>
 </li>
@@ -740,14 +740,14 @@
 </li>
 </ul>
 <hr>
-<h2 id="三、尾语"><a href="#三、尾语" class="headerlink" title="三、尾语"></a>三、尾语</h2><p>看懂了 <a href="./Generator生成器.md"><code>Generator</code> 函数</a> 后，<code>async</code> 函数会更容易理解。</p>
+<h2 id="三、尾语"><a href="#三、尾语" class="headerlink" title="三、尾语"></a>三、尾语</h2><p>看懂了 <code>Generator</code> 函数后，<code>async</code> 函数会更容易理解。</p>
 <hr>
 <p>END</p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://vlzf.github.io/2018/12/16/async函数/" data-id="cjpquokqj0006u0u3u1zts0wk" class="article-share-link">Share</a>
+      <a data-url="https://vlzf.github.io/2018/12/16/async函数/" data-id="cjpqvc6he0007v8u3gigsencn" class="article-share-link">Share</a>
       
       
     </footer>
@@ -808,7 +808,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://vlzf.github.io/2018/12/13/异步请求的实现/" data-id="cjpquokrd000iu0u3ujpmlyke" class="article-share-link">Share</a>
+      <a data-url="https://vlzf.github.io/2018/12/13/异步请求的实现/" data-id="cjpqvc6i4000iv8u3qt9nynz6" class="article-share-link">Share</a>
       
       
     </footer>
@@ -880,7 +880,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://vlzf.github.io/2018/12/13/同源策略及跨域方法/" data-id="cjpquokrd000gu0u3zy2ylbw8" class="article-share-link">Share</a>
+      <a data-url="https://vlzf.github.io/2018/12/13/同源策略及跨域方法/" data-id="cjpqvc6i2000hv8u3ru2kukjx" class="article-share-link">Share</a>
       
       
     </footer>
