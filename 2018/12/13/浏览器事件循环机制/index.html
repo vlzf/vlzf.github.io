@@ -14,20 +14,20 @@
 <meta property="og:site_name" content="vlzf">
 <meta property="og:description" content="前言js 是单线程的，所有代码都在主线程完成执行。但是，由于 js 有同步和异步操作，那么它是如何确定程序的执行顺序的？  一、分块的程序js 是一种分块的程序，一个 js 文件由有多个块构成，程序分块执行。12345678function now()&amp;#123;    console.log(&apos;now&apos;)&amp;#125;function later()&amp;#123;    console.log(&apos;l">
 <meta property="og:locale" content="zh-cn">
-<meta property="og:image" content="https://github.com/vlzf/personalNotes/tree/master/image/浏览器事件循环1.jpg">
-<meta property="og:image" content="https://github.com/vlzf/personalNotes/tree/master/image/浏览器事件循环2.jpg">
-<meta property="og:image" content="https://github.com/vlzf/personalNotes/tree/master/image/浏览器事件循环3.jpg">
-<meta property="og:image" content="https://github.com/vlzf/personalNotes/tree/master/image/浏览器事件循环4.jpg">
-<meta property="og:image" content="https://github.com/vlzf/personalNotes/tree/master/image/浏览器事件循环5.jpg">
-<meta property="og:image" content="https://github.com/vlzf/personalNotes/tree/master/image/浏览器事件循环6.jpg">
-<meta property="og:image" content="https://github.com/vlzf/personalNotes/tree/master/image/浏览器事件循环7.jpg">
-<meta property="og:image" content="https://github.com/vlzf/personalNotes/tree/master/image/浏览器事件循环8.jpg">
-<meta property="og:image" content="https://github.com/vlzf/personalNotes/tree/master/image/浏览器事件循环9.jpg">
-<meta property="og:updated_time" content="2018-12-16T12:28:44.088Z">
+<meta property="og:image" content="https://raw.githubusercontent.com/vlzf/personalNotes/tree/master/image/浏览器事件循环1.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/vlzf/personalNotes/tree/master/image/浏览器事件循环2.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/vlzf/personalNotes/tree/master/image/浏览器事件循环3.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/vlzf/personalNotes/tree/master/image/浏览器事件循环4.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/vlzf/personalNotes/tree/master/image/浏览器事件循环5.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/vlzf/personalNotes/tree/master/image/浏览器事件循环6.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/vlzf/personalNotes/tree/master/image/浏览器事件循环7.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/vlzf/personalNotes/tree/master/image/浏览器事件循环8.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/vlzf/personalNotes/tree/master/image/浏览器事件循环9.jpg">
+<meta property="og:updated_time" content="2018-12-16T12:39:53.625Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="浏览器的事件循环机制">
 <meta name="twitter:description" content="前言js 是单线程的，所有代码都在主线程完成执行。但是，由于 js 有同步和异步操作，那么它是如何确定程序的执行顺序的？  一、分块的程序js 是一种分块的程序，一个 js 文件由有多个块构成，程序分块执行。12345678function now()&amp;#123;    console.log(&apos;now&apos;)&amp;#125;function later()&amp;#123;    console.log(&apos;l">
-<meta name="twitter:image" content="https://github.com/vlzf/personalNotes/tree/master/image/浏览器事件循环1.jpg">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/vlzf/personalNotes/tree/master/image/浏览器事件循环1.jpg">
   
     <link rel="alternate" href="/atom.xml" title="vlzf" type="application/atom+xml">
   
@@ -110,17 +110,17 @@
 <h2 id="二、事件循环"><a href="#二、事件循环" class="headerlink" title="二、事件循环"></a>二、事件循环</h2><p>js 引擎是做什么的？它是在需要的时候，在给定的任意时刻执行程序中的单个代码块。</p>
 <p>js 引擎并不是独立运行的，它运行在宿主环境中。这些环境都有一个共同 “点”，即它们都提供一种机制处理程序中多个块的执行，且执行每个块时调用 js 引擎，这种机制被称为<code>事件循环</code>。</p>
 <p>那么，浏览器的<code>事件循环</code>又是如何实现的？如图：</p>
-<p><img src="https://github.com/vlzf/personalNotes/tree/master/image/浏览器事件循环1.jpg" alt=""></p>
+<p><img src="https://raw.githubusercontent.com/vlzf/personalNotes/tree/master/image/浏览器事件循环1.jpg" alt=""></p>
 <p>如图所示，它有一个<code>执行栈</code>（stack）和一个（或多个）<code>任务队列</code>（callback queue）。当执行栈内的代码执行时，若调用到 DOM 操作、异步请求、定时器设置等 api 时，会将异步执行的代码块放入任务队列。当监听到执行栈为空时，从任务队列取出第一个任务放入执行栈执行。类似于：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> eventLoop = [] <span class="comment">// 任务队列</span></span><br><span class="line"><span class="keyword">var</span> event <span class="comment">// 当前执行任务</span></span><br><span class="line"><span class="keyword">while</span>(<span class="literal">true</span>)&#123;</span><br><span class="line">    <span class="keyword">if</span>(!event &amp;&amp; eventLoop.length &gt; <span class="number">0</span>) &#123;</span><br><span class="line">        event = eventLoop.shift()</span><br><span class="line">        event()</span><br><span class="line">        event = <span class="literal">null</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <p>这里引用 <a href="https://zhuanlan.zhihu.com/p/26229293" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/26229293</a> 的几张图：</p>
-<p><img src="https://github.com/vlzf/personalNotes/tree/master/image/浏览器事件循环2.jpg" alt=""></p>
-<p><img src="https://github.com/vlzf/personalNotes/tree/master/image/浏览器事件循环3.jpg" alt=""></p>
-<p><img src="https://github.com/vlzf/personalNotes/tree/master/image/浏览器事件循环4.jpg" alt=""></p>
-<p><img src="https://github.com/vlzf/personalNotes/tree/master/image/浏览器事件循环5.jpg" alt=""></p>
-<p><img src="https://github.com/vlzf/personalNotes/tree/master/image/浏览器事件循环6.jpg" alt=""></p>
-<p><img src="https://github.com/vlzf/personalNotes/tree/master/image/浏览器事件循环7.jpg" alt=""></p>
-<p><img src="https://github.com/vlzf/personalNotes/tree/master/image/浏览器事件循环8.jpg" alt=""></p>
-<p><img src="https://github.com/vlzf/personalNotes/tree/master/image/浏览器事件循环9.jpg" alt=""></p>
+<p><img src="https://raw.githubusercontent.com/vlzf/personalNotes/tree/master/image/浏览器事件循环2.jpg" alt=""></p>
+<p><img src="https://raw.githubusercontent.com/vlzf/personalNotes/tree/master/image/浏览器事件循环3.jpg" alt=""></p>
+<p><img src="https://raw.githubusercontent.com/vlzf/personalNotes/tree/master/image/浏览器事件循环4.jpg" alt=""></p>
+<p><img src="https://raw.githubusercontent.com/vlzf/personalNotes/tree/master/image/浏览器事件循环5.jpg" alt=""></p>
+<p><img src="https://raw.githubusercontent.com/vlzf/personalNotes/tree/master/image/浏览器事件循环6.jpg" alt=""></p>
+<p><img src="https://raw.githubusercontent.com/vlzf/personalNotes/tree/master/image/浏览器事件循环7.jpg" alt=""></p>
+<p><img src="https://raw.githubusercontent.com/vlzf/personalNotes/tree/master/image/浏览器事件循环8.jpg" alt=""></p>
+<p><img src="https://raw.githubusercontent.com/vlzf/personalNotes/tree/master/image/浏览器事件循环9.jpg" alt=""></p>
 <hr>
 <h2 id="三、任务队列中的宏任务和微任务"><a href="#三、任务队列中的宏任务和微任务" class="headerlink" title="三、任务队列中的宏任务和微任务"></a>三、任务队列中的<code>宏任务</code>和<code>微任务</code></h2><p>之前说过，任务队列可能不止一个。不同的任务对应着不同的任务队列。任务可以分为<code>宏任务</code>和<code>微任务</code>，<code>宏任务</code>放入<code>宏任务</code>队列，<code>微任务</code>放入<code>微任务</code>队列。两种任务队列有什么不同呢？ </p>
 <p>每一次循环都会先从<code>宏任务</code>队列中拿去第一个任务执行（该过程中可能有生产了<code>宏任务</code>和<code>微任务</code>），之后清空<code>微任务</code>队列中所有任务，以保证本次循环的所有<code>微任务</code>被执行完毕。类似于：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> microTask = [] <span class="comment">// 微任务队列</span></span><br><span class="line"><span class="keyword">var</span> macroTask = [] <span class="comment">// 宏任务队列</span></span><br><span class="line"><span class="keyword">var</span> event <span class="comment">// 当前执行任务</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">while</span>(<span class="literal">true</span>)&#123;</span><br><span class="line">    <span class="keyword">if</span>(!event) &#123;</span><br><span class="line">        <span class="keyword">if</span>(macroTask.length) &#123;</span><br><span class="line">            event = macroTask.shift()</span><br><span class="line">            event()</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">while</span>(microTask.length) &#123;</span><br><span class="line">            event = microTask.shift()</span><br><span class="line">            event()</span><br><span class="line">        &#125;</span><br><span class="line">        event = <span class="literal">null</span> <span class="comment">// 一次循环完毕后当前任务应该为空</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
@@ -135,7 +135,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://vlzf.github.io/2018/12/13/浏览器事件循环机制/" data-id="cjpqvc6j2000rv8u3q3xi81q3" class="article-share-link">Share</a>
+      <a data-url="https://vlzf.github.io/2018/12/13/浏览器事件循环机制/" data-id="cjpqvos09000sv0u31h5em0mn" class="article-share-link">Share</a>
       
       
     </footer>
