@@ -14,18 +14,18 @@
 <meta property="og:site_name" content="vlzf">
 <meta property="og:description" content="一、V8 内存限制V8 引擎能够分配和管理的内存是有限制的，在 64 位系统下约 1.4G，32位系统中约 0.7G。也就是说，V8 引擎没办法将一个 2G 的文件读入内存进行字符串处理。 为何有这种限制？ 表层原因：V8 最初是为浏览器而设计的，不可能会遇到使用大量内存的场景。对于网页来说，V8 的限制已经绰绰有余了。  深层原因：V8 垃圾回收机制的限制。内存越大，单次的垃圾回收所需时间就越长">
 <meta property="og:locale" content="zh-cn">
-<meta property="og:image" content="https://raw.githubusercontent.com/vlzf/personalNotes/tree/master/image/V8垃圾回收3.png">
-<meta property="og:image" content="https://raw.githubusercontent.com/vlzf/personalNotes/tree/master/image/V8垃圾回收1.png">
-<meta property="og:image" content="https://raw.githubusercontent.com/vlzf/personalNotes/tree/master/image/V8垃圾回收2.png">
-<meta property="og:image" content="..https://raw.githubusercontent.com/vlzf/personalNotes/tree/master/image/V8垃圾回收4.png">
-<meta property="og:image" content="https://raw.githubusercontent.com/vlzf/personalNotes/tree/master/image/V8垃圾回收5.png">
-<meta property="og:image" content="https://raw.githubusercontent.com/vlzf/personalNotes/tree/master/image/V8垃圾回收6.png">
-<meta property="og:image" content="https://raw.githubusercontent.com/vlzf/personalNotes/tree/master/image/V8垃圾回收7.png">
-<meta property="og:updated_time" content="2018-12-16T12:39:51.694Z">
+<meta property="og:image" content="https://raw.githubusercontent.com/vlzf/personalNotes/master/image/V8垃圾回收3.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/vlzf/personalNotes/master/image/V8垃圾回收1.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/vlzf/personalNotes/master/image/V8垃圾回收2.png">
+<meta property="og:image" content="..https://raw.githubusercontent.com/vlzf/personalNotes/master/image/V8垃圾回收4.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/vlzf/personalNotes/master/image/V8垃圾回收5.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/vlzf/personalNotes/master/image/V8垃圾回收6.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/vlzf/personalNotes/master/image/V8垃圾回收7.png">
+<meta property="og:updated_time" content="2018-12-16T12:44:48.328Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="V8 垃圾回收机制">
 <meta name="twitter:description" content="一、V8 内存限制V8 引擎能够分配和管理的内存是有限制的，在 64 位系统下约 1.4G，32位系统中约 0.7G。也就是说，V8 引擎没办法将一个 2G 的文件读入内存进行字符串处理。 为何有这种限制？ 表层原因：V8 最初是为浏览器而设计的，不可能会遇到使用大量内存的场景。对于网页来说，V8 的限制已经绰绰有余了。  深层原因：V8 垃圾回收机制的限制。内存越大，单次的垃圾回收所需时间就越长">
-<meta name="twitter:image" content="https://raw.githubusercontent.com/vlzf/personalNotes/tree/master/image/V8垃圾回收3.png">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/vlzf/personalNotes/master/image/V8垃圾回收3.png">
   
     <link rel="alternate" href="/atom.xml" title="vlzf" type="application/atom+xml">
   
@@ -116,7 +116,7 @@
 <li>新生代：新生代中的对象为存活时间较短的对象占大部分。用 Scavenge 算法处理。</li>
 <li>老生代：老生代中的对象为存活时间较长的对象占大部分。用 Mark-Sweep 和 Mark-Compact 算法处理。</li>
 </ul>
-<p><img src="https://raw.githubusercontent.com/vlzf/personalNotes/tree/master/image/V8垃圾回收3.png" alt="">  </p>
+<p><img src="https://raw.githubusercontent.com/vlzf/personalNotes/master/image/V8垃圾回收3.png" alt="">  </p>
 <hr>
 <h2 id="三、Scavenge-算法"><a href="#三、Scavenge-算法" class="headerlink" title="三、Scavenge 算法"></a>三、Scavenge 算法</h2><p>在分代的寄出上，新生代中的对象主要通过 Scavenge 算法进行垃圾回收。Scavenge 具体使用了 Cheney 算法。</p>
 <h3 id="Cheney-算法："><a href="#Cheney-算法：" class="headerlink" title="Cheney 算法："></a>Cheney 算法：</h3><p>Cheney 算法是一种采用了复制方式实现的垃圾回收算法。它将新生代内存分为两个semispace 空间，一个处于使用状态的 From 空间（别称），一个处于闲置状态的 To 空间（别称）。</p>
@@ -134,7 +134,7 @@
 <li>对象是否经历过 Scavenge 回收。</li>
 <li>To 空间的内存占用比例超过限制。</li>
 </ul>
-<p><img src="https://raw.githubusercontent.com/vlzf/personalNotes/tree/master/image/V8垃圾回收1.png" alt=""><br><img src="https://raw.githubusercontent.com/vlzf/personalNotes/tree/master/image/V8垃圾回收2.png" alt="">  </p>
+<p><img src="https://raw.githubusercontent.com/vlzf/personalNotes/master/image/V8垃圾回收1.png" alt=""><br><img src="https://raw.githubusercontent.com/vlzf/personalNotes/master/image/V8垃圾回收2.png" alt="">  </p>
 <hr>
 <h2 id="五、Mark-Sweep-和-Mark-Compact-算法"><a href="#五、Mark-Sweep-和-Mark-Compact-算法" class="headerlink" title="五、Mark-Sweep 和 Mark-Compact 算法"></a>五、Mark-Sweep 和 Mark-Compact 算法</h2><p>对于老生代中的对象，由于存活对象占的比重较大，使用 Scavenge 算法，复制大量存活对象会出现效率很低的问题，而且还要浪费一半内存；因此，老生代使用 Scavenge 算法是不明智的。</p>
 <p>对于老生代中的对象，由于存活对象占的比重较大，非存活对象占的比重较小，处理非存活对象会更方便、更有效率。</p>
@@ -144,7 +144,7 @@
 <li>清除阶段：释放 From 空间内存（即清除非存活对象）。</li>
 </ol>
 <ul>
-<li>缺点：<br>Mark-Sweep 算法最大的问题是进行一次标记清除后，内存空间会出现不连续的状态（也就是出现内存碎片），这会导致内存浪费。<br>黑色是死亡对象被清除后留下的空白空间，白色是存活对象：<br><img src="..https://raw.githubusercontent.com/vlzf/personalNotes/tree/master/image/V8垃圾回收4.png" alt="">  </li>
+<li>缺点：<br>Mark-Sweep 算法最大的问题是进行一次标记清除后，内存空间会出现不连续的状态（也就是出现内存碎片），这会导致内存浪费。<br>黑色是死亡对象被清除后留下的空白空间，白色是存活对象：<br><img src="..https://raw.githubusercontent.com/vlzf/personalNotes/master/image/V8垃圾回收4.png" alt="">  </li>
 </ul>
 <p>为了解决这个问题，Mark-Compact 算法就被提出来了。</p>
 <hr>
@@ -153,15 +153,15 @@
 <li>整理阶段：将被标记的对象往一端移动（剩下的非存活对象也自然会往另一端集中）。</li>
 <li>清除阶段：根据存活对象的边界，直接清除边界外的内存（即清除非存活对象）。</li>
 </ol>
-<p><img src="https://raw.githubusercontent.com/vlzf/personalNotes/tree/master/image/V8垃圾回收5.png" alt="">  </p>
+<p><img src="https://raw.githubusercontent.com/vlzf/personalNotes/master/image/V8垃圾回收5.png" alt="">  </p>
 <ul>
 <li>缺点：由于增加了整理阶段，要移动对象，时间耗费很大。</li>
 </ul>
 <hr>
-<h3 id="3种垃圾回收算法对比"><a href="#3种垃圾回收算法对比" class="headerlink" title="3种垃圾回收算法对比"></a>3种垃圾回收算法对比</h3><p><img src="https://raw.githubusercontent.com/vlzf/personalNotes/tree/master/image/V8垃圾回收6.png" alt="">  </p>
+<h3 id="3种垃圾回收算法对比"><a href="#3种垃圾回收算法对比" class="headerlink" title="3种垃圾回收算法对比"></a>3种垃圾回收算法对比</h3><p><img src="https://raw.githubusercontent.com/vlzf/personalNotes/master/image/V8垃圾回收6.png" alt="">  </p>
 <p>综合 Mark-Sweep 和 Mark-Compact 算法各自的优缺点。老生代内存管理一般采用 Mark-Sweep 算法，只有当老生代内存不足的时候才使用 Mark-Compact 算法整理内存，之后再用回 Mark-Sweep 算法，如此循环。</p>
 <hr>
-<h2 id="六、增量标记"><a href="#六、增量标记" class="headerlink" title="六、增量标记"></a>六、增量标记</h2><p>增量标记是用于优化老生代垃圾回收的标记阶段。它将老生代的一次垃圾回收过程分成若干次完成，每分成一小部分就让 js 应用逻辑执行一小会，垃圾回收与应用逻辑交替执行直到标记阶段完成。<br><img src="https://raw.githubusercontent.com/vlzf/personalNotes/tree/master/image/V8垃圾回收7.png" alt="">  </p>
+<h2 id="六、增量标记"><a href="#六、增量标记" class="headerlink" title="六、增量标记"></a>六、增量标记</h2><p>增量标记是用于优化老生代垃圾回收的标记阶段。它将老生代的一次垃圾回收过程分成若干次完成，每分成一小部分就让 js 应用逻辑执行一小会，垃圾回收与应用逻辑交替执行直到标记阶段完成。<br><img src="https://raw.githubusercontent.com/vlzf/personalNotes/master/image/V8垃圾回收7.png" alt="">  </p>
 <h4 id="为什么-js-应用逻辑与垃圾回收不能同时进行呢？"><a href="#为什么-js-应用逻辑与垃圾回收不能同时进行呢？" class="headerlink" title="为什么 js 应用逻辑与垃圾回收不能同时进行呢？"></a>为什么 js 应用逻辑与垃圾回收不能同时进行呢？</h4><blockquote>
 <p>《深入浅出Node.js》：为了避免出现 Javascript 应用逻辑与垃圾回收器看到的不一致的情况，垃圾回收的 3 种基本算法都需要将应用逻辑暂停下来，待执行完垃圾回收后再恢复执行应用逻辑，这种行为被称为“全停顿”（stop-the-world）。</p>
 </blockquote>
@@ -178,7 +178,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://vlzf.github.io/2018/12/13/V8垃圾回收机制/" data-id="cjpqvory50003v0u324e6nv7i" class="article-share-link">Share</a>
+      <a data-url="https://vlzf.github.io/2018/12/13/V8垃圾回收机制/" data-id="cjpqvv24p0002csu37jybwqna" class="article-share-link">Share</a>
       
       
     </footer>
