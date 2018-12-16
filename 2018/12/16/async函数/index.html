@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>async函数 | vlzf</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="一、前言async 函数是 ES7 的语法、Generator 函数的高级版，是可以用来处理异步编程的一类函数，与 Generator 函数一样可以将异步编程同步化。不同之处是它会返回一个 Promise 对象，并且内置执行器。如：12345678async function foo()&amp;#123;    console.log(1)    return 2&amp;#125;var a = foo()/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="async函数">
+<meta property="og:url" content="https://vlzf.github.io/2018/12/16/async函数/index.html">
+<meta property="og:site_name" content="vlzf">
+<meta property="og:description" content="一、前言async 函数是 ES7 的语法、Generator 函数的高级版，是可以用来处理异步编程的一类函数，与 Generator 函数一样可以将异步编程同步化。不同之处是它会返回一个 Promise 对象，并且内置执行器。如：12345678async function foo()&amp;#123;    console.log(1)    return 2&amp;#125;var a = foo()/">
+<meta property="og:locale" content="zh-cn">
+<meta property="og:updated_time" content="2018-12-16T12:07:09.020Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="async函数">
+<meta name="twitter:description" content="一、前言async 函数是 ES7 的语法、Generator 函数的高级版，是可以用来处理异步编程的一类函数，与 Generator 函数一样可以将异步编程同步化。不同之处是它会返回一个 Promise 对象，并且内置执行器。如：12345678async function foo()&amp;#123;    console.log(1)    return 2&amp;#125;var a = foo()/">
+  
+    <link rel="alternate" href="/atom.xml" title="vlzf" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">vlzf</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">个人博客</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://vlzf.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-async函数" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/12/16/async函数/" class="article-date">
+  <time datetime="2018-12-16T12:06:32.757Z" itemprop="datePublished">2018-12-16</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      async函数
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="一、前言"><a href="#一、前言" class="headerlink" title="一、前言"></a>一、前言</h2><p><code>async</code> 函数是 ES7 的语法、<code>Generator</code> 函数的高级版，是可以用来处理异步编程的一类函数，与 <code>Generator</code> 函数一样可以将异步编程同步化。不同之处是它会返回一个 <code>Promise</code> 对象，并且内置执行器。如：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">async</span> <span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="number">1</span>)</span><br><span class="line">    <span class="keyword">return</span> <span class="number">2</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> a = foo()</span><br><span class="line"><span class="comment">// 1</span></span><br><span class="line">a <span class="keyword">instanceof</span> <span class="built_in">Promise</span></span><br><span class="line"><span class="comment">// true</span></span><br></pre></td></tr></table></figure></p>
+<p>可以看到，<code>async</code> 函数因为内置执行器，所以不需要使用 <code>next</code> 方法启动。</p>
+<hr>
+<h2 id="二、关键字-await"><a href="#二、关键字-await" class="headerlink" title="二、关键字 await"></a>二、关键字 <code>await</code></h2><p><code>Generator</code> 函数有 <code>yield</code>，<code>async</code> 函数有 <code>await</code>。<code>await</code> 的用法与 <code>yield</code> 基本相同，都是用来停止命令执行的。不过，由于 <code>async</code> 函数因为内置执行器，等到异步指令执行完成后，被停止的命令会自动开始执行。如：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">out</span>(<span class="params">number</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function"><span class="keyword">function</span>(<span class="params">resolve, reject</span>)</span>&#123;</span><br><span class="line">        setTimeout(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">            <span class="built_in">console</span>.log(number)</span><br><span class="line">            resolve(number)</span><br><span class="line">        &#125;, <span class="number">2000</span>)</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">async</span> <span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">await</span> out(<span class="number">1</span>)</span><br><span class="line">    <span class="keyword">await</span> out(<span class="number">2</span>)</span><br><span class="line">    <span class="keyword">var</span> r = <span class="keyword">await</span> out(<span class="number">3</span>)</span><br><span class="line">    <span class="keyword">return</span> r + <span class="number">1</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> a = foo().then(<span class="function"><span class="keyword">function</span>(<span class="params">r</span>)</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(r)</span><br><span class="line">&#125;)</span><br><span class="line"><span class="comment">// 1</span></span><br><span class="line"><span class="comment">// 2</span></span><br><span class="line"><span class="comment">// 3</span></span><br><span class="line"><span class="comment">// 4</span></span><br></pre></td></tr></table></figure></p>
+<p>看过我的 <a href="./Generator生成器.md"><code>Generator</code> 生成器</a> 的人是不是觉得 <code>async</code> 函数就像 <code>Generator</code> 函数自带了一个已经封装好了的执行器一样呢！</p>
+<ul>
+<li><p>若 <code>await</code> 表达式后面的值是一个 <code>Promise</code> 对象，则这个表达式返回 <code>Promise</code> 的 <code>resolve</code> 或 <code>reject</code> 出来的值。</p>
+</li>
+<li><p>若 <code>await</code> 表达式后面的值是一个 <code>thenable</code> 对象，则先执行 <code>then</code> 方法，再返回 <code>then</code> 方法的 <code>resolve</code> 值。如：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">async</span> <span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">var</span> r = <span class="keyword">await</span> &#123;</span><br><span class="line">        then: <span class="function"><span class="keyword">function</span>(<span class="params">resolve</span>)</span>&#123;</span><br><span class="line">            resolve(<span class="number">5</span>)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">console</span>.log(r)</span><br><span class="line">&#125;</span><br><span class="line">foo() <span class="comment">// 5</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>若 <code>await</code> 表达式后面的值非 <code>Promise</code> 对象、非 <code>thenable</code> 对象，则直接返回。如：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">async</span> <span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">var</span> r = <span class="keyword">await</span> <span class="number">5</span></span><br><span class="line">    <span class="built_in">console</span>.log(r)</span><br><span class="line">&#125;</span><br><span class="line">foo() <span class="comment">// 5</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<hr>
+<h2 id="三、尾语"><a href="#三、尾语" class="headerlink" title="三、尾语"></a>三、尾语</h2><p>看懂了 <a href="./Generator生成器.md"><code>Generator</code> 函数</a> 后，<code>async</code> 函数会更容易理解。</p>
+<hr>
+<p>END</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://vlzf.github.io/2018/12/16/async函数/" data-id="cjpquokqj0006u0u3u1zts0wk" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2018/12/16/Generator生成器/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          Generator生成器
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2018/12/13/异步请求的实现/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">XMLHttpRequest对象</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">十二月 2018</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2018/12/16/字符串的扩展/">字符串的扩展</a>
+          </li>
+        
+          <li>
+            <a href="/2018/12/16/数组的扩展/">数组的扩展</a>
+          </li>
+        
+          <li>
+            <a href="/2018/12/16/数值的扩展/">数值的扩展</a>
+          </li>
+        
+          <li>
+            <a href="/2018/12/16/函数的扩展/">函数的扩展</a>
+          </li>
+        
+          <li>
+            <a href="/2018/12/16/Promise对象/">Promise对象</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2018 vlzf<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>

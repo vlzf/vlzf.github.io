@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>node 事件循环 | vlzf</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="node 环境下的事件循环与 web 环境下的是不一样的。  一、6 个阶段： timers ：执行 setTimeout() 和 setInterval() 中到期的 callback。 pending callbacks ：上一轮循环中有少数的 I/O callback 会被延迟到这一轮的这一阶段执行。 idle, prepare ：仅内部使用。 poll ：执行 I/O callback ，">
+<meta property="og:type" content="article">
+<meta property="og:title" content="node 事件循环">
+<meta property="og:url" content="https://vlzf.github.io/2018/12/13/node事件循环/index.html">
+<meta property="og:site_name" content="vlzf">
+<meta property="og:description" content="node 环境下的事件循环与 web 环境下的是不一样的。  一、6 个阶段： timers ：执行 setTimeout() 和 setInterval() 中到期的 callback。 pending callbacks ：上一轮循环中有少数的 I/O callback 会被延迟到这一轮的这一阶段执行。 idle, prepare ：仅内部使用。 poll ：执行 I/O callback ，">
+<meta property="og:locale" content="zh-cn">
+<meta property="og:updated_time" content="2018-12-16T11:52:22.530Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="node 事件循环">
+<meta name="twitter:description" content="node 环境下的事件循环与 web 环境下的是不一样的。  一、6 个阶段： timers ：执行 setTimeout() 和 setInterval() 中到期的 callback。 pending callbacks ：上一轮循环中有少数的 I/O callback 会被延迟到这一轮的这一阶段执行。 idle, prepare ：仅内部使用。 poll ：执行 I/O callback ，">
+  
+    <link rel="alternate" href="/atom.xml" title="vlzf" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">vlzf</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">个人博客</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://vlzf.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-node事件循环" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/12/13/node事件循环/" class="article-date">
+  <time datetime="2018-12-13T14:17:19.616Z" itemprop="datePublished">2018-12-13</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      node 事件循环
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>node 环境下的事件循环与 web 环境下的是不一样的。</p>
+<hr>
+<h2 id="一、6-个阶段："><a href="#一、6-个阶段：" class="headerlink" title="一、6 个阶段："></a>一、6 个阶段：</h2><ul>
+<li><code>timers</code> ：执行 <code>setTimeout()</code> 和 <code>setInterval()</code> 中到期的 <code>callback</code>。</li>
+<li><code>pending callbacks</code> ：上一轮循环中有少数的 <code>I/O callback</code> 会被延迟到这一轮的这一阶段执行。</li>
+<li><code>idle, prepare</code> ：仅内部使用。</li>
+<li><code>poll</code> ：执行 <code>I/O callback</code> ，在适当的条件下会阻塞在这个阶段。</li>
+<li><code>check</code> ：执行 <code>setImmediate</code> 的 <code>callback</code> 。</li>
+<li><code>close callbacks</code> ：执行 <code>close</code> 事件的 <code>callback</code>。</li>
+</ul>
+<p>每个阶段都有属于自己的队列。除此之外的队列还有 <code>NextTick Queue</code> 和 <code>Microtask Queue</code>。</p>
+<hr>
+<h2 id="二、阶段的优先顺序"><a href="#二、阶段的优先顺序" class="headerlink" title="二、阶段的优先顺序"></a>二、阶段的优先顺序</h2><p>每一次循环都会按一定的顺序处理每个阶段：<br><code>timers</code> -&gt; <code>pending callbacks</code> -&gt; <code>idle, prepare</code> -&gt; <code>poll</code> -&gt; <code>check</code> -&gt; <code>close callbacks</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">   ┌───────────────────────────┐</span><br><span class="line">┌─&gt;│           timers          │</span><br><span class="line">│  └─────────────┬─────────────┘</span><br><span class="line">│  ┌─────────────┴─────────────┐</span><br><span class="line">│  │     pending callbacks     │</span><br><span class="line">│  └─────────────┬─────────────┘</span><br><span class="line">│  ┌─────────────┴─────────────┐</span><br><span class="line">│  │       idle, prepare       │</span><br><span class="line">│  └─────────────┬─────────────┘      ┌───────────────┐</span><br><span class="line">│  ┌─────────────┴─────────────┐      │   incoming:   │</span><br><span class="line">│  │           poll            │&lt;─────┤  connections, │</span><br><span class="line">│  └─────────────┬─────────────┘      │   data, etc.  │</span><br><span class="line">│  ┌─────────────┴─────────────┐      └───────────────┘</span><br><span class="line">│  │           check           │</span><br><span class="line">│  └─────────────┬─────────────┘</span><br><span class="line">│  ┌─────────────┴─────────────┐</span><br><span class="line">└──┤      close callbacks      │</span><br><span class="line">   └───────────────────────────┘</span><br></pre></td></tr></table></figure>
+<hr>
+<h2 id="三、阶段对任务的处理"><a href="#三、阶段对任务的处理" class="headerlink" title="三、阶段对任务的处理"></a>三、阶段对任务的处理</h2><p>每个阶段的任务处理顺序：  </p>
+<ol>
+<li>清空当前阶段的队列中<code>该循环开始时已有</code>的任务。清空过程中，如果又在该队列生成新的任务，则，新任务将推迟到<code>下一循环</code>执行。</li>
+<li>清空 <code>NextTick Queue</code> 中的任务。清空过程中，如果又在该队列生成新的任务，则，新任务将在<code>当前循环</code>执行。</li>
+<li>清空 <code>Microtask Queue</code> 中的任务。清空过程中，如果又在该队列生成新的任务，则，新任务将在<code>当前循环</code>执行。</li>
+</ol>
+<blockquote>
+<p>这与 web 事件循环有什么不一样呢？<br>web 事件循环是每执行完宏任务队列里的一个任务，就把当前的微任务队列中的所有任务清空。<br>node 事件循环则是每个阶段先清空当前阶段的所有任务，再清空 <code>NextTick Queue</code> 的微任务，最后清空 <code>Microtask Queue</code> 的微任务。</p>
+</blockquote>
+<p>以下为例：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">setTimeout(<span class="function"><span class="params">()</span>=&gt;</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'setTimeout-1'</span>)</span><br><span class="line">    <span class="built_in">Promise</span>.resolve().then(<span class="function"><span class="params">()</span>=&gt;</span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">'Promise-1'</span>)</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;, <span class="number">0</span>)</span><br><span class="line"></span><br><span class="line">setTimeout(<span class="function"><span class="params">()</span>=&gt;</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'setTimeout-2'</span>)</span><br><span class="line">    <span class="built_in">Promise</span>.resolve().then(<span class="function"><span class="params">()</span>=&gt;</span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">'Promise-2'</span>)</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;, <span class="number">0</span>)</span><br><span class="line"></span><br><span class="line"><span class="built_in">Promise</span>.resolve().then(<span class="function"><span class="params">()</span>=&gt;</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'Promise-3'</span>)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></p>
+<ul>
+<li>在 web 环境中，结果为：<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Promise-3</span><br><span class="line">setTimeout-1</span><br><span class="line">Promise-1</span><br><span class="line">setTimeout-2</span><br><span class="line">Promise-2</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<blockquote>
+<p>在 web 环境中，每一次循环都会从任务队列中取出一个任务到执行栈中执行。<br>微任务队列（<code>Microtask Queue</code>）优先于宏任务队列（<code>Macrotask Queue</code>）。<br>每执行完成一个宏和所有微任务后都会进入下一次循环。  </p>
+</blockquote>
+<p><code>Macrotask Queue</code> 与 <code>Microtask Queue</code> 的变化为：   </p>
+<table>
+<thead>
+<tr>
+<th>Cycle</th>
+<th>执行栈 (stack)</th>
+<th>微任务队列 (Microtask Queue)</th>
+<th>宏任务队列 (Macrotask Queue)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>script（代码整体）</td>
+<td>Promise-3</td>
+<td>setTimeout-1、setTimeout-2</td>
+</tr>
+<tr>
+<td>1</td>
+<td>Promise-3</td>
+<td></td>
+<td>setTimeout-1、setTimeout-2</td>
+</tr>
+<tr>
+<td>2</td>
+<td>setTimeout-1</td>
+<td>Promise-1</td>
+<td>setTimeout-2</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Promise-1</td>
+<td></td>
+<td>setTimeout-2</td>
+</tr>
+<tr>
+<td>3</td>
+<td>setTimeout-2</td>
+<td>Promise-2</td>
+<td></td>
+</tr>
+<tr>
+<td>3</td>
+<td>Promise-2</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>在 node 环境中，结果为：<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Promise-3</span><br><span class="line">setTimeout-1</span><br><span class="line">setTimeout-2</span><br><span class="line">Promise-1</span><br><span class="line">Promise-2</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<blockquote>
+<p>node 环境中，在整体代码执行完毕后，<code>event loop</code> 被初始化，开始监听任务队列，进入事件循环。例子中的定时器主要在 <code>timers</code> 阶段执行，主要涉及任务队列有<code>当前阶段的任务队列（Timers Queue）</code>、<code>Microtask Queue</code>。因为例子中没有 <code>process.nextTick()</code>，所以 <code>NextTick Queue</code> 略过不讲。</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Cycle</th>
+<th>执行栈 (stack)</th>
+<th>当前阶段的任务队列 (Timers Queue)</th>
+<th>微任务队列 (Microtask Queue)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>script（代码整体）</td>
+<td>setTimeout-1、setTimeout-2</td>
+<td>Promise-3</td>
+</tr>
+<tr>
+<td>1</td>
+<td>Promise-3</td>
+<td>setTimeout-1、setTimeout-2</td>
+<td></td>
+</tr>
+<tr>
+<td>2</td>
+<td>setTimeout-1</td>
+<td>setTimeout-2</td>
+<td>Promise-1</td>
+</tr>
+<tr>
+<td>2</td>
+<td>setTimeout-2</td>
+<td></td>
+<td>Promise-1、Promise-2</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Promise-1</td>
+<td></td>
+<td>Promise-2</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Promise-2</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<hr>
+<p>例 1：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line">setImmediate(<span class="function"><span class="params">()</span>=&gt;</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'setImmediate-1'</span>)</span><br><span class="line"></span><br><span class="line">    <span class="built_in">Promise</span>.resolve().then(<span class="function"><span class="params">()</span>=&gt;</span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">'Promise-1'</span>)</span><br><span class="line">    &#125;).then(<span class="function"><span class="params">()</span>=&gt;</span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">'Promise-3'</span>)</span><br><span class="line">    &#125;)</span><br><span class="line"></span><br><span class="line">    process.nextTick(<span class="function"><span class="params">()</span>=&gt;</span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">'nextTick-1'</span>)</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;, <span class="number">0</span>)</span><br><span class="line"></span><br><span class="line">setImmediate(<span class="function"><span class="params">()</span>=&gt;</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'setImmediate-2'</span>)</span><br><span class="line"></span><br><span class="line">    <span class="built_in">Promise</span>.resolve().then(<span class="function"><span class="params">()</span>=&gt;</span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">'Promise-2'</span>)</span><br><span class="line">    &#125;).then(<span class="function"><span class="params">()</span>=&gt;</span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">'Promise-4'</span>)</span><br><span class="line">    &#125;)</span><br><span class="line"></span><br><span class="line">    process.nextTick(<span class="function"><span class="params">()</span>=&gt;</span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">'nextTick-2'</span>)</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;, <span class="number">0</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">setTimeout(<span class="function"><span class="params">()</span>=&gt;</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'setTimeout-1'</span>)</span><br><span class="line">&#125;,<span class="number">0</span>)</span><br><span class="line"></span><br><span class="line">setTimeout(<span class="function"><span class="params">()</span>=&gt;</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'setTimeout-2'</span>)</span><br><span class="line">&#125;,<span class="number">0</span>)</span><br></pre></td></tr></table></figure></p>
+<p>node 输出：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">setTimeout-1</span><br><span class="line">setTimeout-2</span><br><span class="line">setImmediate-1</span><br><span class="line">setImmediate-2</span><br><span class="line">nextTick-1</span><br><span class="line">nextTick-2</span><br><span class="line">Promise-1</span><br><span class="line">Promise-2</span><br><span class="line">Promise-3</span><br><span class="line">Promise-4</span><br></pre></td></tr></table></figure></p>
+<p>这里主要涉及到了循环中的两个阶段：<code>timers</code>、<code>setImmediate</code><br>任务队列变化：<br>| Cycle | stack | Timers Queue | SetImmediate Queue | NextTick Queue | Microtask Queue |<br>|—|—|—|—|—|—|<br>| 1 | script（代码整体） | setTimeout-1、setTimeout-2 | setImmediate-1、setImmediate-2 |  |<br>| 2 | setTimeout-1 | setTimeout-2 | setImmediate-1、setImmediate-2 |  |<br>| 2 | setTimeout-2 |  | setImmediate-1、setImmediate-2 |  |<br>| 2 | setImmediate-1 |  | setImmediate-2 | nextTick-1 | Promise-1 |<br>| 2 | setImmediate-2 |  |  | nextTick-1、nextTick-2 | Promise-1、Promise-2 |<br>| 2 | nextTick-1 |  |  | nextTick-2 | Promise-1、Promise-2 |<br>| 2 | nextTick-2 |  |  |  | Promise-1、Promise-2 |<br>| 2 | Promise-1 |  |  |  | Promise-2、Promise-3 |<br>| 2 | Promise-2 |  |  |  | Promise-3、Promise-4 |<br>| 2 | Promise-3 |  |  |  | Promise-4 |<br>| 2 | Promise-4 |  |  |  |  |</p>
+<hr>
+<p>例 2：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">setTimeout(<span class="function"><span class="params">()</span>=&gt;</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'setTimeout-1'</span>)</span><br><span class="line"></span><br><span class="line">    <span class="built_in">Promise</span>.resolve().then(<span class="function"><span class="params">()</span>=&gt;</span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">'Promise-1'</span>)</span><br><span class="line">    &#125;)</span><br><span class="line">    </span><br><span class="line">    setImmediate(<span class="function"><span class="params">()</span>=&gt;</span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">'setImmediate-1'</span>)</span><br><span class="line">        setImmediate(<span class="function"><span class="params">()</span>=&gt;</span>&#123;</span><br><span class="line">            <span class="built_in">console</span>.log(<span class="string">'setImmediate-2'</span>)</span><br><span class="line">        &#125;)</span><br><span class="line">    &#125;)</span><br><span class="line">    </span><br><span class="line">    setTimeout(<span class="function"><span class="params">()</span>=&gt;</span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">'setTimeout-2'</span>)</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;, <span class="number">0</span>)</span><br></pre></td></tr></table></figure></p>
+<p>node 输出可能会出现不同的结果。<br>结果一：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">setTimeout-1</span><br><span class="line">Promise-1</span><br><span class="line">setImmediate-1</span><br><span class="line">setTimeout-2</span><br><span class="line">setImmediate-2</span><br></pre></td></tr></table></figure></p>
+<p>结果二：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">setTimeout-1</span><br><span class="line">Promise-1</span><br><span class="line">setTimeout-2</span><br><span class="line">setImmediate-1</span><br><span class="line">setImmediate-2</span><br></pre></td></tr></table></figure></p>
+<blockquote>
+<p>按照流程来说，结果二是正确的。那么，结果一是怎么来的？可能是机器误差造成的。<br>结果一的执行过程可能为：（猜测）<br>第一次循环设置了 <code>setTimeout-1</code>；<br>第二次循环执行 <code>setTimeout-1</code>，设置并执行 <code>Promise-1</code>，设置 <code>setImmediate-1</code>，设置 <code>setTimeout-2</code>；<br>第三次循环由于机器误差，<code>setImmediate-1</code> 任务进入了队列，但 <code>setTimeout-2</code> 任务没有。因此只执行了 <code>setImmediate-1</code>，又设置了 <code>setImmediate-2</code>。<br>第四次循环 <code>setTimeout-2</code> 任务进入了队列，<code>setTimeout-2</code> 任务被执行，输出 “setTimeout-2”。<br>由于机器误差的问题，我也不敢说 <code>setImmediate-2</code> 任务是什么时候执行的，反正是最后执行的。</p>
+</blockquote>
+<p>这个猜想对不对呢？因为 <code>setTimeout</code> 定时器的最小延迟是 10ms，不可能为 0ms。这猜想还真有可能是对的。</p>
+<p>那么，我们就拖延一下第二次循环的执行时间，让其他任务有时间加进队列：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">setTimeout(<span class="function"><span class="params">()</span>=&gt;</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'setTimeout-1'</span>)</span><br><span class="line"></span><br><span class="line">    <span class="built_in">Promise</span>.resolve().then(<span class="function"><span class="params">()</span>=&gt;</span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">'Promise-1'</span>)</span><br><span class="line">    &#125;)</span><br><span class="line">    </span><br><span class="line">    setImmediate(<span class="function"><span class="params">()</span>=&gt;</span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">'setImmediate-1'</span>)</span><br><span class="line">        setImmediate(<span class="function"><span class="params">()</span>=&gt;</span>&#123;</span><br><span class="line">            <span class="built_in">console</span>.log(<span class="string">'setImmediate-2'</span>)</span><br><span class="line">        &#125;)</span><br><span class="line">    &#125;)</span><br><span class="line">    </span><br><span class="line">    setTimeout(<span class="function"><span class="params">()</span>=&gt;</span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">'setTimeout-2'</span>)</span><br><span class="line">    &#125;)</span><br><span class="line">    <span class="keyword">let</span> now = <span class="built_in">Date</span>.now()</span><br><span class="line">    <span class="keyword">while</span>(<span class="built_in">Date</span>.now() - now &lt; <span class="number">3000</span>) &#123;&#125;</span><br><span class="line">&#125;, <span class="number">0</span>)</span><br></pre></td></tr></table></figure></p>
+<p>这里，我们让第二次循环时间延长 3s，node 输出结果为：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">setTimeout-1</span><br><span class="line">Promise-1</span><br><span class="line">setTimeout-2</span><br><span class="line">setImmediate-1</span><br><span class="line">setImmediate-2</span><br></pre></td></tr></table></figure></p>
+<p>无论控制台执行多少次，输出结果都与结果二相同，猜想很有可能正确。</p>
+<hr>
+<p>参考：  </p>
+<blockquote>
+<p><a href="https://cnodejs.org/topic/5a9108d78d6e16e56bb80882" target="_blank" rel="noopener">https://cnodejs.org/topic/5a9108d78d6e16e56bb80882</a><br>  <a href="https://nodejs.org/en/docs/guides/event-loop-timers-and-nexttick/" target="_blank" rel="noopener">https://nodejs.org/en/docs/guides/event-loop-timers-and-nexttick/</a><br>  <a href="https://blog.csdn.net/hkh_1012/article/details/53453138" target="_blank" rel="noopener">https://blog.csdn.net/hkh_1012/article/details/53453138</a></p>
+</blockquote>
+<hr>
+<p>END</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://vlzf.github.io/2018/12/13/node事件循环/" data-id="cjpquokqt000au0u3nchp3qgh" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2018/12/13/V8垃圾回收机制/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          V8 垃圾回收机制
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2018/12/13/jsonp请求原理及实现/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">jsonp 请求原理及封装方法</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">十二月 2018</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2018/12/16/字符串的扩展/">字符串的扩展</a>
+          </li>
+        
+          <li>
+            <a href="/2018/12/16/数组的扩展/">数组的扩展</a>
+          </li>
+        
+          <li>
+            <a href="/2018/12/16/数值的扩展/">数值的扩展</a>
+          </li>
+        
+          <li>
+            <a href="/2018/12/16/函数的扩展/">函数的扩展</a>
+          </li>
+        
+          <li>
+            <a href="/2018/12/16/Promise对象/">Promise对象</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2018 vlzf<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>

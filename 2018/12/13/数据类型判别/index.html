@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>数据类型判别 | vlzf</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="基本数据类型：undefined、null、number、string、boolean、symbol。 引用类型：object。  判断数据类型的常用方法 方法一：typeof。它可以判断这么几种类型：undefined、number、string、boolean、symbol、object、function，或者说它只能输出这几种结果。它主要用来判断基本数据类型，引用类型是难以判断的。1234">
+<meta property="og:type" content="article">
+<meta property="og:title" content="数据类型判别">
+<meta property="og:url" content="https://vlzf.github.io/2018/12/13/数据类型判别/index.html">
+<meta property="og:site_name" content="vlzf">
+<meta property="og:description" content="基本数据类型：undefined、null、number、string、boolean、symbol。 引用类型：object。  判断数据类型的常用方法 方法一：typeof。它可以判断这么几种类型：undefined、number、string、boolean、symbol、object、function，或者说它只能输出这几种结果。它主要用来判断基本数据类型，引用类型是难以判断的。1234">
+<meta property="og:locale" content="zh-cn">
+<meta property="og:updated_time" content="2018-12-16T11:53:14.073Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="数据类型判别">
+<meta name="twitter:description" content="基本数据类型：undefined、null、number、string、boolean、symbol。 引用类型：object。  判断数据类型的常用方法 方法一：typeof。它可以判断这么几种类型：undefined、number、string、boolean、symbol、object、function，或者说它只能输出这几种结果。它主要用来判断基本数据类型，引用类型是难以判断的。1234">
+  
+    <link rel="alternate" href="/atom.xml" title="vlzf" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">vlzf</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">个人博客</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://vlzf.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-数据类型判别" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/12/13/数据类型判别/" class="article-date">
+  <time datetime="2018-12-13T14:17:19.885Z" itemprop="datePublished">2018-12-13</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      数据类型判别
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <ul>
+<li>基本数据类型：<code>undefined</code>、<code>null</code>、<code>number</code>、<code>string</code>、<code>boolean</code>、<code>symbol</code>。</li>
+<li>引用类型：<code>object</code>。</li>
+</ul>
+<h3 id="判断数据类型的常用方法"><a href="#判断数据类型的常用方法" class="headerlink" title="判断数据类型的常用方法"></a>判断数据类型的常用方法</h3><ul>
+<li>方法一：<code>typeof</code>。它可以判断这么几种类型：<code>undefined</code>、<code>number</code>、<code>string</code>、<code>boolean</code>、<code>symbol</code>、<code>object</code>、<code>function</code>，或者说它只能输出这几种结果。它主要用来判断基本数据类型，引用类型是难以判断的。<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typeof</span> <span class="literal">undefined</span> <span class="comment">// "undefined"</span></span><br><span class="line"><span class="keyword">typeof</span> <span class="number">1</span> <span class="comment">// "number"</span></span><br><span class="line"><span class="keyword">typeof</span> <span class="string">'123'</span> <span class="comment">// "string"</span></span><br><span class="line"><span class="keyword">typeof</span> <span class="literal">true</span> <span class="comment">// "boolean"</span></span><br><span class="line"><span class="keyword">typeof</span> &#123;&#125; <span class="comment">// "object"</span></span><br><span class="line"><span class="keyword">typeof</span> <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;&#125; <span class="comment">// "function"</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>注意：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typeof</span> <span class="literal">null</span> <span class="comment">// "object"</span></span><br><span class="line"><span class="keyword">typeof</span> [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>] <span class="comment">// "object"</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Person</span>(<span class="params"></span>)</span>&#123;&#125;</span><br><span class="line"><span class="keyword">var</span> p = <span class="keyword">new</span> Person()</span><br><span class="line"><span class="keyword">typeof</span> p <span class="comment">// "object"</span></span><br></pre></td></tr></table></figure></p>
+<ul>
+<li>方法二：<code>instanceof</code>。准确来说它并没有判断数据类型，它只是通过原型链来判断左边是否继承了右边而已。所以，它主要用来判断引用类型，基本类型是判断不了的。<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">(<span class="function"><span class="keyword">function</span> (<span class="params"></span>)</span>&#123;&#125;) <span class="keyword">instanceof</span> <span class="built_in">Function</span> <span class="comment">// true</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Person</span>(<span class="params"></span>)</span>&#123;&#125;</span><br><span class="line"><span class="keyword">var</span> p = <span class="keyword">new</span> Person()</span><br><span class="line">p <span class="keyword">instanceof</span> Person <span class="comment">// true</span></span><br><span class="line">p <span class="keyword">instanceof</span> <span class="built_in">Object</span> <span class="comment">// true</span></span><br><span class="line"></span><br><span class="line">[<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>] <span class="keyword">instanceof</span> <span class="built_in">Array</span> <span class="comment">// true</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>注意，当我们用 <code>instanceof</code> 判断基本数据类型时：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1</span> <span class="keyword">instanceof</span> <span class="built_in">Number</span> <span class="comment">// false</span></span><br><span class="line"><span class="literal">true</span> <span class="keyword">instanceof</span> <span class="built_in">Boolean</span> <span class="comment">// false</span></span><br><span class="line"><span class="string">'123'</span> <span class="keyword">instanceof</span> <span class="built_in">String</span> <span class="comment">// false</span></span><br></pre></td></tr></table></figure></p>
+<p>除非：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">new</span> <span class="built_in">Number</span>(<span class="number">1</span>) <span class="keyword">instanceof</span> <span class="built_in">Number</span> <span class="comment">// true</span></span><br><span class="line"><span class="keyword">new</span> <span class="built_in">Boolean</span>(<span class="literal">true</span>) <span class="keyword">instanceof</span> <span class="built_in">Boolean</span> <span class="comment">// true</span></span><br><span class="line"><span class="keyword">new</span> <span class="built_in">String</span>(<span class="string">'123'</span>) <span class="keyword">instanceof</span> <span class="built_in">String</span> <span class="comment">// true</span></span><br></pre></td></tr></table></figure></p>
+<p>还有这特殊的 <code>null</code>：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="literal">null</span> <span class="keyword">instanceof</span> <span class="built_in">Object</span> <span class="comment">// false</span></span><br></pre></td></tr></table></figure></p>
+<ul>
+<li><p>方法三：<code>constructor</code>。我们可以通过该属性直接访问构造器。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Person</span>(<span class="params"></span>)</span>&#123;&#125;</span><br><span class="line"><span class="keyword">var</span> p = <span class="keyword">new</span> Person()</span><br><span class="line">p.constructor === Person <span class="comment">// true</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>方法四：<code>Object.prototype.toString</code>。这个方法只能判断 js 的内置数据类型，如：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Object</span>.prototype.toString.call(<span class="number">123</span>) <span class="comment">// "[object Number]"</span></span><br><span class="line"><span class="built_in">Object</span>.prototype.toString.call(<span class="string">'string'</span>) <span class="comment">// "[object String]"</span></span><br><span class="line"><span class="built_in">Object</span>.prototype.toString.call(<span class="literal">true</span>) <span class="comment">// "[object Boolean]"</span></span><br><span class="line"><span class="built_in">Object</span>.prototype.toString.call(<span class="built_in">Symbol</span>(<span class="number">12</span>)) <span class="comment">// "[object Symbol]"</span></span><br><span class="line"><span class="built_in">Object</span>.prototype.toString.call(&#123;&#125;) <span class="comment">// "[object Object]"</span></span><br><span class="line"><span class="built_in">Object</span>.prototype.toString.call([<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>]) <span class="comment">// "[object Array]"</span></span><br><span class="line"><span class="built_in">Object</span>.prototype.toString.call(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;&#125;) <span class="comment">// "[object Function]"</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>无法判断自定义类型值的类型：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">A</span>(<span class="params"></span>)</span>&#123;&#125;</span><br><span class="line"><span class="keyword">var</span> a = <span class="keyword">new</span> A()</span><br><span class="line"><span class="built_in">Object</span>.prototype.toString.call(a) <span class="comment">// "[object Object]"</span></span><br></pre></td></tr></table></figure></p>
+<hr>
+<p>END</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://vlzf.github.io/2018/12/13/数据类型判别/" data-id="cjpquokrd000lu0u3way9m0d4" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2018/12/13/数据类型显式转换/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          显式强制类型转换
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2018/12/13/面向对象/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">对象</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">十二月 2018</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2018/12/16/字符串的扩展/">字符串的扩展</a>
+          </li>
+        
+          <li>
+            <a href="/2018/12/16/数组的扩展/">数组的扩展</a>
+          </li>
+        
+          <li>
+            <a href="/2018/12/16/数值的扩展/">数值的扩展</a>
+          </li>
+        
+          <li>
+            <a href="/2018/12/16/函数的扩展/">函数的扩展</a>
+          </li>
+        
+          <li>
+            <a href="/2018/12/16/Promise对象/">Promise对象</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2018 vlzf<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>

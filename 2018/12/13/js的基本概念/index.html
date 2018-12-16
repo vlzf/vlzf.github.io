@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>js 的基本概念 | vlzf</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="语法 关键字 变量 数据类型 操作符 语句 函数   语法js 的基本语法与 c 语言大同小异：  区分大小写    标识符（指变量、函数、属性名字、函数参数）第一个字符必须是一个字母、下划线(_)、或者一个美元符号($)，其它字符可以是字母、下划线、美元符号或数字。注意：不能使用关键字作为标识符。  关键字 123// 关键字break, var, let, const, typeof, if">
+<meta property="og:type" content="article">
+<meta property="og:title" content="js 的基本概念">
+<meta property="og:url" content="https://vlzf.github.io/2018/12/13/js的基本概念/index.html">
+<meta property="og:site_name" content="vlzf">
+<meta property="og:description" content="语法 关键字 变量 数据类型 操作符 语句 函数   语法js 的基本语法与 c 语言大同小异：  区分大小写    标识符（指变量、函数、属性名字、函数参数）第一个字符必须是一个字母、下划线(_)、或者一个美元符号($)，其它字符可以是字母、下划线、美元符号或数字。注意：不能使用关键字作为标识符。  关键字 123// 关键字break, var, let, const, typeof, if">
+<meta property="og:locale" content="zh-cn">
+<meta property="og:updated_time" content="2018-12-16T11:52:18.779Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="js 的基本概念">
+<meta name="twitter:description" content="语法 关键字 变量 数据类型 操作符 语句 函数   语法js 的基本语法与 c 语言大同小异：  区分大小写    标识符（指变量、函数、属性名字、函数参数）第一个字符必须是一个字母、下划线(_)、或者一个美元符号($)，其它字符可以是字母、下划线、美元符号或数字。注意：不能使用关键字作为标识符。  关键字 123// 关键字break, var, let, const, typeof, if">
+  
+    <link rel="alternate" href="/atom.xml" title="vlzf" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">vlzf</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">个人博客</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://vlzf.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-js的基本概念" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/12/13/js的基本概念/" class="article-date">
+  <time datetime="2018-12-13T14:17:19.486Z" itemprop="datePublished">2018-12-13</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      js 的基本概念
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <ol>
+<li>语法</li>
+<li>关键字</li>
+<li>变量</li>
+<li>数据类型</li>
+<li>操作符</li>
+<li>语句</li>
+<li>函数</li>
+</ol>
+<hr>
+<h2 id="语法"><a href="#语法" class="headerlink" title="语法"></a>语法</h2><p>js 的基本语法与 c 语言大同小异：</p>
+<ol>
+<li><p>区分大小写  </p>
+</li>
+<li><p>标识符（指变量、函数、属性名字、函数参数）<br>第一个字符必须是一个字母、下划线(_)、或者一个美元符号($)，其它字符可以是字母、下划线、美元符号或数字。注意：不能使用关键字作为标识符。</p>
+</li>
+<li><p>关键字</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 关键字</span></span><br><span class="line"><span class="keyword">break</span>, <span class="keyword">var</span>, <span class="keyword">let</span>, <span class="keyword">const</span>, <span class="keyword">typeof</span>, <span class="keyword">if</span>, <span class="keyword">else</span>, <span class="function"><span class="keyword">function</span>, ...</span></span><br><span class="line"><span class="function">// 剩下的自行了解</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>注释符： </p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 单行注释</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">   多行注释</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="string">``</span><span class="string">` </span></span><br><span class="line"><span class="string">5. 语句写法  </span></span><br><span class="line"><span class="string">在非严格模式下，js 语法是比较宽松的</span></span><br><span class="line"><span class="string">`</span><span class="string">``</span>js</span><br><span class="line"><span class="keyword">var</span> a = <span class="number">0</span>      </span><br><span class="line"><span class="keyword">var</span> a = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 两条语句等价，但推荐第二种写法</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>变量<br>变量的使用必须遵守 “先声明，后使用” 的原则。变量的名字必须遵守标识符的原则。<br>另外，js 的变量与 c 语言的变量是不同之处的：</p>
+</li>
+</ol>
+<ul>
+<li><p>js 的变量在不声明直接赋值的情况下，变量默认是全局变量，不会报错。（不推荐这种写法）</p>
+</li>
+<li><p>js 的变量存在变量提升，如：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(a)   <span class="comment">// 报错</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a;</span><br><span class="line"><span class="built_in">console</span>.log(a)   <span class="comment">// undefined</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(a)   <span class="comment">// undefined</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 写法：1</span></span><br><span class="line"><span class="built_in">console</span>.log(a)   <span class="comment">// undefined</span></span><br><span class="line"><span class="keyword">var</span> a = <span class="number">10</span>;</span><br><span class="line"><span class="comment">// 写法：2</span></span><br><span class="line"><span class="keyword">var</span> a;</span><br><span class="line"><span class="built_in">console</span>.log(a)   <span class="comment">// undefined</span></span><br><span class="line">a = <span class="number">10</span>;</span><br><span class="line"><span class="comment">// 两种写法等价</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>js 的变量不存在自己的数据类型<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> k;</span><br><span class="line"><span class="keyword">typeof</span> k; <span class="comment">// "undefined"</span></span><br><span class="line">k = <span class="string">"a"</span>;</span><br><span class="line"><span class="keyword">typeof</span> k; <span class="comment">// "string" </span></span><br><span class="line">k = <span class="number">1</span>;    </span><br><span class="line"><span class="keyword">typeof</span> k; <span class="comment">// "number"  </span></span><br><span class="line">k = <span class="literal">false</span>;</span><br><span class="line"><span class="keyword">typeof</span> k; <span class="comment">// "boolean"</span></span><br><span class="line"><span class="comment">// 变量的数据类型有数值决定，因此变量不存在自己的数据类型</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<hr>
+<h2 id="数据类型"><a href="#数据类型" class="headerlink" title="数据类型"></a>数据类型</h2><p>js (es5版) 的基本数据类型有： Undefined, Null, Boolean, Number, String, Object</p>
+<ol>
+<li><p>typeof 操作符<br>typeof 可以检测变量的数据类型，并返回一个字符串：<br>“undefined” —— 未定义 或 未声明<br>“boolean” —— 布尔值<br>“string” —— 字符串<br>“number” —— 数字<br>“object” —— 对象 或 null<br>“function” —— 函数  </p>
+</li>
+<li><p>Undefined 类型<br>该类型只有一个值 undefined，只声明而为赋值的变量都等于 undefined</p>
+</li>
+<li><p>Null 类型<br>该类型只有一个值 null，是一个空对象指针。所以 typeof null === “object”</p>
+</li>
+<li><p>Boolean 类型<br>该类型只有两个值 true / false</p>
+</li>
+<li><p>Number 类型</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a = <span class="number">1</span>;    <span class="comment">// 整数</span></span><br><span class="line"><span class="keyword">var</span> b = <span class="number">1.0</span>;  <span class="comment">// 小数</span></span><br><span class="line"><span class="keyword">var</span> c = <span class="number">011</span>;  <span class="comment">// 八进制</span></span><br><span class="line"><span class="keyword">var</span> d = <span class="number">0x11</span>; <span class="comment">// 十六进制</span></span><br><span class="line"><span class="keyword">var</span> e = <span class="literal">NaN</span>;  <span class="comment">// 非数值，是一个特殊的数值</span></span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<ul>
+<li><p>字符转换数字：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">'123'</span> - <span class="string">''</span>  <span class="comment">// 123</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>数值转换函数：  </p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 数字整形化</span></span><br><span class="line"><span class="built_in">parseInt</span>(<span class="string">"123.45"</span>)   <span class="comment">// 123</span></span><br><span class="line"><span class="number">123.45</span> | <span class="number">0</span>         <span class="comment">// 123</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 浮点化</span></span><br><span class="line"><span class="built_in">parseFloat</span>(<span class="string">"123.45"</span>)  <span class="comment">// 123.45</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<ol start="6">
+<li>String 类型<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a = <span class="string">"123"</span>;</span><br><span class="line"><span class="comment">// 等价于</span></span><br><span class="line"><span class="keyword">var</span> a = <span class="string">'123'</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> b = <span class="string">'123"; // 错误 '</span></span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>与 c 语言相同，某些字符需要转义， 如：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> c = <span class="string">"\\n123"</span>;  <span class="comment">// 输出 "\n123"</span></span><br></pre></td></tr></table></figure></p>
+<ul>
+<li><p>字符拼接</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a = <span class="string">'123'</span>;</span><br><span class="line"><span class="keyword">var</span> b = <span class="string">'456'</span>;</span><br><span class="line">a + b   <span class="comment">// "123456"</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>数字转字符串</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">123</span> + <span class="string">''</span>   <span class="comment">// "123"</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> a = <span class="number">123</span></span><br><span class="line">a.toString()  <span class="comment">// "123"</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<ol start="7">
+<li>Object 类型</li>
+</ol>
+<ul>
+<li>创建一个对象<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 1</span></span><br><span class="line"><span class="keyword">var</span> a = <span class="keyword">new</span> <span class="built_in">Object</span>();</span><br><span class="line"><span class="comment">// 2</span></span><br><span class="line"><span class="keyword">var</span> a = &#123;&#125;;</span><br><span class="line"><span class="comment">// 两种等价</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<hr>
+<h2 id="操作符"><a href="#操作符" class="headerlink" title="操作符"></a>操作符</h2><ul>
+<li>基本与 c 语言一致<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a = <span class="number">1</span>;</span><br><span class="line"><span class="keyword">var</span> b = <span class="number">2</span>;</span><br><span class="line"></span><br><span class="line">a ++</span><br><span class="line">++ a</span><br><span class="line">a --</span><br><span class="line">-- a</span><br><span class="line"></span><br><span class="line">a + b</span><br><span class="line">a - b</span><br><span class="line">a * b</span><br><span class="line">a / b</span><br><span class="line"></span><br><span class="line">a &lt;&lt; <span class="number">1</span></span><br><span class="line">a &gt;&gt; <span class="number">1</span></span><br><span class="line"></span><br><span class="line">a &amp; b</span><br><span class="line">a | b</span><br><span class="line">~a</span><br><span class="line">a ^ b</span><br><span class="line">!a</span><br><span class="line"></span><br><span class="line">a || b</span><br><span class="line">a &amp;&amp; b</span><br><span class="line"></span><br><span class="line">a == b   <span class="comment">// 全等</span></span><br><span class="line">a === b  <span class="comment">// 不全等</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 括号操作符</span></span><br><span class="line"><span class="keyword">var</span> c = (<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>)   <span class="comment">// 输出 4。 把括号内所有短语执行一次，返回最后一次的结果</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<hr>
+<h2 id="语句"><a href="#语句" class="headerlink" title="语句"></a>语句</h2><p>基本与 c 语言一致<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span>()&#123;</span><br><span class="line">&#125;<span class="keyword">else</span> &#123;&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">while</span>()&#123;&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">do</span>&#123;</span><br><span class="line">&#125;<span class="keyword">while</span>()</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span>(;;)&#123;&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">continue</span></span><br><span class="line"><span class="keyword">break</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">switch</span>(param)&#123;</span><br><span class="line">    <span class="keyword">case</span> value: <span class="number">1</span>+<span class="number">1</span>; <span class="keyword">break</span>;</span><br><span class="line">    <span class="keyword">default</span>: <span class="number">12</span>+<span class="number">1</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<ul>
+<li><p>for-in 遍历对象可访问属性</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span>(<span class="keyword">var</span> i <span class="keyword">in</span> object)&#123;&#125;   <span class="comment">// 遍历对象可访问属性</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>label 语句，可通过 label 名跳转代码段，不建议用</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">label: <span class="keyword">for</span>(;;)&#123;&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>with 语句，引用执行环境，不建议使用</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">with</span>(<span class="built_in">window</span>)&#123;</span><br><span class="line"><span class="comment">// 代码</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<hr>
+<h2 id="函数"><a href="#函数" class="headerlink" title="函数"></a>函数</h2><ul>
+<li><p>定义一个函数</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">fn</span>(<span class="params"></span>)</span>&#123;&#125;</span><br><span class="line"><span class="keyword">var</span> fn2 = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>带参数的函数</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">fn</span>(<span class="params">param</span>)</span>&#123;&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://vlzf.github.io/2018/12/13/js的基本概念/" data-id="cjpquokqt0009u0u3443zpyvz" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2018/12/13/变量、作用域和内存问题/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          js的变量、作用域和内存问题
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2018/12/12/hello-world/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">Hello World</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">十二月 2018</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2018/12/16/字符串的扩展/">字符串的扩展</a>
+          </li>
+        
+          <li>
+            <a href="/2018/12/16/数组的扩展/">数组的扩展</a>
+          </li>
+        
+          <li>
+            <a href="/2018/12/16/数值的扩展/">数值的扩展</a>
+          </li>
+        
+          <li>
+            <a href="/2018/12/16/函数的扩展/">函数的扩展</a>
+          </li>
+        
+          <li>
+            <a href="/2018/12/16/Promise对象/">Promise对象</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2018 vlzf<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>

@@ -1,0 +1,945 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>vlzf</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta property="og:type" content="website">
+<meta property="og:title" content="vlzf">
+<meta property="og:url" content="https://vlzf.github.io/page/2/index.html">
+<meta property="og:site_name" content="vlzf">
+<meta property="og:locale" content="zh-cn">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="vlzf">
+  
+    <link rel="alternate" href="/atom.xml" title="vlzf" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">vlzf</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">个人博客</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://vlzf.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main">
+  
+    <article id="post-数据类型转换规则" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/12/13/数据类型转换规则/" class="article-date">
+  <time datetime="2018-12-13T14:17:19.973Z" itemprop="datePublished">2018-12-13</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/12/13/数据类型转换规则/">数据类型转换</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="一、-ToString-规则"><a href="#一、-ToString-规则" class="headerlink" title="一、 ToString 规则"></a>一、 <code>ToString</code> 规则</h2><p>它负责处理非字符串到字符串的强制类型转换。</p>
+<p>对于基本数据类型的字符串化规则为：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1</span> -&gt; <span class="string">"1"</span></span><br><span class="line"><span class="literal">null</span> -&gt; <span class="string">"null"</span></span><br><span class="line"><span class="literal">true</span> -&gt; <span class="string">"true"</span></span><br><span class="line"><span class="literal">undefined</span> -&gt; <span class="string">"undefined"</span></span><br><span class="line"><span class="built_in">Symbol</span>(<span class="number">12</span>) -&gt; <span class="string">"Symbol(12)"</span></span><br></pre></td></tr></table></figure></p>
+<p>如果一个数字值过大或小数过多，会取该数字的科学计算法的形式，再转换成字符：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> n = <span class="number">1000000000000000000000000000000</span></span><br><span class="line">n.toString() <span class="comment">// "1e+30"</span></span><br></pre></td></tr></table></figure></p>
+<p>对于普通的 <code>Object</code> 类型（<code>toString</code> 方法未被重新定义的）字符串化规则为：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;&#125; -&gt; <span class="string">"[object Object]"</span></span><br></pre></td></tr></table></figure></p>
+<p>数组的 <code>toString</code> 方法已被重新定义，所以：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>].toString() <span class="comment">// "1,2,3"</span></span><br></pre></td></tr></table></figure></p>
+<hr>
+<h2 id="二、-ToNumber-规则"><a href="#二、-ToNumber-规则" class="headerlink" title="二、 ToNumber 规则"></a>二、 <code>ToNumber</code> 规则</h2><p>将非数字转换为数字。</p>
+<p>对基本数据类型的转换规则：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">"123"</span> -&gt; <span class="number">123</span></span><br><span class="line"><span class="string">"1000000000000000000000000000000"</span> -&gt; <span class="number">1e+30</span></span><br><span class="line"><span class="literal">true</span> -&gt; <span class="number">1</span></span><br><span class="line"><span class="literal">false</span> -&gt; <span class="number">0</span></span><br><span class="line"><span class="literal">null</span> -&gt; <span class="number">0</span></span><br><span class="line"><span class="literal">undefined</span> -&gt; <span class="literal">NaN</span></span><br></pre></td></tr></table></figure></p>
+<p>对可以转换成数字的数据类型以<code>十进制</code>数字返回。如果不能转换成数字，返回 <code>NaN</code>。如：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Number</span>(<span class="string">'0x10'</span>) <span class="comment">// 16</span></span><br><span class="line"><span class="built_in">Number</span>(<span class="string">'askijdhjn'</span>) <span class="comment">// NaN</span></span><br></pre></td></tr></table></figure></p>
+<p>对于对象，要根据对象的 valueOf 和 toString 共同决定，valueOf 的优先级更高：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a = &#123;</span><br><span class="line">    valueOf()&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">123</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">Number</span>(a) <span class="comment">// 123</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> b = &#123;</span><br><span class="line">    toString()&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">456</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">Number</span>(b) <span class="comment">// 456</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> c = &#123;</span><br><span class="line">    valueOf()&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">123</span></span><br><span class="line">    &#125;,</span><br><span class="line">    toString()&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">456</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">Number</span>(c) <span class="comment">// 123</span></span><br></pre></td></tr></table></figure></p>
+<hr>
+<h2 id="三、-ToBoolean-规则"><a href="#三、-ToBoolean-规则" class="headerlink" title="三、 ToBoolean 规则"></a>三、 <code>ToBoolean</code> 规则</h2><p>将非布尔类型转F换成布尔类型。</p>
+<p>转化成假值的有：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="literal">undefined</span> -&gt; <span class="literal">false</span></span><br><span class="line"><span class="literal">null</span> -&gt; <span class="literal">false</span></span><br><span class="line"><span class="literal">NaN</span> -&gt; <span class="literal">false</span></span><br><span class="line"><span class="string">''</span> -&gt; <span class="literal">false</span></span><br><span class="line"><span class="number">0</span> -&gt; <span class="literal">false</span></span><br><span class="line"><span class="number">-0</span> -&gt; <span class="literal">false</span></span><br></pre></td></tr></table></figure></p>
+<p>其余数值都会转成真值。更有意思的是 js 里存在假值对象：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a = <span class="keyword">new</span> <span class="built_in">Boolean</span>(<span class="literal">false</span>) </span><br><span class="line"><span class="keyword">var</span> b = <span class="keyword">new</span> <span class="built_in">Number</span>(<span class="number">0</span>)</span><br><span class="line"><span class="keyword">var</span> c = <span class="keyword">new</span> <span class="built_in">String</span>(<span class="string">""</span>)</span><br><span class="line">a &amp;&amp; b &amp;&amp; c &amp;&amp; <span class="number">1</span>  <span class="comment">// 1</span></span><br></pre></td></tr></table></figure></p>
+<p>输出结果为 1，表明 a、b、c 均为真值。按理说 a、b、c 应为假值，而实际上确实真值。所以，这被称为<code>假值对象</code>。</p>
+<hr>
+<p>END</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://vlzf.github.io/2018/12/13/数据类型转换规则/" data-id="cjpquokrn000nu0u3660sr9cp" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-数据类型隐式转换_条件判断语句" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/12/13/数据类型隐式转换_条件判断语句/" class="article-date">
+  <time datetime="2018-12-13T14:17:19.941Z" itemprop="datePublished">2018-12-13</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/12/13/数据类型隐式转换_条件判断语句/">数据类型隐式转换（条件判断语句）</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="一、if-语句"><a href="#一、if-语句" class="headerlink" title="一、if 语句"></a>一、<code>if</code> 语句</h2><p><code>if</code> 语句中经常会出现 <code>ToBoolean</code> 的隐式转换。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span>(<span class="number">1</span>) <span class="built_in">console</span>.log(<span class="number">1</span>) <span class="comment">// 1</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span>(<span class="string">''</span>) <span class="built_in">console</span>.log(<span class="number">1</span>) </span><br><span class="line"><span class="keyword">else</span> <span class="built_in">console</span>.log(<span class="number">2</span>) <span class="comment">// 2 </span></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span>(<span class="string">'123'</span>) <span class="built_in">console</span>.log(<span class="number">1</span>) <span class="comment">// 1</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span>(<span class="literal">null</span>) <span class="built_in">console</span>.log(<span class="number">1</span>) </span><br><span class="line"><span class="keyword">else</span> <span class="built_in">console</span>.log(<span class="number">2</span>) <span class="comment">// 2</span></span><br></pre></td></tr></table></figure></p>
+<p><code>if</code> 语句会将条件值通过 <code>ToBoolean</code> 规则转换成 <code>Boolean</code> 类型，再进行判断。</p>
+<hr>
+<h2 id="二、三元运算符"><a href="#二、三元运算符" class="headerlink" title="二、三元运算符"></a>二、三元运算符</h2><p>三元运算符也经常有 <code>ToBoolean</code> 的隐式转换。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">0</span> ? <span class="number">1</span> : <span class="number">2</span> <span class="comment">// 2</span></span><br><span class="line"><span class="literal">null</span> ? <span class="number">1</span> : <span class="number">2</span> <span class="comment">// 2</span></span><br><span class="line"><span class="string">'321'</span> ? <span class="number">1</span> : <span class="number">2</span> <span class="comment">// 1</span></span><br><span class="line"><span class="string">'12'</span> - <span class="number">1</span> ? <span class="number">1</span> : <span class="number">2</span> <span class="comment">// 1</span></span><br></pre></td></tr></table></figure></p>
+<p>与 <code>if</code> 语句相同，也是将条件转成 <code>Boolean</code> 类型，再进行判断。</p>
+<hr>
+<h2 id="三、-和-amp-amp-选择器"><a href="#三、-和-amp-amp-选择器" class="headerlink" title="三、|| 和 &amp;&amp; 选择器"></a>三、<code>||</code> 和 <code>&amp;&amp;</code> 选择器</h2><p>在 c、c++、java 语言里，<code>||</code> 和 <code>&amp;&amp;</code> 是逻辑运算符，会返回 <code>Boolean</code> 类型的结果。<br>但在 js 中，<code>||</code> 和 <code>&amp;&amp;</code> 是逻辑选择器，返回的是选择后的结果，在选择的过程中经常会出现 <code>ToBoolean</code> 的隐式转换。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">0</span> || <span class="number">1</span> <span class="comment">// 1</span></span><br><span class="line"><span class="number">1</span> || <span class="number">0</span> <span class="comment">// 1</span></span><br><span class="line"><span class="number">0</span> &amp;&amp; <span class="number">1</span> <span class="comment">// 0</span></span><br><span class="line"><span class="number">1</span> &amp;&amp; <span class="number">0</span> <span class="comment">// 0</span></span><br></pre></td></tr></table></figure></p>
+<p>在运算过程中，0 会转换成 false，1 会转换成 true。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">0</span> || <span class="number">1</span> <span class="comment">// 1</span></span><br><span class="line"><span class="comment">// 等价于</span></span><br><span class="line"><span class="number">0</span> ? <span class="number">0</span> : <span class="number">1</span></span><br></pre></td></tr></table></figure></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1</span> &amp;&amp; <span class="number">0</span> <span class="comment">// 0</span></span><br><span class="line"><span class="comment">// 等价于</span></span><br><span class="line"><span class="number">1</span> ? <span class="number">0</span> : <span class="number">1</span> <span class="comment">// 0</span></span><br><span class="line"><span class="comment">// 或</span></span><br><span class="line">!<span class="number">1</span> ? <span class="number">1</span> : <span class="number">0</span> <span class="comment">// 0</span></span><br></pre></td></tr></table></figure>
+<hr>
+<p>END</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://vlzf.github.io/2018/12/13/数据类型隐式转换_条件判断语句/" data-id="cjpquokrn000pu0u3qhh00bvy" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-数据类型隐式转换_加减运算" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/12/13/数据类型隐式转换_加减运算/" class="article-date">
+  <time datetime="2018-12-13T14:17:19.928Z" itemprop="datePublished">2018-12-13</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/12/13/数据类型隐式转换_加减运算/">数据类型隐式转换（加减运算）</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="一、加法"><a href="#一、加法" class="headerlink" title="一、加法"></a>一、加法</h2><h3 id="1-String-类型的加法"><a href="#1-String-类型的加法" class="headerlink" title="1. String 类型的加法"></a>1. <code>String</code> 类型的加法</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">'123'</span> + <span class="string">'456'</span> <span class="comment">// "123456"</span></span><br><span class="line"><span class="string">''</span> + <span class="string">'123'</span> <span class="comment">// "123"</span></span><br></pre></td></tr></table></figure>
+<p><code>String</code> 类型相加时，效果是字符串拼接。</p>
+<hr>
+<h3 id="2-String-与-Number-的加法"><a href="#2-String-与-Number-的加法" class="headerlink" title="2. String 与 Number 的加法"></a>2. <code>String</code> 与 <code>Number</code> 的加法</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">123</span> + <span class="string">''</span> <span class="comment">// "123"</span></span><br><span class="line"><span class="string">'123'</span> + <span class="number">0</span> <span class="comment">// "1230"</span></span><br></pre></td></tr></table></figure>
+<p><code>Number</code> 类型的数据会被转换成字符串，再进行字符串拼接。</p>
+<ul>
+<li>转换方向：<code>Number</code> -&gt; <code>String</code></li>
+</ul>
+<hr>
+<h3 id="3-String-与-Boolean-的加法"><a href="#3-String-与-Boolean-的加法" class="headerlink" title="3. String 与 Boolean 的加法"></a>3. <code>String</code> 与 <code>Boolean</code> 的加法</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="literal">true</span> + <span class="string">''</span> <span class="comment">// "true"</span></span><br><span class="line"><span class="literal">true</span> + <span class="string">'123'</span> <span class="comment">// "true123"</span></span><br></pre></td></tr></table></figure>
+<p><code>Boolean</code> 类型的数据会被转换成字符串，再进行字符串拼接。</p>
+<ul>
+<li>转换方向：<code>Boolean</code> -&gt; <code>String</code></li>
+</ul>
+<hr>
+<h3 id="4-String-与-undefined-的加法"><a href="#4-String-与-undefined-的加法" class="headerlink" title="4. String 与 undefined 的加法"></a>4. <code>String</code> 与 <code>undefined</code> 的加法</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="literal">undefined</span> + <span class="string">''</span> <span class="comment">// "undefined"</span></span><br><span class="line"><span class="literal">undefined</span> + <span class="string">'123'</span> <span class="comment">// "undefined123"</span></span><br></pre></td></tr></table></figure>
+<p><code>undefined</code> 会被转换成字符串，再进行字符串拼接。</p>
+<ul>
+<li>转换方向：<code>undefined</code> -&gt; <code>String</code></li>
+</ul>
+<hr>
+<h3 id="5-String-与-null-的加法"><a href="#5-String-与-null-的加法" class="headerlink" title="5. String 与 null 的加法"></a>5. <code>String</code> 与 <code>null</code> 的加法</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="literal">null</span> + <span class="string">''</span> <span class="comment">// "null"</span></span><br><span class="line"><span class="literal">null</span> + <span class="string">'123'</span> <span class="comment">// "null123"</span></span><br></pre></td></tr></table></figure>
+<p><code>null</code> 会被转换成字符串，再进行字符串拼接。</p>
+<ul>
+<li>转换方向：<code>null</code> -&gt; <code>String</code></li>
+</ul>
+<hr>
+<h3 id="6-Number-与-Boolean-的加法"><a href="#6-Number-与-Boolean-的加法" class="headerlink" title="6. Number 与 Boolean 的加法"></a>6. <code>Number</code> 与 <code>Boolean</code> 的加法</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">12</span> + <span class="literal">true</span> <span class="comment">// 13</span></span><br><span class="line"><span class="number">12</span> + <span class="literal">false</span> <span class="comment">// 12</span></span><br></pre></td></tr></table></figure>
+<p><code>Boolean</code> 会被转换成 0 或 1，再进行数字运算。</p>
+<ul>
+<li>转换方向：<code>Boolean</code> -&gt; <code>Number</code></li>
+</ul>
+<hr>
+<h3 id="7-Number-与-undefined-的加法"><a href="#7-Number-与-undefined-的加法" class="headerlink" title="7. Number 与 undefined 的加法"></a>7. <code>Number</code> 与 <code>undefined</code> 的加法</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">12</span> + <span class="literal">undefined</span> <span class="comment">// NaN</span></span><br></pre></td></tr></table></figure>
+<p><code>undefined</code> 在 <code>ToNumber</code> 规则里，会被转换为 <code>NaN</code>。</p>
+<ul>
+<li>转换方向：<code>undefined</code> -&gt; <code>Number</code></li>
+</ul>
+<hr>
+<h3 id="8-Number-与-null-的加法"><a href="#8-Number-与-null-的加法" class="headerlink" title="8. Number 与 null 的加法"></a>8. <code>Number</code> 与 <code>null</code> 的加法</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">12</span> + <span class="literal">null</span> <span class="comment">// 12</span></span><br></pre></td></tr></table></figure>
+<p><code>null</code> 在 <code>ToNumber</code> 规则里，会被转换为 0。</p>
+<ul>
+<li>转换方向：<code>null</code> -&gt; <code>Number</code></li>
+</ul>
+<hr>
+<h3 id="9-Boolean-与-null-的加法"><a href="#9-Boolean-与-null-的加法" class="headerlink" title="9. Boolean 与 null 的加法"></a>9. <code>Boolean</code> 与 <code>null</code> 的加法</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="literal">true</span> + <span class="literal">null</span> <span class="comment">// 1</span></span><br></pre></td></tr></table></figure>
+<p><code>true</code> 在 <code>ToNumber</code> 规则里，会被转换为 1。<br><code>null</code> 在 <code>ToNumber</code> 规则里，会被转换为 0。</p>
+<ul>
+<li>转换方向：<code>Boolean</code>、<code>null</code> -&gt; <code>Number</code></li>
+</ul>
+<hr>
+<h3 id="10-Boolean-与-undefined-的加法"><a href="#10-Boolean-与-undefined-的加法" class="headerlink" title="10. Boolean 与 undefined 的加法"></a>10. <code>Boolean</code> 与 <code>undefined</code> 的加法</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="literal">true</span> + <span class="literal">undefined</span> <span class="comment">// NaN</span></span><br></pre></td></tr></table></figure>
+<p><code>true</code> 在 <code>ToNumber</code> 规则里，会被转换为 1。<br><code>undefined</code> 在 <code>ToNumber</code> 规则里，会被转换为 NaN。</p>
+<ul>
+<li>转换方向：<code>Boolean</code>、<code>undefined</code> -&gt; <code>Number</code></li>
+</ul>
+<hr>
+<h3 id="11-null-与-undefined-的加法"><a href="#11-null-与-undefined-的加法" class="headerlink" title="11. null 与 undefined 的加法"></a>11. <code>null</code> 与 <code>undefined</code> 的加法</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="literal">null</span> + <span class="literal">undefined</span> <span class="comment">// NaN</span></span><br></pre></td></tr></table></figure>
+<p><code>null</code> 在 <code>ToNumber</code> 规则里，会被转换为 0。<br><code>undefined</code> 在 <code>ToNumber</code> 规则里，会被转换为 NaN。</p>
+<ul>
+<li>转换方向：<code>null</code>、<code>undefined</code> -&gt; <code>Number</code></li>
+</ul>
+<hr>
+<h3 id="加法总结"><a href="#加法总结" class="headerlink" title="加法总结"></a>加法总结</h3><p>加法中的类型转换优先顺序：（对象除外）</p>
+<ul>
+<li>两个加数中，若存在 <code>String</code>，优先转成 <code>String</code>。</li>
+<li>两个加数中，若不存在 <code>String</code>，优先转成 <code>Number</code>。</li>
+</ul>
+<hr>
+<h2 id="二、减法"><a href="#二、减法" class="headerlink" title="二、减法"></a>二、减法</h2><h3 id="1-含-String-的减法"><a href="#1-含-String-的减法" class="headerlink" title="1. 含 String 的减法"></a>1. 含 <code>String</code> 的减法</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">'123'</span> - <span class="string">''</span> <span class="comment">// 123</span></span><br><span class="line"><span class="string">'123'</span> - <span class="string">'23'</span> <span class="comment">// 100</span></span><br><span class="line"><span class="string">'abc'</span> - <span class="string">''</span> <span class="comment">// NaN</span></span><br><span class="line"><span class="string">'abc'</span> - <span class="string">'23'</span> <span class="comment">// NaN</span></span><br></pre></td></tr></table></figure>
+<p><code>String</code> 会通过 <code>ToNumber</code> 规则转换成数字，再进行数字运算。</p>
+<ul>
+<li>转换方向：<code>String</code> -&gt; <code>Number</code></li>
+</ul>
+<hr>
+<h3 id="2-含-Boolean-的减法"><a href="#2-含-Boolean-的减法" class="headerlink" title="2. 含 Boolean 的减法"></a>2. 含 <code>Boolean</code> 的减法</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="literal">true</span> - <span class="number">0</span> <span class="comment">// 1</span></span><br></pre></td></tr></table></figure>
+<p><code>Boolean</code> 会通过 <code>ToNumber</code> 规则转换成 0 或 1，再进行数字运算。</p>
+<ul>
+<li>转换方向：<code>Boolean</code> -&gt; <code>Number</code></li>
+</ul>
+<hr>
+<h3 id="3-含-undefined-的减法"><a href="#3-含-undefined-的减法" class="headerlink" title="3. 含 undefined 的减法"></a>3. 含 <code>undefined</code> 的减法</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="literal">undefined</span> - <span class="number">0</span> <span class="comment">// NaN</span></span><br></pre></td></tr></table></figure>
+<p><code>undefined</code> 会通过 <code>ToNumber</code> 规则转换成 <code>NaN</code>，再进行数字运算。</p>
+<ul>
+<li>转换方向：<code>undefined</code> -&gt; <code>Number</code></li>
+</ul>
+<hr>
+<h3 id="4-含-null-的减法"><a href="#4-含-null-的减法" class="headerlink" title="4. 含 null 的减法"></a>4. 含 <code>null</code> 的减法</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="literal">null</span> - <span class="number">0</span> <span class="comment">// 0</span></span><br></pre></td></tr></table></figure>
+<p><code>null</code> 会通过 <code>ToNumber</code> 规则转换成 0，再进行数字运算。</p>
+<ul>
+<li>转换方向：<code>null</code> -&gt; <code>Number</code></li>
+</ul>
+<hr>
+<h3 id="减法总结"><a href="#减法总结" class="headerlink" title="减法总结"></a>减法总结</h3><p>减法中的类型转换优先顺序：（包括对象）</p>
+<ul>
+<li>减数和被减数都会通过 <code>ToNumber</code> 规则转成数字，再进行运算。</li>
+</ul>
+<hr>
+<h2 id="三、含对象的加减法"><a href="#三、含对象的加减法" class="headerlink" title="三、含对象的加减法"></a>三、含对象的加减法</h2><p>普通对象的加减法：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> obj = &#123;&#125;</span><br><span class="line">obj + <span class="number">1</span> <span class="comment">// "[object Object]1"</span></span><br><span class="line">obj + <span class="string">''</span> <span class="comment">// "[object Object]"</span></span><br></pre></td></tr></table></figure></p>
+<p>数组对象的加减法：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[<span class="number">1</span>,<span class="number">2</span>] + [<span class="number">3</span>, <span class="number">4</span>] <span class="comment">// "1,23,4"</span></span><br><span class="line">[<span class="number">1</span>,<span class="number">2</span>] - [<span class="number">3</span>, <span class="number">4</span>] <span class="comment">// NaN</span></span><br></pre></td></tr></table></figure></p>
+<ul>
+<li>对于对象的加减运算（或者其它算式运算，乘除运算），结果由对象的 <code>valueOf</code> 和 <code>toString</code> 共同决定，如：<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a = &#123;</span><br><span class="line">    valueOf()&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">123</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">a + <span class="string">''</span> <span class="comment">// "123"</span></span><br><span class="line">a + <span class="number">1</span> <span class="comment">// 124</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> b = &#123;</span><br><span class="line">    toString()&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">456</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">b + <span class="string">''</span> <span class="comment">// "456"</span></span><br><span class="line">b + <span class="number">1</span> <span class="comment">// 457</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> c = &#123;</span><br><span class="line">    valueOf()&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">123</span></span><br><span class="line">    &#125;,</span><br><span class="line">    toString()&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">456</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">c + <span class="string">''</span> <span class="comment">// "123"</span></span><br><span class="line">c + <span class="number">1</span> <span class="comment">// 124</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>如果 valueOf 的返回值不是对象，则 <code>valueOf</code> 优先，否则 <code>toString</code> 优先：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a = &#123;</span><br><span class="line">    valueOf()&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">123</span></span><br><span class="line">    &#125;,</span><br><span class="line">    toString()&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">456</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">a + <span class="number">0</span> <span class="comment">// 123</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> b = &#123;</span><br><span class="line">    valueOf()&#123;</span><br><span class="line">        <span class="keyword">return</span> &#123;&#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    toString()&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">456</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">b + <span class="number">0</span> <span class="comment">// 456</span></span><br></pre></td></tr></table></figure></p>
+<p>乘除运算大多是（ToNumber 规则）转换成数字再运算的。这里就一笔带过了。</p>
+<hr>
+<p>END</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://vlzf.github.io/2018/12/13/数据类型隐式转换_加减运算/" data-id="cjpquokrn000ou0u3y01ctwcm" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-数据类型隐式转换_等值符" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/12/13/数据类型隐式转换_等值符/" class="article-date">
+  <time datetime="2018-12-13T14:17:19.916Z" itemprop="datePublished">2018-12-13</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/12/13/数据类型隐式转换_等值符/">数据类型隐式转换（等值符）</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="等值符有两种："><a href="#等值符有两种：" class="headerlink" title="等值符有两种："></a>等值符有两种：</h3><ul>
+<li>严格相等： “<code>===</code>“</li>
+<li>宽松相等： <code>==</code></li>
+</ul>
+<p><code>!==</code>、<code>!=</code> 与上面两个原理一致略过。</p>
+<hr>
+<h2 id="一、严格相等-“-“"><a href="#一、严格相等-“-“" class="headerlink" title="一、严格相等 “===“"></a>一、严格相等 “<code>===</code>“</h2><p>所谓严格相等就是，两个操作数的类型相同且值相等。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">'1'</span> === <span class="number">1</span> <span class="comment">// false</span></span><br><span class="line"><span class="string">'11'</span> === <span class="string">'11'</span> <span class="comment">// true </span></span><br><span class="line"><span class="literal">true</span> === <span class="number">1</span> <span class="comment">// false</span></span><br><span class="line"><span class="number">1</span> === <span class="number">1</span> <span class="comment">// true</span></span><br></pre></td></tr></table></figure></p>
+<p>如果是宽松相等：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">'1'</span> == <span class="number">1</span> <span class="comment">// true</span></span><br><span class="line"><span class="literal">true</span> == <span class="number">1</span> <span class="comment">// true</span></span><br></pre></td></tr></table></figure></p>
+<hr>
+<h2 id="二、宽松相等-“-“"><a href="#二、宽松相等-“-“" class="headerlink" title="二、宽松相等 “==“"></a>二、宽松相等 “<code>==</code>“</h2><p>宽松相等是，会在进行比较之前，将两个操作数转换成相同的类型，再比较。<br>那么，怎么转换呢？ES5 规定：</p>
+<ul>
+<li>在两个操作数类型分别为 <code>String</code> 和 <code>Number</code> 的情况下，会将 <code>String</code> 转成 <code>Number</code>。</li>
+<li>在两个操作数类型不同，并且存在 <code>Boolean</code> 的情况下，会将 <code>Boolean</code> 转成 <code>Number</code>。</li>
+<li>如果两个操作数中存在 <code>null</code> 或 <code>undefined</code>，只有在两个操作数全为 <code>null</code> 、全为 <code>undefined</code>、一个 <code>null</code> 一个 <code>undefined</code> 这 3 种情况下才会返回 <code>true</code>，否则返回 <code>false</code>。</li>
+</ul>
+<h3 id="1-String-和-Number-的等式"><a href="#1-String-和-Number-的等式" class="headerlink" title="1. String 和 Number 的等式"></a>1. <code>String</code> 和 <code>Number</code> 的等式</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">'2'</span> == <span class="number">2</span> <span class="comment">// true</span></span><br><span class="line"><span class="string">'02'</span> == <span class="number">2</span> <span class="comment">// true</span></span><br></pre></td></tr></table></figure>
+<p>这个例子说明了转换方向为：<code>String</code> -&gt; <code>Number</code>。</p>
+<hr>
+<h3 id="2-含-Boolean-的等式"><a href="#2-含-Boolean-的等式" class="headerlink" title="2. 含 Boolean 的等式"></a>2. 含 <code>Boolean</code> 的等式</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1</span> == <span class="literal">true</span> <span class="comment">// true</span></span><br><span class="line"><span class="number">2</span> == <span class="literal">true</span> <span class="comment">// false</span></span><br></pre></td></tr></table></figure>
+<p>true 被转成 1，所以等式一是 <code>true</code>，等式二是 <code>false</code>。<br>说明了转换方向为：<code>Boolean</code> -&gt; <code>Number</code>。</p>
+<hr>
+<h3 id="3-含-null-或-undefined-的等式"><a href="#3-含-null-或-undefined-的等式" class="headerlink" title="3. 含 null 或 undefined 的等式"></a>3. 含 <code>null</code> 或 <code>undefined</code> 的等式</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="literal">null</span> == <span class="literal">undefined</span> <span class="comment">// true</span></span><br><span class="line"><span class="literal">null</span> == <span class="literal">null</span> <span class="comment">// true</span></span><br><span class="line"><span class="literal">undefined</span> == <span class="literal">undefined</span> <span class="comment">// true</span></span><br><span class="line"><span class="literal">null</span> == <span class="number">0</span> <span class="comment">// false</span></span><br><span class="line"><span class="literal">undefined</span> == <span class="number">0</span> <span class="comment">// false</span></span><br></pre></td></tr></table></figure>
+<p>两个操作数全为 <code>null</code> 、全为 <code>undefined</code>、一个 <code>null</code> 一个 <code>undefined</code> 这 3 种情况下才为 <code>true</code>，否则为 <code>false</code>。</p>
+<hr>
+<h3 id="4-含-NaN-的等式"><a href="#4-含-NaN-的等式" class="headerlink" title="4. 含 NaN 的等式"></a>4. 含 <code>NaN</code> 的等式</h3><p>NaN 是一个特殊的数字，它和谁都不相等（包括自己）：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="literal">NaN</span> == <span class="literal">NaN</span> <span class="comment">// false</span></span><br><span class="line"><span class="literal">NaN</span> === <span class="literal">NaN</span> <span class="comment">// false</span></span><br></pre></td></tr></table></figure></p>
+<hr>
+<h3 id="5-对象与非对象的等式"><a href="#5-对象与非对象的等式" class="headerlink" title="5. 对象与非对象的等式"></a>5. 对象与非对象的等式</h3><p>对象在等式中的取值是依赖于 valueOf 和 toString 的，valueOf 的优先级高：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a = &#123;</span><br><span class="line">    valueOf()&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">1</span></span><br><span class="line">    &#125;,</span><br><span class="line">    toString()&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">2</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">a == <span class="number">1</span> <span class="comment">// true</span></span><br><span class="line">a === <span class="number">1</span> <span class="comment">// false 类型不一样，所以为 false</span></span><br></pre></td></tr></table></figure></p>
+<p>数组对象：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[] == <span class="number">0</span> <span class="comment">// true</span></span><br><span class="line">[] === <span class="number">0</span> <span class="comment">// false</span></span><br></pre></td></tr></table></figure></p>
+<hr>
+<h2 id="三、一些让人窒息的操作"><a href="#三、一些让人窒息的操作" class="headerlink" title="三、一些让人窒息的操作"></a>三、一些让人窒息的操作</h2><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">''</span> == <span class="literal">false</span> <span class="comment">// true</span></span><br><span class="line"><span class="string">'0'</span> == <span class="literal">false</span> <span class="comment">// ture</span></span><br><span class="line">[] == <span class="literal">false</span> <span class="comment">// true</span></span><br><span class="line"><span class="string">''</span> == <span class="number">0</span> <span class="comment">// true</span></span><br><span class="line"><span class="string">'0'</span> == <span class="number">0</span> <span class="comment">// true</span></span><br><span class="line"><span class="number">0</span> == [] <span class="comment">// true</span></span><br><span class="line"><span class="string">''</span> == [] <span class="comment">// true</span></span><br></pre></td></tr></table></figure>
+<hr>
+<p>END</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://vlzf.github.io/2018/12/13/数据类型隐式转换_等值符/" data-id="cjpquokrx000qu0u352pp8rrv" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-数据类型显式转换" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/12/13/数据类型显式转换/" class="article-date">
+  <time datetime="2018-12-13T14:17:19.900Z" itemprop="datePublished">2018-12-13</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/12/13/数据类型显式转换/">显式强制类型转换</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="一、字符串和数字之间的显式转换"><a href="#一、字符串和数字之间的显式转换" class="headerlink" title="一、字符串和数字之间的显式转换"></a>一、字符串和数字之间的显式转换</h2><p>字符串和数字之间的转换要遵循 <code>ToString</code> 和 <code>ToNumber</code> 规则，最常见的显示转化有：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">String</span>(<span class="number">123</span>) <span class="comment">// "123"</span></span><br><span class="line"><span class="built_in">Number</span>(<span class="string">"123"</span>) <span class="comment">// 123</span></span><br></pre></td></tr></table></figure></p>
+<p>除此之外还有：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">+<span class="string">'123'</span> <span class="comment">// 123</span></span><br><span class="line">-<span class="string">'123'</span> <span class="comment">// -123</span></span><br><span class="line">~<span class="string">'123'</span> <span class="comment">// -124</span></span><br><span class="line">-<span class="string">'kliojio'</span> <span class="comment">// NaN</span></span><br></pre></td></tr></table></figure></p>
+<ul>
+<li>单元运算符 “+”、”-“，可以将字符串转成数字，如：<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1</span> + + <span class="string">'3'</span> <span class="comment">// 4</span></span><br><span class="line"><span class="number">3</span> - - <span class="string">'1'</span> <span class="comment">// 4</span></span><br><span class="line"><span class="number">1</span> + - <span class="string">'3'</span> <span class="comment">// -2</span></span><br><span class="line"><span class="number">1</span> - + <span class="string">'3'</span> <span class="comment">// -2</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>注意，双加号和双减号的两个运算符都是用空格分开的，并不是递加或递减。第一个 “+”（或 “-“）是仅用于数字的加减，第二个 “+”（或 “-“）除了有加减运算作用外，还将后面的字符串转换成数字。</p>
+<ul>
+<li>单元运算符 “~”：<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> s = <span class="string">'1'</span></span><br><span class="line">~s <span class="comment">// -2</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 等同于</span></span><br><span class="line"><span class="keyword">var</span> n = <span class="built_in">Number</span>(s)</span><br><span class="line">- (n + <span class="number">1</span>) <span class="comment">// -2</span></span><br><span class="line"></span><br><span class="line">~~s <span class="comment">// 1</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>双 “~” 还可以用来取整：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">~~ <span class="number">5.564</span> <span class="comment">// 5</span></span><br></pre></td></tr></table></figure></p>
+<p>不过，用 “|” 来取整更加整洁，看个人喜好吧：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">5.564</span> | <span class="number">0</span> <span class="comment">// 5</span></span><br></pre></td></tr></table></figure></p>
+<hr>
+<h2 id="二、显示解析数字字符串"><a href="#二、显示解析数字字符串" class="headerlink" title="二、显示解析数字字符串"></a>二、显示解析数字字符串</h2><p>解析数字字符串的几种方法：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Number</span>(<span class="string">'123'</span>) <span class="comment">// 123</span></span><br><span class="line"><span class="built_in">Number</span>(<span class="string">'123jhbh'</span>) <span class="comment">// NaN</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">parseInt</span>(<span class="string">'123'</span>) <span class="comment">// 123</span></span><br><span class="line"><span class="built_in">parseInt</span>(<span class="string">'123jhbh'</span>) <span class="comment">// 123</span></span><br></pre></td></tr></table></figure></p>
+<p>如果解析浮点小数字符串：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Number</span>(<span class="string">'1.2'</span>) <span class="comment">// 1.2</span></span><br><span class="line"><span class="built_in">parseFloat</span>(<span class="string">'1.2'</span>) <span class="comment">// 1.2</span></span><br><span class="line"><span class="built_in">parseFloat</span>(<span class="string">'1.2xx'</span>) <span class="comment">// 1.2</span></span><br></pre></td></tr></table></figure></p>
+<p><code>parseInt</code>和<code>parseFloat</code> 只解析数字部分，解析到非数字部分会停止：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">parseInt</span>(<span class="string">'sd123fh'</span>) <span class="comment">// NaN</span></span><br><span class="line"><span class="built_in">parseFloat</span>(<span class="string">'sd123fh'</span>) <span class="comment">// NaN</span></span><br></pre></td></tr></table></figure></p>
+<p>还可以解析其它进制的数：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">parseInt</span>(<span class="string">'10'</span>, <span class="number">2</span>) <span class="comment">// 2</span></span><br><span class="line"><span class="built_in">parseInt</span>(<span class="string">'10'</span>, <span class="number">8</span>) <span class="comment">// 8</span></span><br><span class="line"><span class="built_in">parseInt</span>(<span class="string">'10'</span>, <span class="number">16</span>) <span class="comment">// 16</span></span><br></pre></td></tr></table></figure></p>
+<p>parseInt也是存在一些问题的：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">parseInt</span>(<span class="number">0.008</span>) <span class="comment">// 0 ，来自 0.008</span></span><br><span class="line"><span class="built_in">parseInt</span>(<span class="number">0.000000008</span>) <span class="comment">// 8，来自 8e-9</span></span><br><span class="line"><span class="built_in">parseInt</span>(<span class="built_in">parseInt</span>, <span class="number">16</span>) <span class="comment">// 15，来自 function()&#123;&#125; 的 "f"</span></span><br></pre></td></tr></table></figure></p>
+<p>为什么？因为：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">(<span class="number">0.008</span>).toString() <span class="comment">// "0.008"</span></span><br><span class="line">(<span class="number">0.000000008</span>).toString() <span class="comment">// "8e-9"</span></span><br><span class="line"><span class="built_in">parseInt</span>.toString() <span class="comment">// "function parseInt() &#123; [native code] &#125;"</span></span><br></pre></td></tr></table></figure></p>
+<hr>
+<h2 id="三、显示转换为布尔值"><a href="#三、显示转换为布尔值" class="headerlink" title="三、显示转换为布尔值"></a>三、显示转换为布尔值</h2><p>常用方法：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Boolean</span>(<span class="string">''</span>) <span class="comment">// false</span></span><br><span class="line">!!<span class="string">''</span> <span class="comment">// false</span></span><br></pre></td></tr></table></figure></p>
+<p>遵循 <code>ToBoolean</code> 转换规则：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">!!<span class="literal">undefined</span> <span class="comment">// false</span></span><br><span class="line">!!<span class="literal">null</span> <span class="comment">// false</span></span><br><span class="line">!!<span class="literal">NaN</span> <span class="comment">// false</span></span><br><span class="line">!!<span class="string">''</span> <span class="comment">// false</span></span><br><span class="line">!!<span class="number">0</span> <span class="comment">// false</span></span><br><span class="line">!!<span class="number">-0</span> <span class="comment">// false</span></span><br></pre></td></tr></table></figure></p>
+<hr>
+<p>END</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://vlzf.github.io/2018/12/13/数据类型显式转换/" data-id="cjpquokrn000mu0u3g8zpp3sm" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-数据类型判别" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/12/13/数据类型判别/" class="article-date">
+  <time datetime="2018-12-13T14:17:19.885Z" itemprop="datePublished">2018-12-13</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/12/13/数据类型判别/">数据类型判别</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <ul>
+<li>基本数据类型：<code>undefined</code>、<code>null</code>、<code>number</code>、<code>string</code>、<code>boolean</code>、<code>symbol</code>。</li>
+<li>引用类型：<code>object</code>。</li>
+</ul>
+<h3 id="判断数据类型的常用方法"><a href="#判断数据类型的常用方法" class="headerlink" title="判断数据类型的常用方法"></a>判断数据类型的常用方法</h3><ul>
+<li>方法一：<code>typeof</code>。它可以判断这么几种类型：<code>undefined</code>、<code>number</code>、<code>string</code>、<code>boolean</code>、<code>symbol</code>、<code>object</code>、<code>function</code>，或者说它只能输出这几种结果。它主要用来判断基本数据类型，引用类型是难以判断的。<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typeof</span> <span class="literal">undefined</span> <span class="comment">// "undefined"</span></span><br><span class="line"><span class="keyword">typeof</span> <span class="number">1</span> <span class="comment">// "number"</span></span><br><span class="line"><span class="keyword">typeof</span> <span class="string">'123'</span> <span class="comment">// "string"</span></span><br><span class="line"><span class="keyword">typeof</span> <span class="literal">true</span> <span class="comment">// "boolean"</span></span><br><span class="line"><span class="keyword">typeof</span> &#123;&#125; <span class="comment">// "object"</span></span><br><span class="line"><span class="keyword">typeof</span> <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;&#125; <span class="comment">// "function"</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>注意：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typeof</span> <span class="literal">null</span> <span class="comment">// "object"</span></span><br><span class="line"><span class="keyword">typeof</span> [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>] <span class="comment">// "object"</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Person</span>(<span class="params"></span>)</span>&#123;&#125;</span><br><span class="line"><span class="keyword">var</span> p = <span class="keyword">new</span> Person()</span><br><span class="line"><span class="keyword">typeof</span> p <span class="comment">// "object"</span></span><br></pre></td></tr></table></figure></p>
+<ul>
+<li>方法二：<code>instanceof</code>。准确来说它并没有判断数据类型，它只是通过原型链来判断左边是否继承了右边而已。所以，它主要用来判断引用类型，基本类型是判断不了的。<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">(<span class="function"><span class="keyword">function</span> (<span class="params"></span>)</span>&#123;&#125;) <span class="keyword">instanceof</span> <span class="built_in">Function</span> <span class="comment">// true</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Person</span>(<span class="params"></span>)</span>&#123;&#125;</span><br><span class="line"><span class="keyword">var</span> p = <span class="keyword">new</span> Person()</span><br><span class="line">p <span class="keyword">instanceof</span> Person <span class="comment">// true</span></span><br><span class="line">p <span class="keyword">instanceof</span> <span class="built_in">Object</span> <span class="comment">// true</span></span><br><span class="line"></span><br><span class="line">[<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>] <span class="keyword">instanceof</span> <span class="built_in">Array</span> <span class="comment">// true</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>注意，当我们用 <code>instanceof</code> 判断基本数据类型时：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1</span> <span class="keyword">instanceof</span> <span class="built_in">Number</span> <span class="comment">// false</span></span><br><span class="line"><span class="literal">true</span> <span class="keyword">instanceof</span> <span class="built_in">Boolean</span> <span class="comment">// false</span></span><br><span class="line"><span class="string">'123'</span> <span class="keyword">instanceof</span> <span class="built_in">String</span> <span class="comment">// false</span></span><br></pre></td></tr></table></figure></p>
+<p>除非：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">new</span> <span class="built_in">Number</span>(<span class="number">1</span>) <span class="keyword">instanceof</span> <span class="built_in">Number</span> <span class="comment">// true</span></span><br><span class="line"><span class="keyword">new</span> <span class="built_in">Boolean</span>(<span class="literal">true</span>) <span class="keyword">instanceof</span> <span class="built_in">Boolean</span> <span class="comment">// true</span></span><br><span class="line"><span class="keyword">new</span> <span class="built_in">String</span>(<span class="string">'123'</span>) <span class="keyword">instanceof</span> <span class="built_in">String</span> <span class="comment">// true</span></span><br></pre></td></tr></table></figure></p>
+<p>还有这特殊的 <code>null</code>：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="literal">null</span> <span class="keyword">instanceof</span> <span class="built_in">Object</span> <span class="comment">// false</span></span><br></pre></td></tr></table></figure></p>
+<ul>
+<li><p>方法三：<code>constructor</code>。我们可以通过该属性直接访问构造器。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Person</span>(<span class="params"></span>)</span>&#123;&#125;</span><br><span class="line"><span class="keyword">var</span> p = <span class="keyword">new</span> Person()</span><br><span class="line">p.constructor === Person <span class="comment">// true</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>方法四：<code>Object.prototype.toString</code>。这个方法只能判断 js 的内置数据类型，如：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Object</span>.prototype.toString.call(<span class="number">123</span>) <span class="comment">// "[object Number]"</span></span><br><span class="line"><span class="built_in">Object</span>.prototype.toString.call(<span class="string">'string'</span>) <span class="comment">// "[object String]"</span></span><br><span class="line"><span class="built_in">Object</span>.prototype.toString.call(<span class="literal">true</span>) <span class="comment">// "[object Boolean]"</span></span><br><span class="line"><span class="built_in">Object</span>.prototype.toString.call(<span class="built_in">Symbol</span>(<span class="number">12</span>)) <span class="comment">// "[object Symbol]"</span></span><br><span class="line"><span class="built_in">Object</span>.prototype.toString.call(&#123;&#125;) <span class="comment">// "[object Object]"</span></span><br><span class="line"><span class="built_in">Object</span>.prototype.toString.call([<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>]) <span class="comment">// "[object Array]"</span></span><br><span class="line"><span class="built_in">Object</span>.prototype.toString.call(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;&#125;) <span class="comment">// "[object Function]"</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>无法判断自定义类型值的类型：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">A</span>(<span class="params"></span>)</span>&#123;&#125;</span><br><span class="line"><span class="keyword">var</span> a = <span class="keyword">new</span> A()</span><br><span class="line"><span class="built_in">Object</span>.prototype.toString.call(a) <span class="comment">// "[object Object]"</span></span><br></pre></td></tr></table></figure></p>
+<hr>
+<p>END</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://vlzf.github.io/2018/12/13/数据类型判别/" data-id="cjpquokrd000lu0u3way9m0d4" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-面向对象" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/12/13/面向对象/" class="article-date">
+  <time datetime="2018-12-13T14:17:19.869Z" itemprop="datePublished">2018-12-13</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/12/13/面向对象/">对象</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="一、前言"><a href="#一、前言" class="headerlink" title="一、前言"></a>一、前言</h2><h3 id="1-对象"><a href="#1-对象" class="headerlink" title="1. 对象"></a>1. 对象</h3><p>对象是人们要进行研究的任何事物，它不仅能表示具体的事物，还能表示抽象的规则、计划或事件。对象具有状态，一个对象用数据值来描述它的状态。对象还有操作，用于改变对象的状态，对象及其操作就是对象的行为。对象实现了数据和操作的结合，使数据和操作封装于对象的统一体中。</p>
+<h3 id="2-类"><a href="#2-类" class="headerlink" title="2. 类"></a>2. 类</h3><p>具有相同特性（数据元素）和行为（功能）的对象的抽象就是类。因此，对象的抽象是类，类的具体化就是对象，也可以说类的实例是对象，类实际上就是一种数据类型。类具有属性，它是对象的状态的抽象，用数据结构来描述类的属性。类具有操作，它是对象的行为的抽象，用操作名和实现该操作的方法来描述。</p>
+<hr>
+<h2 id="二、了解对象（不用熟练运用，记住有这么回事就行了，说不定哪天用得上）"><a href="#二、了解对象（不用熟练运用，记住有这么回事就行了，说不定哪天用得上）" class="headerlink" title="二、了解对象（不用熟练运用，记住有这么回事就行了，说不定哪天用得上）"></a>二、了解对象（不用熟练运用，记住有这么回事就行了，说不定哪天用得上）</h2><h3 id="1-创建一个对象"><a href="#1-创建一个对象" class="headerlink" title="1. 创建一个对象"></a>1. 创建一个对象</h3><p>js 创建一个对象很简单，如：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a = <span class="keyword">new</span> <span class="built_in">Object</span>()</span><br><span class="line"><span class="keyword">var</span> b = &#123;</span><br><span class="line">    name: <span class="string">'k'</span>,</span><br><span class="line">    age: <span class="number">12</span>,</span><br><span class="line">    sayName: <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="keyword">this</span>.name)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h3 id="2-对象的属性类型"><a href="#2-对象的属性类型" class="headerlink" title="2. 对象的属性类型"></a>2. 对象的属性类型</h3><p>对象的属性类型分为：</p>
+<ul>
+<li>[[configurable]] ：能否通过 delete 删除</li>
+<li>[[enumberabloe]] : 能否通过 for-in 遍历</li>
+<li>[[writable]] ：能否修改属性值</li>
+<li>[[value]] ：包含这个属性的数据</li>
+</ul>
+<p>可通过以下方式修改属性类型：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> o = &#123;</span><br><span class="line">    name: <span class="string">'Jon'</span>,</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">Object</span>.defineProperty(o, <span class="string">"age"</span>, &#123;</span><br><span class="line">    configurable: <span class="literal">true</span>,  <span class="comment">// 能通过 delete 删除</span></span><br><span class="line">    enumberabloe: <span class="literal">true</span>,  <span class="comment">// 能通过 for-in 遍历</span></span><br><span class="line">    writable: <span class="literal">true</span>,      <span class="comment">// 能修改属性值</span></span><br><span class="line">    value: <span class="number">123</span>           <span class="comment">// 该属性值</span></span><br><span class="line">&#125;)</span><br><span class="line">o  <span class="comment">// &#123;name: "Jon", age: 123&#125;</span></span><br></pre></td></tr></table></figure></p>
+<p>定义多个自定义属性：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> o = &#123;&#125;</span><br><span class="line"><span class="built_in">Object</span>.defineProperties(o,&#123;</span><br><span class="line">    <span class="string">'name'</span>: &#123;</span><br><span class="line">        writable: <span class="literal">true</span>,      <span class="comment">// 能修改属性值</span></span><br><span class="line">        value: <span class="string">'Jon'</span>         <span class="comment">// 该属性值</span></span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="string">'age'</span>: &#123;</span><br><span class="line">        writable: <span class="literal">true</span>,      <span class="comment">// 能修改属性值</span></span><br><span class="line">        value: <span class="number">123</span>           <span class="comment">// 该属性值</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br><span class="line">o  <span class="comment">// &#123;name: "Jon", age: 123&#125;</span></span><br></pre></td></tr></table></figure></p>
+<h3 id="3-访问器属性"><a href="#3-访问器属性" class="headerlink" title="3. 访问器属性"></a>3. 访问器属性</h3><ul>
+<li>[[get]] 读取时调用的函数</li>
+<li>[[set]] 修改时调用的函数</li>
+</ul>
+<p>通常我们是这样访问属性值的：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> o = &#123;</span><br><span class="line">    name: <span class="string">'Jon'</span>,</span><br><span class="line">    age: <span class="number">55</span></span><br><span class="line">&#125;</span><br><span class="line">o.name   <span class="comment">// 'Jon'</span></span><br><span class="line">o.age = <span class="number">12</span>  </span><br><span class="line">o.age    <span class="comment">// 12</span></span><br></pre></td></tr></table></figure></p>
+<p>我接下来看一下访问器属性：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> o = &#123;</span><br><span class="line">    _name: <span class="string">''</span>,</span><br><span class="line">    _age: <span class="number">0</span>,</span><br><span class="line">    _changeTime: <span class="number">0</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">Object</span>.defineProperty(o, <span class="string">'name'</span>, &#123;</span><br><span class="line">    get: <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123; </span><br><span class="line">        <span class="keyword">this</span>._changeTime ++;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">this</span>._name</span><br><span class="line">    &#125;,</span><br><span class="line">    set: <span class="function"><span class="keyword">function</span>(<span class="params">value</span>)</span>&#123;</span><br><span class="line">        <span class="keyword">this</span>._changeTime ++;</span><br><span class="line">        <span class="keyword">this</span>._name = value</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br><span class="line">o.name = <span class="string">'Jon'</span></span><br><span class="line">o.name   <span class="comment">// 'Jon'</span></span><br><span class="line">o        <span class="comment">// &#123;_name: "Jon", _age: 0, _changeTime: 1&#125;</span></span><br></pre></td></tr></table></figure></p>
+<p>我们可以看到对象里并没有 name: ‘Jon’，但却可以访问到。获取和修改是 _changeTime 属性也发生变化。当然，还有其它定义访问器属性的方法：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line">o.__defineGetter__(<span class="string">'name'</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">this</span>._name</span><br><span class="line">&#125;)</span><br><span class="line">o.__defineSetter__(<span class="string">'name'</span>,<span class="function"><span class="keyword">function</span>(<span class="params">value</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">this</span>._name = value</span><br><span class="line">&#125;)</span><br><span class="line"><span class="string">``</span><span class="string">` </span></span><br><span class="line"><span class="string">### 4. 总结</span></span><br><span class="line"><span class="string">为一个对象添加一个属性非常简单，如：</span></span><br><span class="line"><span class="string">`</span><span class="string">``</span>js</span><br><span class="line"><span class="keyword">var</span> o = &#123; <span class="attr">name</span>: <span class="string">'Jon'</span> &#125;</span><br><span class="line"><span class="string">``</span><span class="string">` </span></span><br><span class="line"><span class="string">那么，我们为什么要搞的这么复杂呢？</span></span><br><span class="line"><span class="string">1. 加深对对象属性的了解（属性类型）</span></span><br><span class="line"><span class="string">2. </span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">**************</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">## 三、创建对象（重点：熟记、熟练）</span></span><br><span class="line"><span class="string">接下来将会介绍到的几个创建对象的方法</span></span><br><span class="line"><span class="string">- 工厂模式</span></span><br><span class="line"><span class="string">- 构造函数模式</span></span><br><span class="line"><span class="string">- 原型模式</span></span><br><span class="line"><span class="string">- 组合使用构造函数模式和原型模式</span></span><br><span class="line"><span class="string">- 动态原型模式</span></span><br><span class="line"><span class="string">- 寄生构造函数模式</span></span><br><span class="line"><span class="string">- 稳妥型构造模式 </span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">### 1. 工厂模式</span></span><br><span class="line"><span class="string">创建一个对象（士兵）很简单</span></span><br><span class="line"><span class="string">`</span><span class="string">``</span>js</span><br><span class="line"><span class="keyword">var</span> soldier = &#123;</span><br><span class="line">    hp: <span class="number">100</span>,</span><br><span class="line">    max_ph: <span class="number">100</span>,</span><br><span class="line">    recover: <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        <span class="keyword">var</span> new_hp = <span class="keyword">this</span>.hp + <span class="number">20</span></span><br><span class="line">        <span class="keyword">this</span>.hp =  new_hp &gt; <span class="keyword">this</span>.max_ph ? <span class="keyword">this</span>.max_ph : new_hp</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>但创建一百、一千个士兵总不能也一个个创建吧。这时我们想到了 for 循环：  </p>
+<p>问题又来了，我现在 100 个地方的代码需要创建 1000 个士兵，并且士兵的初始属性需要修改，这就要修改 100 个地方的代码，这样管理起士兵对象就有点困难了，这时候我们就要用到构造函数，借此方便我们管理士兵的属性：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">createSoldier</span>(<span class="params">hp, max_hp</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">var</span> person = &#123;</span><br><span class="line">        hp: hp,</span><br><span class="line">        max_ph: max_hp,</span><br><span class="line">        recover: <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">            <span class="keyword">var</span> new_hp = <span class="keyword">this</span>.hp + <span class="number">20</span></span><br><span class="line">            <span class="keyword">this</span>.hp =  new_hp &gt; <span class="keyword">this</span>.max_ph ? <span class="keyword">this</span>.max_ph : new_hp</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> person;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> x = createSoldier(<span class="number">100</span>, <span class="number">100</span>);</span><br></pre></td></tr></table></figure></p>
+<p>这样在创建士兵时调用该函数，管理起来就很方便了。在函数里创建了一个对象，然后把该对象return出去，这种方法就是工厂模式。<br>但由这种方法创建的对象无法识别其对象类型，为了解决这个问题，构造函数模式出现了。（如何识别对象的类型在构造函数模式里讲）</p>
+<h3 id="2-构造函数模式"><a href="#2-构造函数模式" class="headerlink" title="2. 构造函数模式"></a>2. 构造函数模式</h3><p>构造函数模式是怎么样的呢？我们将之前的工厂模式修改成构造函数模式。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Soldier</span>(<span class="params">hp, max_hp</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.hp = hp;</span><br><span class="line">    <span class="keyword">this</span>.max_ph = max_hp;</span><br><span class="line">    <span class="keyword">this</span>.recover = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        <span class="keyword">var</span> new_hp = <span class="keyword">this</span>.hp + <span class="number">20</span></span><br><span class="line">        <span class="keyword">this</span>.hp =  new_hp &gt; <span class="keyword">this</span>.max_ph ? <span class="keyword">this</span>.max_ph : new_hp</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> soldier = <span class="keyword">new</span> Soldier(<span class="number">100</span>, <span class="number">100</span>);</span><br></pre></td></tr></table></figure></p>
+<p>比较构造函数模式和工厂模式的不同：</p>
+<ul>
+<li>构造函数模式直接将属性和方法付给了 this 。</li>
+<li>构造函数模式没有在内部显式创建对象，没有 return 语句。</li>
+<li>构造函数模式创建对象时要使用 new 关键字。</li>
+</ul>
+<p>如何识别对象的类型呢？<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">soldier.constructor === Soldier <span class="comment">// true</span></span><br><span class="line">soldier <span class="keyword">instanceof</span> Soldier      <span class="comment">// true</span></span><br></pre></td></tr></table></figure></p>
+<p>这样就解决了识别对象类型的问题了。  </p>
+<ul>
+<li>然而，问题总是被不断提出的。下一个问题是：<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 引用上面的 Soldier 构造函数</span></span><br><span class="line"><span class="keyword">var</span> s1 = <span class="keyword">new</span> Soldier(<span class="number">100</span>, <span class="number">100</span>);</span><br><span class="line"><span class="keyword">var</span> s2 = <span class="keyword">new</span> Soldier(<span class="number">100</span>, <span class="number">100</span>);</span><br><span class="line">s1.recover === s2.recover  <span class="comment">// false</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>s1 和 s2 的 recover 函数不是同一个函数。也就是说创建两个对象实例时，创建了两个函数。<br>两个 recover 函数都是完成同样的任务，那么就没必要创建两次，重复创建只会占用更多的内存。<br>所以，修改一下：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Soldier</span>(<span class="params">hp, max_hp</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.hp = hp;</span><br><span class="line">    <span class="keyword">this</span>.max_ph = max_hp;</span><br><span class="line">    <span class="keyword">this</span>.recover = recover;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">recover</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">var</span> new_hp = <span class="keyword">this</span>.hp + <span class="number">20</span></span><br><span class="line">    <span class="keyword">this</span>.hp =  new_hp &gt; <span class="keyword">this</span>.max_ph ? <span class="keyword">this</span>.max_ph : new_hp</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> s1 = <span class="keyword">new</span> Soldier(<span class="number">100</span>, <span class="number">100</span>);</span><br><span class="line"><span class="keyword">var</span> s2 = <span class="keyword">new</span> Soldier(<span class="number">100</span>, <span class="number">100</span>);</span><br><span class="line">s1.recover === s2.recover  <span class="comment">// true</span></span><br></pre></td></tr></table></figure></p>
+<p>但是，这种做法就意味着，如果 Soldier 有很多方法，就要在外部定义很多函数。这不符合我们的封装理念。为了解决这个问题，就有了原型模式。</p>
+<h3 id="3-原型模式"><a href="#3-原型模式" class="headerlink" title="3. 原型模式"></a>3. 原型模式</h3><p>所谓原型模式就是在创建构造函数的同时，设置一个公共对象，让由该构造函数创建出来的所有对象能够共用该公共对象。该公共对象是什么呢？就是构造函数的 <code>prototype</code> 属性。</p>
+<p>我们用原型模式对上面的构造函数进行改写<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Soldier</span>(<span class="params">hp, max_hp</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.hp = hp</span><br><span class="line">    <span class="keyword">this</span>.max_ph = max_hp</span><br><span class="line">&#125;</span><br><span class="line">Soldier.prototype.recover = <span class="function"><span class="keyword">function</span> (<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">var</span> new_hp = <span class="keyword">this</span>.hp + <span class="number">20</span></span><br><span class="line">    <span class="keyword">this</span>.hp =  new_hp &gt; <span class="keyword">this</span>.max_ph ? <span class="keyword">this</span>.max_ph : new_hp</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> s1 = <span class="keyword">new</span> Soldier(<span class="number">100</span>, <span class="number">100</span>);</span><br><span class="line"><span class="keyword">var</span> s2 = <span class="keyword">new</span> Soldier(<span class="number">100</span>, <span class="number">100</span>);</span><br><span class="line">s1.recover === s2.recover  <span class="comment">// true</span></span><br></pre></td></tr></table></figure></p>
+<p>当然，你也可以这么写：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Soldier</span>(<span class="params">hp, max_hp</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.hp = hp</span><br><span class="line">    <span class="keyword">this</span>.max_ph = max_hp</span><br><span class="line">&#125;</span><br><span class="line">Soldier.prototype = &#123;</span><br><span class="line">    <span class="keyword">constructor</span>: Soldier,</span><br><span class="line">    recover: function ()&#123;</span><br><span class="line">        <span class="keyword">var</span> new_hp = <span class="keyword">this</span>.hp + <span class="number">20</span></span><br><span class="line">        <span class="keyword">this</span>.hp =  new_hp &gt; <span class="keyword">this</span>.max_ph ? <span class="keyword">this</span>.max_ph : new_hp</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>注意，这么写的话要在 <code>prototype</code> 修改 <code>constructor</code> 属性为当前构造函数。至于为什么，会在<a href="../继承.md">继承</a>里说明。</p>
+<p>但原型模式也是存在缺点的：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">A</span>(<span class="params"></span>)</span>&#123;&#125;</span><br><span class="line">A.prototype.array = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>]</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> a = <span class="keyword">new</span> A()</span><br><span class="line"><span class="keyword">var</span> b = <span class="keyword">new</span> B()</span><br><span class="line">a.array.push(<span class="number">4</span>)</span><br><span class="line"></span><br><span class="line">a.array <span class="comment">// [1, 2, 3, 4]</span></span><br><span class="line">b.array <span class="comment">// [1, 2, 3, 4]</span></span><br></pre></td></tr></table></figure></p>
+<p>改了 a 的 array 属性后，b 的 array 属性也被改了。原型最好不要出现除函数外的引用类型值。</p>
+<h3 id="4-组合使用构造函数模式和原型模式"><a href="#4-组合使用构造函数模式和原型模式" class="headerlink" title="4. 组合使用构造函数模式和原型模式"></a>4. 组合使用构造函数模式和原型模式</h3><p>这种模式是可以解决上面的问题的：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">A</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.array = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>]</span><br><span class="line">&#125;</span><br><span class="line">A.prototype.say = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> a = <span class="keyword">new</span> A()</span><br><span class="line"><span class="keyword">var</span> b = <span class="keyword">new</span> B()</span><br><span class="line">a.array.push(<span class="number">4</span>)</span><br><span class="line"></span><br><span class="line">a.array <span class="comment">// [1, 2, 3, 4]</span></span><br><span class="line">b.array <span class="comment">// [1, 2, 3]</span></span><br></pre></td></tr></table></figure></p>
+<p>方法写在原型上，其他属性写在构造函数内。</p>
+<p>最最常用的几种创建对象的模式就这么几个了，还有其它几种模式都是这几种的衍生，在这里就不详细说了。</p>
+<hr>
+<p>END</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://vlzf.github.io/2018/12/13/面向对象/" data-id="cjpquoks7000zu0u31gt1k788" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-浏览器渲染页面" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/12/13/浏览器渲染页面/" class="article-date">
+  <time datetime="2018-12-13T14:17:19.849Z" itemprop="datePublished">2018-12-13</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/12/13/浏览器渲染页面/">浏览器渲染页面</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="一、前言"><a href="#一、前言" class="headerlink" title="一、前言"></a>一、前言</h2><p>假如有这么一个页面：<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE html&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">"en"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">"UTF-8"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">"viewport"</span> <span class="attr">content</span>=<span class="string">"width=device-width, initial-scale=1.0"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">http-equiv</span>=<span class="string">"X-UA-Compatible"</span> <span class="attr">content</span>=<span class="string">"ie=edge"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>Document<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="javascript">    <span class="keyword">if</span>(<span class="built_in">document</span>.getElementById(<span class="string">'dom'</span>))&#123;</span></span><br><span class="line"><span class="javascript">        <span class="built_in">console</span>.log(<span class="string">'dom 存在'</span>)</span></span><br><span class="line"><span class="javascript">    &#125;<span class="keyword">else</span> &#123;</span></span><br><span class="line"><span class="javascript">        <span class="built_in">console</span>.log(<span class="string">'dom 不存在'</span>)</span></span><br><span class="line"><span class="undefined">    &#125;</span></span><br><span class="line"><span class="undefined">    </span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"dom"</span> <span class="attr">style</span>=<span class="string">"background:red;width:100px;height:100px;"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>当这个页面运行的时候，控制台会输出什么呢？<br>答案是：’dom 不存在’。</p>
+<p>接下来让我们慢慢分析原因。</p>
+<hr>
+<h2 id="二、了解浏览器对页面的渲染方式的意义"><a href="#二、了解浏览器对页面的渲染方式的意义" class="headerlink" title="二、了解浏览器对页面的渲染方式的意义"></a>二、了解浏览器对页面的渲染方式的意义</h2><ul>
+<li>避免踩坑</li>
+<li>有助于处理 bug</li>
+<li>有助于优化代码</li>
+</ul>
+<hr>
+<h2 id="三、浏览器对-html-、css-、js-、image-等文件的处理"><a href="#三、浏览器对-html-、css-、js-、image-等文件的处理" class="headerlink" title="三、浏览器对 html 、css 、js 、image 等文件的处理"></a>三、浏览器对 html 、css 、js 、image 等文件的处理</h2><p>先来张图<br><img src="https://images0.cnblogs.com/news/66372/201305/22110607-791cc828c8e64c18b0d86d573338a345.jpg" alt=""><br><a href="https://images0.cnblogs.com/news/66372/201305/22110607-791cc828c8e64c18b0d86d573338a345.jpg" target="_blank" rel="noopener">原图链接</a></p>
+<h3 id="1-浏览器对-html-的解析顺序"><a href="#1-浏览器对-html-的解析顺序" class="headerlink" title="1. 浏览器对 html 的解析顺序"></a>1. 浏览器对 html 的解析顺序</h3><p>浏览器解析 html 的时候，是从上到下对 html 的每个标签进行解析，并且在 DOM 树的相应位置上添加对应的节点（不会记录样式），从而形成 DOM 树。<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE html&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">"en"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">"UTF-8"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>Document<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">"stylesheet"</span> <span class="attr">href</span>=<span class="string">"index.css"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"index.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">span</span>&gt;</span>浏览器渲染<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>DOM 树结构<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">html</span><br><span class="line">  |-- head</span><br><span class="line">  |     |-- meta</span><br><span class="line">  |     |-- title</span><br><span class="line">  |     |-- link</span><br><span class="line">  |     |-- script</span><br><span class="line">  |</span><br><span class="line">  |-- body</span><br><span class="line">        |-- div</span><br><span class="line">              |-- span</span><br><span class="line">                    |-- 浏览器渲染</span><br></pre></td></tr></table></figure></p>
+<h3 id="2-CSS-的加载"><a href="#2-CSS-的加载" class="headerlink" title="2. CSS 的加载"></a>2. CSS 的加载</h3><ul>
+<li>css 文件是异步加载的。css 加载时，浏览器会继续解析 html。</li>
+<li>css 会被浏览器解析成 CSSOM 树。然后，跟 DOM 树进行样式匹配，生成 Render 树（即：渲染树）。</li>
+<li>最后，浏览器根据 Render 树，绘画出整个网页（即：paint 过程）。</li>
+</ul>
+<p><img src="https://img-blog.csdn.net/20160724103859664" alt=""><br><a href="https://img-blog.csdn.net/20160724103859664" target="_blank" rel="noopener">原图链接</a></p>
+<h3 id="3-JS-的加载与执行"><a href="#3-JS-的加载与执行" class="headerlink" title="3. JS 的加载与执行"></a>3. JS 的加载与执行</h3><h4 id="加载"><a href="#加载" class="headerlink" title="加载"></a>加载</h4><ul>
+<li>js 文件是阻塞加载的。js 加载时，浏览器会停止解析 html，即停止构建 DOM 树。</li>
+<li>js 文件加载完成后会被马上执行，执行完后，浏览器才会继续解析 html。</li>
+</ul>
+<h4 id="执行"><a href="#执行" class="headerlink" title="执行"></a>执行</h4><ul>
+<li>JS 可以通过 DOM API 和 CSSOM API 分别操作 DOM 树与 CSSOM 树，来更改 dom 结构和样式的。</li>
+<li>只要 DOM 树与 CSSOM 树有一个被更改，Render 树也会随之变化，浏览器就会对被更改的部分重新渲染。</li>
+<li>另外，JS 只能操作当前的 DOM 树。如果该 DOM 树没有构建完成，那么，JS 就无法操作不存在 DOM树上的节点。这就是为什么控制台会输出 ‘dom 不存在’ 的理由。</li>
+<li>所以，为了让 js 代码在 DOM 树构建完成后才去执行，我们写 js 代码的时候一定要这么写：</li>
+</ul>
+<p>方法一<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="comment">//... 你的代码</span></span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
+<p>方法二<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$(<span class="built_in">document</span>).ready(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="comment">//... 你的代码</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></p>
+<p>方法三<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">window</span>.onload = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="comment">//... 你的代码</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h3 id="4-图片的加载"><a href="#4-图片的加载" class="headerlink" title="4. 图片的加载"></a>4. 图片的加载</h3><p>先看一个动态创建 img 标签，并获取该图片高度的例子：<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE html&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">"en"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">"UTF-8"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>Document<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="javascript">    <span class="keyword">var</span> img = <span class="built_in">document</span>.createElement(<span class="string">'img'</span>)</span></span><br><span class="line"><span class="javascript">    img.src = <span class="string">"https://images0.cnblogs.com/news/66372/201305/22110607-791cc828c8e64c18b0d86d573338a345.jpg"</span>;</span></span><br><span class="line"><span class="undefined"></span></span><br><span class="line"><span class="javascript">    <span class="keyword">var</span> body = <span class="built_in">document</span>.getElementsByTagName(<span class="string">'body'</span>)[<span class="number">0</span>]</span></span><br><span class="line"><span class="undefined">    body.appendChild(img);</span></span><br><span class="line"><span class="javascript">    <span class="built_in">console</span>.log(body.innerHTML)</span></span><br><span class="line"><span class="javascript">    <span class="built_in">console</span>.log(img.offsetHeight)</span></span><br><span class="line"><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>控制台输出的 img.offsetHeight 为多少？ 答案： 0  </p>
+<p>原因：</p>
+<ul>
+<li>图片也是异步加载的。</li>
+<li>当浏览器解析到 img 标签，并且该图片是第一次访问时，浏览器会发图片请求，此时，浏览器继续解析 html，渲染 DOM 树。</li>
+<li>请求图片是有延迟的。如果 img 标签一开始没有设置高度（宽度）或其它样式，其高度（宽度）的初始值为 0，当图片加载完成后，图片才会撑开 img 标签的高度（宽度）。</li>
+<li>所以，在图片加载完成之前是无法获取到图片的高度的。</li>
+<li>为了能获取到图片的高度，我们必须监听图片是否加载完成，例如：</li>
+</ul>
+<p>原生 JS<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> img = <span class="built_in">document</span>.createElement(<span class="string">'img'</span>)</span><br><span class="line">img.src = <span class="string">"https://images0.cnblogs.com/news/66372/201305/22110607-791cc828c8e64c18b0d86d573338a345.jpg"</span>;</span><br><span class="line"></span><br><span class="line">img.onload = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="keyword">this</span>.offsetHeight);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> body = <span class="built_in">document</span>.getElementsByTagName(<span class="string">'body'</span>)[<span class="number">0</span>]</span><br><span class="line">body.appendChild(img);</span><br></pre></td></tr></table></figure></p>
+<p>jQuery<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> img = $(<span class="string">'&lt;img src="https://images0.cnblogs.com/news/66372/201305/22110607-791cc828c8e64c18b0d86d573338a345.jpg"&gt;'</span>)</span><br><span class="line">img.ready(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="keyword">this</span>.offsetHeight);</span><br><span class="line">&#125;)</span><br><span class="line">$(<span class="string">'body'</span>).append(img)</span><br></pre></td></tr></table></figure></p>
+<h3 id="5-回流（reflow-layout）与-重绘（repaint）"><a href="#5-回流（reflow-layout）与-重绘（repaint）" class="headerlink" title="5. 回流（reflow / layout）与 重绘（repaint）"></a>5. 回流（reflow / layout）与 重绘（repaint）</h3><h4 id="回流（reflow-layout）"><a href="#回流（reflow-layout）" class="headerlink" title="回流（reflow / layout）"></a>回流（reflow / layout）</h4><ul>
+<li>当 dom 结构发生改变或节点大小发生变化时，节点位置需要重新计算。这个过程称为回流。</li>
+</ul>
+<h4 id="重绘（repaint）"><a href="#重绘（repaint）" class="headerlink" title="重绘（repaint）"></a>重绘（repaint）</h4><ul>
+<li>屏幕的更新行为称作重绘。</li>
+</ul>
+<p>由于回流原本的性能消耗就不小，回流之后又必定需要重绘，所以，触发回流，浏览器的性能消耗会很大。</p>
+<h4 id="减少回流与重绘"><a href="#减少回流与重绘" class="headerlink" title="减少回流与重绘"></a>减少回流与重绘</h4><ul>
+<li>不要一条一条地修改 dom 的样式。与其这样，还不如预先定义好 css 的 class，然后修改 dom 的 className。</li>
+<li>不要过多进行重复的样式计算操作。如果你需要重复利用一个静态样式值，可以只计算一次，用一个局部变量储存，然后利用这个局部变量进行相关操作。</li>
+</ul>
+<hr>
+<h2 id="浏览器渲染页面的例子"><a href="#浏览器渲染页面的例子" class="headerlink" title="浏览器渲染页面的例子"></a>浏览器渲染页面的例子</h2><ol>
+<li><p>用户输入网址（假设是个html页面，并且是第一次访问），浏览器向服务器发出请求，服务器返回html文件。</p>
+</li>
+<li><p>浏览器开始载入 html 代码，发现＜head＞标签内有一个＜link＞标签引用外部 CSS 文件。</p>
+</li>
+<li><p>浏览器又发出 CSS 文件的请求，并异步加载。 </p>
+</li>
+<li><p>浏览器继续载入 html 中 ＜body＞ 部分的代码，这时 CSS 文件已经拿到手了，可以开始渲染页面了； </p>
+</li>
+<li><p>浏览器在代码中发现一个＜img＞标签引用了一张图片，向服务器发出请求。此时浏览器不会等到图片下载完，而是继续渲染后面的代码； </p>
+</li>
+<li><p>服务器返回图片文件，由于图片占用了一定面积，影响了后面段落的排布，因此浏览器需要回过头来重新渲染这部分代码（回流、重绘）。</p>
+</li>
+<li><p>浏览器发现了一个 ＜script＞ 标签的 js 引用，阻塞加载 js，并赶紧运行。  </p>
+</li>
+<li><p>Javascript 脚本执行了这条语句，它命令浏览器隐藏掉代码中的某个＜div＞ （style.display=”none”）。突然少了这么一个元素，浏览器不得不重新渲染这部分代码（回流、重绘）。 </p>
+</li>
+<li><p>终于等到了＜/html＞的到来，浏览器泪流满面…… </p>
+</li>
+<li><p>等等，还没完，用户点了一下界面中的“换肤”按钮，Javascript 让浏览器换了一下＜link＞标签的 CSS 路径； </p>
+</li>
+<li><p>浏览器召集了在座的各位＜div＞＜span＞＜ul＞＜li＞们，“大伙儿收拾收拾行李，咱得重新来过……”，浏览器向服务器请求了新的CSS文件，重新渲染页面。</p>
+</li>
+</ol>
+<hr>
+<blockquote>
+<p>参考链接：<a href="https://blog.csdn.net/xiaozhuxmen/article/details/52014901" target="_blank" rel="noopener">https://blog.csdn.net/xiaozhuxmen/article/details/52014901</a></p>
+</blockquote>
+<blockquote>
+<p>参考文章：《how browsers work》</p>
+</blockquote>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://vlzf.github.io/2018/12/13/浏览器渲染页面/" data-id="cjpquokrx000tu0u3gm70f4au" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-浏览器事件循环机制" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/12/13/浏览器事件循环机制/" class="article-date">
+  <time datetime="2018-12-13T14:17:19.830Z" itemprop="datePublished">2018-12-13</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/12/13/浏览器事件循环机制/">浏览器的事件循环机制</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>js 是单线程的，所有代码都在主线程完成执行。但是，由于 js 有同步和异步操作，那么它是如何确定程序的执行顺序的？</p>
+<hr>
+<h2 id="一、分块的程序"><a href="#一、分块的程序" class="headerlink" title="一、分块的程序"></a>一、分块的程序</h2><p>js 是一种分块的程序，一个 js 文件由有多个块构成，程序分块执行。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">now</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'now'</span>)</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">later</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'later'</span>)</span><br><span class="line">&#125;</span><br><span class="line">now()</span><br><span class="line">setTimeout(later, <span class="number">1000</span>)</span><br></pre></td></tr></table></figure></p>
+<p>一个代码有两块：现在执行的部分、将来执行的部分。</p>
+<p>现在：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">now</span>(<span class="params"></span>)</span>&#123;<span class="comment">/*...*/</span>&#125;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">later</span>(<span class="params"></span>)</span>&#123;<span class="comment">/*...*/</span>&#125;</span><br><span class="line">now()</span><br><span class="line">setTimeout(<span class="comment">/*...*/</span>)</span><br></pre></td></tr></table></figure></p>
+<p>将来：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(<span class="string">'later'</span>)</span><br></pre></td></tr></table></figure></p>
+<hr>
+<h2 id="二、事件循环"><a href="#二、事件循环" class="headerlink" title="二、事件循环"></a>二、事件循环</h2><p>js 引擎是做什么的？它是在需要的时候，在给定的任意时刻执行程序中的单个代码块。</p>
+<p>js 引擎并不是独立运行的，它运行在宿主环境中。这些环境都有一个共同 “点”，即它们都提供一种机制处理程序中多个块的执行，且执行每个块时调用 js 引擎，这种机制被称为<code>事件循环</code>。</p>
+<p>那么，浏览器的<code>事件循环</code>又是如何实现的？如图：</p>
+<p><img src="/image/浏览器事件循环1.jpg" alt=""></p>
+<p>如图所示，它有一个<code>执行栈</code>（stack）和一个（或多个）<code>任务队列</code>（callback queue）。当执行栈内的代码执行时，若调用到 DOM 操作、异步请求、定时器设置等 api 时，会将异步执行的代码块放入任务队列。当监听到执行栈为空时，从任务队列取出第一个任务放入执行栈执行。类似于：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> eventLoop = [] <span class="comment">// 任务队列</span></span><br><span class="line"><span class="keyword">var</span> event <span class="comment">// 当前执行任务</span></span><br><span class="line"><span class="keyword">while</span>(<span class="literal">true</span>)&#123;</span><br><span class="line">    <span class="keyword">if</span>(!event &amp;&amp; eventLoop.length &gt; <span class="number">0</span>) &#123;</span><br><span class="line">        event = eventLoop.shift()</span><br><span class="line">        event()</span><br><span class="line">        event = <span class="literal">null</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>这里引用 <a href="https://zhuanlan.zhihu.com/p/26229293" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/26229293</a> 的几张图：</p>
+<p><img src="/image/浏览器事件循环2.jpg" alt=""></p>
+<p><img src="/image/浏览器事件循环3.jpg" alt=""></p>
+<p><img src="/image/浏览器事件循环4.jpg" alt=""></p>
+<p><img src="/image/浏览器事件循环5.jpg" alt=""></p>
+<p><img src="/image/浏览器事件循环6.jpg" alt=""></p>
+<p><img src="/image/浏览器事件循环7.jpg" alt=""></p>
+<p><img src="/image/浏览器事件循环8.jpg" alt=""></p>
+<p><img src="/image/浏览器事件循环9.jpg" alt=""></p>
+<hr>
+<h2 id="三、任务队列中的宏任务和微任务"><a href="#三、任务队列中的宏任务和微任务" class="headerlink" title="三、任务队列中的宏任务和微任务"></a>三、任务队列中的<code>宏任务</code>和<code>微任务</code></h2><p>之前说过，任务队列可能不止一个。不同的任务对应着不同的任务队列。任务可以分为<code>宏任务</code>和<code>微任务</code>，<code>宏任务</code>放入<code>宏任务</code>队列，<code>微任务</code>放入<code>微任务</code>队列。两种任务队列有什么不同呢？ </p>
+<p>每一次循环都会先从<code>宏任务</code>队列中拿去第一个任务执行（该过程中可能有生产了<code>宏任务</code>和<code>微任务</code>），之后清空<code>微任务</code>队列中所有任务，以保证本次循环的所有<code>微任务</code>被执行完毕。类似于：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> microTask = [] <span class="comment">// 微任务队列</span></span><br><span class="line"><span class="keyword">var</span> macroTask = [] <span class="comment">// 宏任务队列</span></span><br><span class="line"><span class="keyword">var</span> event <span class="comment">// 当前执行任务</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">while</span>(<span class="literal">true</span>)&#123;</span><br><span class="line">    <span class="keyword">if</span>(!event) &#123;</span><br><span class="line">        <span class="keyword">if</span>(macroTask.length) &#123;</span><br><span class="line">            event = macroTask.shift()</span><br><span class="line">            event()</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">while</span>(microTask.length) &#123;</span><br><span class="line">            event = microTask.shift()</span><br><span class="line">            event()</span><br><span class="line">        &#125;</span><br><span class="line">        event = <span class="literal">null</span> <span class="comment">// 一次循环完毕后当前任务应该为空</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<blockquote>
+<p>macro-task 包括：<code>script</code> (整体代码), <code>setTimeout</code>, <code>setInterval</code>, <code>setImmediate</code>, <code>I/O</code>, <code>UI rendering</code><br>micro-task 包括：<code>process.nextTick</code>, <code>Promises</code>, <code>Object.observe</code>, <code>MutationObserver</code>, <code>MessageChannel</code></p>
+</blockquote>
+<p>例子：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> timer = setInterval(<span class="function"><span class="params">()</span>=&gt;</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'setInterval'</span>)</span><br><span class="line">&#125;, <span class="number">0</span>)</span><br><span class="line"></span><br><span class="line">setTimeout(<span class="function"><span class="params">()</span>=&gt;</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'setTimeout-1'</span>)</span><br><span class="line"></span><br><span class="line">    <span class="built_in">Promise</span>.resolve().then(<span class="function"><span class="params">()</span>=&gt;</span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">'Promise-2'</span>)</span><br><span class="line">    &#125;).then(<span class="function"><span class="params">()</span>=&gt;</span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">'Promise-3'</span>)</span><br><span class="line">    &#125;)</span><br><span class="line"></span><br><span class="line">    setTimeout(<span class="function"><span class="params">()</span>=&gt;</span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">'setTimeout-2'</span>)</span><br><span class="line">        clearInterval(timer)</span><br><span class="line">    &#125;,<span class="number">0</span>)</span><br><span class="line">&#125;, <span class="number">0</span>)</span><br><span class="line"></span><br><span class="line"><span class="built_in">Promise</span>.resolve().then(<span class="function"><span class="params">()</span>=&gt;</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'Promise-1'</span>)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></p>
+<p>输出结果：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">'Promise-1'</span></span><br><span class="line"><span class="string">'setInterval'</span></span><br><span class="line"><span class="string">'setTimeout-1'</span></span><br><span class="line"><span class="string">'Promise-2'</span></span><br><span class="line"><span class="string">'Promise-3'</span></span><br><span class="line"><span class="string">'setInterval'</span></span><br><span class="line"><span class="string">'setTimeout-2'</span></span><br></pre></td></tr></table></figure></p>
+<hr>
+<p>END</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://vlzf.github.io/2018/12/13/浏览器事件循环机制/" data-id="cjpquokrx000su0u3a384nles" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-浏览器缓存策略" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/12/13/浏览器缓存策略/" class="article-date">
+  <time datetime="2018-12-13T14:17:19.774Z" itemprop="datePublished">2018-12-13</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/12/13/浏览器缓存策略/">浏览器缓存策略</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>浏览器的缓存策略到底是用来做什么的？<br>浏览器缓存也就是 http 缓存。该缓存策略是服务器端来进行配置的。它是用来尽可能防止资源重复下载、减少资源下载次数、提高页面加载速度、减低宽带成本等。</p>
+<p>浏览器的缓存策略的缓存控制分为两种：</p>
+<ul>
+<li><code>强缓存</code></li>
+<li><code>协商缓存</code></li>
+</ul>
+<hr>
+<h2 id="一、强缓存"><a href="#一、强缓存" class="headerlink" title="一、强缓存"></a>一、强缓存</h2><p>在 http 1.0 版本，缓存是由 header 的 expires 字段来控制过期时间的。但由于客户端与服务器的时间相差很大，导致缓存策略出错。所以，在 http 1.1 版本增加了 <code>Cache-Control</code> 字段专门管理缓存，其常用值有：</p>
+<ul>
+<li><code>no-store</code> ： 静态资源是不进行重用的，也就是不缓存的。 </li>
+<li><code>no-cache</code> ： 每次请求都需要重新验证，不走三层缓存结构中的最后一层。也就是不走强缓存，但会走协商缓存。 </li>
+<li><code>max-age</code> ： 表示资源的有效期。</li>
+<li><code>s-maxage</code> ：表示公共缓存区（CDN）的资源有效期，优先级高于max-age，通常需要搭配pubic 使用。</li>
+<li><code>public</code> ： 公共缓存区即CDN 。</li>
+<li><code>private</code> ： 本地缓存区即浏览器的缓存区。</li>
+</ul>
+<p>这就是强加载。</p>
+<hr>
+<h2 id="二、协商缓存"><a href="#二、协商缓存" class="headerlink" title="二、协商缓存"></a>二、协商缓存</h2><p>很多时候会出现这样的情况，虽然强缓存记录表示已经过期，但发请求时服务器返回的数据资源并没有改变，这样就出现了无意义的资源重复加载问题。而<code>协商加载</code>就可以解决这种问题。</p>
+<p>所谓<code>协商加载</code>就是向服务器发送请求来协商使用哪种缓存策略。它的认证机制有： </p>
+<ul>
+<li><code>Last-modified</code></li>
+<li><code>ETag</code></li>
+</ul>
+<p><code>Last-modified</code> 字段，这是服务器向浏览器返回的该文件的最后修改时间。在下一次浏览器发相同的请求时，请求头会带上 <code>if-modified-since</code> 字段，服务器会对 <code>if-modified-since</code> 和 <code>last-modified</code> 进行比对。如果一致，就返回 <code>304</code>。如果不一致，就重新返回最新文件，状态码就还是 <code>200</code>。</p>
+<blockquote>
+<p><code>Last-modified</code> 字段是通过判断资源的修改时间来确定资源是否过期的。但是，当文件修改时间改变，内容却没变的时候，就应该返回 <code>304</code>。所以就有了 <code>Etag</code> 字段。</p>
+</blockquote>
+<p><code>Etag</code> 是对文件内容的 <code>Hash</code> 值，所以只要文件内容未改变，<code>Etag</code> 就不会改变。当服务端给浏览器返回 <code>Etag</code> 之后，下次浏览器去请求的时候就会携带 <code>if-none-match</code> ，服务器会比对两者，从而做相应处理。和 <code>last-modified</code> 类似。但是需要注意的是，<code>Etag</code> 的优先级是要高于 <code>last-modified</code> 的。</p>
+<hr>
+<h2 id="三、总结"><a href="#三、总结" class="headerlink" title="三、总结"></a>三、总结</h2><p>当浏览器发请求时，先判断是否已存在缓存，如果没有，则向服务器发起资源请求。如果有，判断缓存是否过期（强缓存阶段），如果未过期，则直接使用缓存资源。如果已过期，浏览器向服务器发送带 <code>if-none-match</code>（即<code>Etag</code>的内容记录） 和 <code>if-modified-since</code>（即<code>last-modified</code>的内容记录） 字段（没有就不带）的请求，服务器优先判断 <code>if-none-match</code>（即<code>Etag</code>的内容记录） 再判断 <code>if-modified-since</code>（即<code>last-modified</code>的内容记录）。如果有 <code>Etag</code> 的记录，就不需要判断 <code>last-modified</code> 的记录。</p>
+<p><img src="/image/浏览器缓存策略1.jpg" alt=""></p>
+<hr>
+<p>END</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://vlzf.github.io/2018/12/13/浏览器缓存策略/" data-id="cjpquokrx000uu0u3a8r3h0kk" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+
+
+  <nav id="page-nav">
+    
+    <a class="extend prev" rel="prev" href="/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/3/">Next &raquo;</a>
+  </nav>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">十二月 2018</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2018/12/16/字符串的扩展/">字符串的扩展</a>
+          </li>
+        
+          <li>
+            <a href="/2018/12/16/数组的扩展/">数组的扩展</a>
+          </li>
+        
+          <li>
+            <a href="/2018/12/16/数值的扩展/">数值的扩展</a>
+          </li>
+        
+          <li>
+            <a href="/2018/12/16/函数的扩展/">函数的扩展</a>
+          </li>
+        
+          <li>
+            <a href="/2018/12/16/Promise对象/">Promise对象</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2018 vlzf<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>

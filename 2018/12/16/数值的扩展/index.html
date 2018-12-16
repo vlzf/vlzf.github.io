@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>数值的扩展 | vlzf</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="二进制和八进制表示法 Number.isFinite(), Number.isNaN() Number.parseInt(), Number.parseFloat() Number.isInteger() Number.EPSILON 安全整数和 Number.isSafeInteger() Math 对象的扩展 Math.signbit() 指数运算符 Integer 数据类型   1. 二进">
+<meta property="og:type" content="article">
+<meta property="og:title" content="数值的扩展">
+<meta property="og:url" content="https://vlzf.github.io/2018/12/16/数值的扩展/index.html">
+<meta property="og:site_name" content="vlzf">
+<meta property="og:description" content="二进制和八进制表示法 Number.isFinite(), Number.isNaN() Number.parseInt(), Number.parseFloat() Number.isInteger() Number.EPSILON 安全整数和 Number.isSafeInteger() Math 对象的扩展 Math.signbit() 指数运算符 Integer 数据类型   1. 二进">
+<meta property="og:locale" content="zh-cn">
+<meta property="og:updated_time" content="2018-12-16T12:10:55.466Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="数值的扩展">
+<meta name="twitter:description" content="二进制和八进制表示法 Number.isFinite(), Number.isNaN() Number.parseInt(), Number.parseFloat() Number.isInteger() Number.EPSILON 安全整数和 Number.isSafeInteger() Math 对象的扩展 Math.signbit() 指数运算符 Integer 数据类型   1. 二进">
+  
+    <link rel="alternate" href="/atom.xml" title="vlzf" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">vlzf</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">个人博客</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://vlzf.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-数值的扩展" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/12/16/数值的扩展/" class="article-date">
+  <time datetime="2018-12-16T12:06:32.857Z" itemprop="datePublished">2018-12-16</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      数值的扩展
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <ol>
+<li>二进制和八进制表示法</li>
+<li>Number.isFinite(), Number.isNaN()</li>
+<li>Number.parseInt(), Number.parseFloat()</li>
+<li>Number.isInteger()</li>
+<li>Number.EPSILON</li>
+<li>安全整数和 Number.isSafeInteger()</li>
+<li>Math 对象的扩展</li>
+<li>Math.signbit()</li>
+<li>指数运算符</li>
+<li>Integer 数据类型</li>
+</ol>
+<hr>
+<h2 id="1-二进制和八进制表示法"><a href="#1-二进制和八进制表示法" class="headerlink" title="1. 二进制和八进制表示法"></a>1. 二进制和八进制表示法</h2><p>ES6 提供了二进制和八进制数值的新的写法，分别用前缀0b（或0B）和0o（或0O）表示。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">0b111110111</span> === <span class="number">503</span> <span class="comment">// true</span></span><br><span class="line"><span class="number">0o767</span> === <span class="number">503</span> <span class="comment">// true</span></span><br></pre></td></tr></table></figure>
+<hr>
+<h2 id="2-Number-isFinite-Number-isNaN"><a href="#2-Number-isFinite-Number-isNaN" class="headerlink" title="2. Number.isFinite(), Number.isNaN()"></a>2. Number.isFinite(), Number.isNaN()</h2><p>Number.isFinite()用来检查一个数值是否为有限的（finite）。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Number</span>.isFinite(<span class="number">15</span>); <span class="comment">// true</span></span><br><span class="line"><span class="built_in">Number</span>.isFinite(<span class="number">0.8</span>); <span class="comment">// true</span></span><br><span class="line"><span class="built_in">Number</span>.isFinite(<span class="literal">NaN</span>); <span class="comment">// false</span></span><br><span class="line"><span class="built_in">Number</span>.isFinite(<span class="literal">Infinity</span>); <span class="comment">// false</span></span><br><span class="line"><span class="built_in">Number</span>.isFinite(-<span class="literal">Infinity</span>); <span class="comment">// false</span></span><br><span class="line"><span class="built_in">Number</span>.isFinite(<span class="string">'foo'</span>); <span class="comment">// false</span></span><br><span class="line"><span class="built_in">Number</span>.isFinite(<span class="string">'15'</span>); <span class="comment">// false</span></span><br><span class="line"><span class="built_in">Number</span>.isFinite(<span class="literal">true</span>); <span class="comment">// false</span></span><br></pre></td></tr></table></figure>
+<p>Number.isNaN()用来检查一个值是否为NaN。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Number</span>.isNaN(<span class="literal">NaN</span>) <span class="comment">// true</span></span><br><span class="line"><span class="built_in">Number</span>.isNaN(<span class="number">15</span>) <span class="comment">// false</span></span><br><span class="line"><span class="built_in">Number</span>.isNaN(<span class="string">'15'</span>) <span class="comment">// false</span></span><br><span class="line"><span class="built_in">Number</span>.isNaN(<span class="literal">true</span>) <span class="comment">// false</span></span><br><span class="line"><span class="built_in">Number</span>.isNaN(<span class="number">9</span>/<span class="literal">NaN</span>) <span class="comment">// true</span></span><br><span class="line"><span class="built_in">Number</span>.isNaN(<span class="string">'true'</span>/<span class="number">0</span>) <span class="comment">// true</span></span><br><span class="line"><span class="built_in">Number</span>.isNaN(<span class="string">'true'</span>/<span class="string">'true'</span>) <span class="comment">// true</span></span><br></pre></td></tr></table></figure>
+<hr>
+<h2 id="3-Number-parseInt-Number-parseFloat"><a href="#3-Number-parseInt-Number-parseFloat" class="headerlink" title="3. Number.parseInt(), Number.parseFloat()"></a>3. Number.parseInt(), Number.parseFloat()</h2><p>ES6 将全局方法parseInt()和parseFloat()，移植到Number对象上面，行为完全保持不变。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// ES5的写法</span></span><br><span class="line"><span class="built_in">parseInt</span>(<span class="string">'12.34'</span>) <span class="comment">// 12</span></span><br><span class="line"><span class="built_in">parseFloat</span>(<span class="string">'123.45#'</span>) <span class="comment">// 123.45</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// ES6的写法</span></span><br><span class="line"><span class="built_in">Number</span>.parseInt(<span class="string">'12.34'</span>) <span class="comment">// 12</span></span><br><span class="line"><span class="built_in">Number</span>.parseFloat(<span class="string">'123.45#'</span>) <span class="comment">// 123.45</span></span><br></pre></td></tr></table></figure>
+<hr>
+<h2 id="4-Number-isInteger"><a href="#4-Number-isInteger" class="headerlink" title="4. Number.isInteger()"></a>4. Number.isInteger()</h2><p>Number.isInteger()用来判断一个值是否为整数。需要注意的是，在 JavaScript 内部，整数和浮点数是同样的储存方法，所以 3 和 3.0 被视为同一个值。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Number</span>.isInteger(<span class="number">25</span>) <span class="comment">// true</span></span><br><span class="line"><span class="built_in">Number</span>.isInteger(<span class="number">25.0</span>) <span class="comment">// true</span></span><br><span class="line"><span class="built_in">Number</span>.isInteger(<span class="number">25.1</span>) <span class="comment">// false</span></span><br><span class="line"><span class="built_in">Number</span>.isInteger(<span class="string">"15"</span>) <span class="comment">// false</span></span><br><span class="line"><span class="built_in">Number</span>.isInteger(<span class="literal">true</span>) <span class="comment">// false</span></span><br></pre></td></tr></table></figure>
+<hr>
+<h2 id="5-Number-EPSILON-（略）"><a href="#5-Number-EPSILON-（略）" class="headerlink" title="5. Number.EPSILON （略）"></a>5. Number.EPSILON （略）</h2><h2 id="6-安全整数和-Number-isSafeInteger-（略）"><a href="#6-安全整数和-Number-isSafeInteger-（略）" class="headerlink" title="6. 安全整数和 Number.isSafeInteger()  （略）"></a>6. 安全整数和 Number.isSafeInteger()  （略）</h2><hr>
+<h2 id="7-Math-对象的扩展"><a href="#7-Math-对象的扩展" class="headerlink" title="7. Math 对象的扩展"></a>7. Math 对象的扩展</h2><h3 id="Math-trunc"><a href="#Math-trunc" class="headerlink" title="Math.trunc()"></a>Math.trunc()</h3><p>Math.trunc方法用于去除一个数的小数部分，返回整数部分。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Math</span>.trunc(<span class="number">4.1</span>) <span class="comment">// 4</span></span><br><span class="line"><span class="built_in">Math</span>.trunc(<span class="number">-4.9</span>) <span class="comment">// -4</span></span><br><span class="line"><span class="built_in">Math</span>.trunc(<span class="number">-0.1234</span>) <span class="comment">// -0</span></span><br></pre></td></tr></table></figure>
+<p>对于非数值，Math.trunc内部使用Number方法将其先转为数值。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Math</span>.trunc(<span class="string">'123.456'</span>) <span class="comment">// 123</span></span><br><span class="line"><span class="built_in">Math</span>.trunc(<span class="literal">true</span>) <span class="comment">//1</span></span><br><span class="line"><span class="built_in">Math</span>.trunc(<span class="literal">false</span>) <span class="comment">// 0</span></span><br><span class="line"><span class="built_in">Math</span>.trunc(<span class="literal">null</span>) <span class="comment">// 0</span></span><br></pre></td></tr></table></figure>
+<p>对于空值和无法截取整数的值，返回NaN。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Math</span>.trunc(<span class="literal">NaN</span>);      <span class="comment">// NaN</span></span><br><span class="line"><span class="built_in">Math</span>.trunc(<span class="string">'foo'</span>);    <span class="comment">// NaN</span></span><br><span class="line"><span class="built_in">Math</span>.trunc();         <span class="comment">// NaN</span></span><br><span class="line"><span class="built_in">Math</span>.trunc(<span class="literal">undefined</span>) <span class="comment">// NaN</span></span><br></pre></td></tr></table></figure>
+<hr>
+<h3 id="Math-sign"><a href="#Math-sign" class="headerlink" title="Math.sign()"></a>Math.sign()</h3><p>Math.sign方法用来判断一个数到底是正数、负数、还是零。对于非数值，会先将其转换为数值。</p>
+<p>它会返回五种值:</p>
+<ul>
+<li>参数为正数，返回+1；</li>
+<li>参数为负数，返回-1；</li>
+<li>参数为 0，返回0；</li>
+<li>参数为-0，返回-0;</li>
+<li>其他值，返回NaN。</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Math</span>.sign(<span class="number">-5</span>) <span class="comment">// -1</span></span><br><span class="line"><span class="built_in">Math</span>.sign(<span class="number">5</span>) <span class="comment">// +1</span></span><br><span class="line"><span class="built_in">Math</span>.sign(<span class="number">0</span>) <span class="comment">// +0</span></span><br><span class="line"><span class="built_in">Math</span>.sign(<span class="number">-0</span>) <span class="comment">// -0</span></span><br><span class="line"><span class="built_in">Math</span>.sign(<span class="literal">NaN</span>) <span class="comment">// NaN</span></span><br></pre></td></tr></table></figure>
+<p>如果参数是非数值，会自动转为数值。对于那些无法转为数值的值，会返回NaN。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Math</span>.sign(<span class="string">''</span>)  <span class="comment">// 0</span></span><br><span class="line"><span class="built_in">Math</span>.sign(<span class="literal">true</span>)  <span class="comment">// +1</span></span><br><span class="line"><span class="built_in">Math</span>.sign(<span class="literal">false</span>)  <span class="comment">// 0</span></span><br><span class="line"><span class="built_in">Math</span>.sign(<span class="literal">null</span>)  <span class="comment">// 0</span></span><br><span class="line"><span class="built_in">Math</span>.sign(<span class="string">'9'</span>)  <span class="comment">// +1</span></span><br><span class="line"><span class="built_in">Math</span>.sign(<span class="string">'foo'</span>)  <span class="comment">// NaN</span></span><br><span class="line"><span class="built_in">Math</span>.sign()  <span class="comment">// NaN</span></span><br><span class="line"><span class="built_in">Math</span>.sign(<span class="literal">undefined</span>)  <span class="comment">// NaN</span></span><br></pre></td></tr></table></figure>
+<hr>
+<h3 id="Math-cbrt"><a href="#Math-cbrt" class="headerlink" title="Math.cbrt()"></a>Math.cbrt()</h3><p>Math.cbrt方法用于计算一个数的立方根。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Math</span>.cbrt(<span class="number">-1</span>) <span class="comment">// -1</span></span><br><span class="line"><span class="built_in">Math</span>.cbrt(<span class="number">0</span>)  <span class="comment">// 0</span></span><br><span class="line"><span class="built_in">Math</span>.cbrt(<span class="number">1</span>)  <span class="comment">// 1</span></span><br><span class="line"><span class="built_in">Math</span>.cbrt(<span class="number">2</span>)  <span class="comment">// 1.2599210498948734</span></span><br></pre></td></tr></table></figure>
+<hr>
+<h2 id="9-指数运算符"><a href="#9-指数运算符" class="headerlink" title="9. 指数运算符"></a>9. 指数运算符</h2><p>ES2016 新增了一个指数运算符（ ** ）。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">2</span> ** <span class="number">2</span> <span class="comment">// 4</span></span><br><span class="line"><span class="number">2</span> ** <span class="number">3</span> <span class="comment">// 8</span></span><br></pre></td></tr></table></figure>
+<hr>
+<h2 id="10-Integer-数据类型-（略）"><a href="#10-Integer-数据类型-（略）" class="headerlink" title="10. Integer 数据类型 （略）"></a>10. Integer 数据类型 （略）</h2><hr>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://vlzf.github.io/2018/12/16/数值的扩展/" data-id="cjpquokrd000ku0u33e2j2fuk" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2018/12/16/数组的扩展/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          数组的扩展
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2018/12/16/函数的扩展/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">函数的扩展</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">十二月 2018</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2018/12/16/字符串的扩展/">字符串的扩展</a>
+          </li>
+        
+          <li>
+            <a href="/2018/12/16/数组的扩展/">数组的扩展</a>
+          </li>
+        
+          <li>
+            <a href="/2018/12/16/数值的扩展/">数值的扩展</a>
+          </li>
+        
+          <li>
+            <a href="/2018/12/16/函数的扩展/">函数的扩展</a>
+          </li>
+        
+          <li>
+            <a href="/2018/12/16/Promise对象/">Promise对象</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2018 vlzf<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>

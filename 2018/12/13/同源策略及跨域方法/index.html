@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>同源策略及跨域方法 | vlzf</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="一、什么是同源策略同源策略（Sameoriginpolicy）是一种约定，它是浏览器最核心也最基本的安全功能，如果缺少了同源策略，则浏览器的正常功能可能都会受到影响。可以说Web是构建在同源策略基础之上的，浏览器只是针对同源策略的一种实现。  二、同源策略的基本内容 所谓同源，就是协议相同、域名相同、IP地址相同、端口号相同。如：1http://192.13.103.7:8080/A.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="同源策略及跨域方法">
+<meta property="og:url" content="https://vlzf.github.io/2018/12/13/同源策略及跨域方法/index.html">
+<meta property="og:site_name" content="vlzf">
+<meta property="og:description" content="一、什么是同源策略同源策略（Sameoriginpolicy）是一种约定，它是浏览器最核心也最基本的安全功能，如果缺少了同源策略，则浏览器的正常功能可能都会受到影响。可以说Web是构建在同源策略基础之上的，浏览器只是针对同源策略的一种实现。  二、同源策略的基本内容 所谓同源，就是协议相同、域名相同、IP地址相同、端口号相同。如：1http://192.13.103.7:8080/A.html">
+<meta property="og:locale" content="zh-cn">
+<meta property="og:updated_time" content="2018-12-16T11:52:59.876Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="同源策略及跨域方法">
+<meta name="twitter:description" content="一、什么是同源策略同源策略（Sameoriginpolicy）是一种约定，它是浏览器最核心也最基本的安全功能，如果缺少了同源策略，则浏览器的正常功能可能都会受到影响。可以说Web是构建在同源策略基础之上的，浏览器只是针对同源策略的一种实现。  二、同源策略的基本内容 所谓同源，就是协议相同、域名相同、IP地址相同、端口号相同。如：1http://192.13.103.7:8080/A.html">
+  
+    <link rel="alternate" href="/atom.xml" title="vlzf" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">vlzf</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">个人博客</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://vlzf.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-同源策略及跨域方法" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/12/13/同源策略及跨域方法/" class="article-date">
+  <time datetime="2018-12-13T14:17:19.992Z" itemprop="datePublished">2018-12-13</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      同源策略及跨域方法
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="一、什么是同源策略"><a href="#一、什么是同源策略" class="headerlink" title="一、什么是同源策略"></a>一、什么是同源策略</h2><p>同源策略（Sameoriginpolicy）是一种约定，它是浏览器最核心也最基本的安全功能，如果缺少了同源策略，则浏览器的正常功能可能都会受到影响。可以说Web是构建在同源策略基础之上的，浏览器只是针对同源策略的一种实现。</p>
+<hr>
+<h2 id="二、同源策略的基本内容"><a href="#二、同源策略的基本内容" class="headerlink" title="二、同源策略的基本内容"></a>二、同源策略的基本内容</h2><ul>
+<li>所谓同源，就是协议相同、域名相同、IP地址相同、端口号相同。如：<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://192.13.103.7:8080/A.html</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>以下同源的是：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">http://196.150.103.5:8080/a.html    不同源：IP地址不同</span><br><span class="line"></span><br><span class="line">https://192.13.103.7:8080/a.html    不同源：协议不同</span><br><span class="line"></span><br><span class="line">http://192.13.103.7:7070/a.html    不同源：端口号不同</span><br><span class="line"></span><br><span class="line">http://192.13.103.7:8080/a.html    同源</span><br></pre></td></tr></table></figure></p>
+<blockquote>
+<p>PS: 如果一国页面的 url 是域名形式，另一个是 IP 形式，那么，即使域名和 IP 都指向同一个地址，也属于不同源。</p>
+</blockquote>
+<hr>
+<h2 id="三、安全性"><a href="#三、安全性" class="headerlink" title="三、安全性"></a>三、安全性</h2><p>有这种限制的主要原因就是如果没有同源策略将导致安全风险。</p>
+<p>http 是无状态协议。当用户登录一个网站并且在该网站的不同页面跳转时，我们需要判断、保持用户登录状态，而不是每跳转一次页面都要登录一次，这时需要借用客户端的 cookie 来实现。这时，我们跳转页面时，就能通过获取该 cookie 得知用户登录信息（cookie可以说是一种权限票据）。</p>
+<p>问题就在这里，一个用户用同一个浏览器登录了多个不同的网站，它们都需要设置 cookie，所以不可能使用同一个 cookie，而是要为不同的网站创建各自的、独立的 cookie。</p>
+<p>有这么多的 cookie 该使用哪一个？每个网站应当使用属于自己的 cookie。但是，总有恶意网站会想要获取你在其他网站的 cookie 来获取你的用户权限，从而进行违法犯罪。例如：获取你的某银行用户权限盗取你的钱财。</p>
+<p>同源策略的限制：</p>
+<ul>
+<li>非同源的两个网页不能直接通过 js 脚本获取对方的 cookie。</li>
+<li>服务器不接受非同源网站的请求（除非服务器有跨域设置）。</li>
+<li>web浏览器允许第一个页面的脚本访问第二个页面里的数据，但是也只有在两个页面有相同的源时。</li>
+</ul>
+<p>在服务端没有设置跨域的情况下，非同源脚本向服务端发跨域请求，服务端是不会拒绝的，浏览器也是能接收到服务端的响应的，但浏览器把响应结果拦截了。</p>
+<hr>
+<h2 id="四、跨域手段"><a href="#四、跨域手段" class="headerlink" title="四、跨域手段"></a>四、跨域手段</h2><ol>
+<li>JSONP 跨域。需要前后端配合。</li>
+<li>后台设置 <code>Access-Control-Allow-Origin</code> 响应头跨域。</li>
+<li>使用代理服务器。</li>
+<li>设置 <code>document.domain</code> 属性。</li>
+<li><code>WebSocket</code>。</li>
+<li><code>window.name</code>。</li>
+<li><code>window.postMessage</code>。</li>
+<li><code>hash</code> 值。</li>
+<li><code>localStorage</code> </li>
+</ol>
+<hr>
+<p>END</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://vlzf.github.io/2018/12/13/同源策略及跨域方法/" data-id="cjpquokrd000gu0u3zy2ylbw8" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2018/12/13/异步请求的实现/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          XMLHttpRequest对象
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2018/12/13/数据类型转换规则/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">数据类型转换</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">十二月 2018</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2018/12/16/字符串的扩展/">字符串的扩展</a>
+          </li>
+        
+          <li>
+            <a href="/2018/12/16/数组的扩展/">数组的扩展</a>
+          </li>
+        
+          <li>
+            <a href="/2018/12/16/数值的扩展/">数值的扩展</a>
+          </li>
+        
+          <li>
+            <a href="/2018/12/16/函数的扩展/">函数的扩展</a>
+          </li>
+        
+          <li>
+            <a href="/2018/12/16/Promise对象/">Promise对象</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2018 vlzf<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>

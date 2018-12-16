@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>显式强制类型转换 | vlzf</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="一、字符串和数字之间的显式转换字符串和数字之间的转换要遵循 ToString 和 ToNumber 规则，最常见的显示转化有：12String(123) // &quot;123&quot;Number(&quot;123&quot;) // 123 除此之外还有：1234+&apos;123&apos; // 123-&apos;123&apos; // -123~&apos;123&apos; // -124-&apos;kliojio&apos; // NaN  单元运算符 “+”、”-“，可以将字符串转成数">
+<meta property="og:type" content="article">
+<meta property="og:title" content="显式强制类型转换">
+<meta property="og:url" content="https://vlzf.github.io/2018/12/13/数据类型显式转换/index.html">
+<meta property="og:site_name" content="vlzf">
+<meta property="og:description" content="一、字符串和数字之间的显式转换字符串和数字之间的转换要遵循 ToString 和 ToNumber 规则，最常见的显示转化有：12String(123) // &quot;123&quot;Number(&quot;123&quot;) // 123 除此之外还有：1234+&apos;123&apos; // 123-&apos;123&apos; // -123~&apos;123&apos; // -124-&apos;kliojio&apos; // NaN  单元运算符 “+”、”-“，可以将字符串转成数">
+<meta property="og:locale" content="zh-cn">
+<meta property="og:updated_time" content="2018-12-16T11:53:17.918Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="显式强制类型转换">
+<meta name="twitter:description" content="一、字符串和数字之间的显式转换字符串和数字之间的转换要遵循 ToString 和 ToNumber 规则，最常见的显示转化有：12String(123) // &quot;123&quot;Number(&quot;123&quot;) // 123 除此之外还有：1234+&apos;123&apos; // 123-&apos;123&apos; // -123~&apos;123&apos; // -124-&apos;kliojio&apos; // NaN  单元运算符 “+”、”-“，可以将字符串转成数">
+  
+    <link rel="alternate" href="/atom.xml" title="vlzf" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">vlzf</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">个人博客</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://vlzf.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-数据类型显式转换" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/12/13/数据类型显式转换/" class="article-date">
+  <time datetime="2018-12-13T14:17:19.900Z" itemprop="datePublished">2018-12-13</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      显式强制类型转换
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="一、字符串和数字之间的显式转换"><a href="#一、字符串和数字之间的显式转换" class="headerlink" title="一、字符串和数字之间的显式转换"></a>一、字符串和数字之间的显式转换</h2><p>字符串和数字之间的转换要遵循 <code>ToString</code> 和 <code>ToNumber</code> 规则，最常见的显示转化有：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">String</span>(<span class="number">123</span>) <span class="comment">// "123"</span></span><br><span class="line"><span class="built_in">Number</span>(<span class="string">"123"</span>) <span class="comment">// 123</span></span><br></pre></td></tr></table></figure></p>
+<p>除此之外还有：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">+<span class="string">'123'</span> <span class="comment">// 123</span></span><br><span class="line">-<span class="string">'123'</span> <span class="comment">// -123</span></span><br><span class="line">~<span class="string">'123'</span> <span class="comment">// -124</span></span><br><span class="line">-<span class="string">'kliojio'</span> <span class="comment">// NaN</span></span><br></pre></td></tr></table></figure></p>
+<ul>
+<li>单元运算符 “+”、”-“，可以将字符串转成数字，如：<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1</span> + + <span class="string">'3'</span> <span class="comment">// 4</span></span><br><span class="line"><span class="number">3</span> - - <span class="string">'1'</span> <span class="comment">// 4</span></span><br><span class="line"><span class="number">1</span> + - <span class="string">'3'</span> <span class="comment">// -2</span></span><br><span class="line"><span class="number">1</span> - + <span class="string">'3'</span> <span class="comment">// -2</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>注意，双加号和双减号的两个运算符都是用空格分开的，并不是递加或递减。第一个 “+”（或 “-“）是仅用于数字的加减，第二个 “+”（或 “-“）除了有加减运算作用外，还将后面的字符串转换成数字。</p>
+<ul>
+<li>单元运算符 “~”：<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> s = <span class="string">'1'</span></span><br><span class="line">~s <span class="comment">// -2</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 等同于</span></span><br><span class="line"><span class="keyword">var</span> n = <span class="built_in">Number</span>(s)</span><br><span class="line">- (n + <span class="number">1</span>) <span class="comment">// -2</span></span><br><span class="line"></span><br><span class="line">~~s <span class="comment">// 1</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>双 “~” 还可以用来取整：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">~~ <span class="number">5.564</span> <span class="comment">// 5</span></span><br></pre></td></tr></table></figure></p>
+<p>不过，用 “|” 来取整更加整洁，看个人喜好吧：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">5.564</span> | <span class="number">0</span> <span class="comment">// 5</span></span><br></pre></td></tr></table></figure></p>
+<hr>
+<h2 id="二、显示解析数字字符串"><a href="#二、显示解析数字字符串" class="headerlink" title="二、显示解析数字字符串"></a>二、显示解析数字字符串</h2><p>解析数字字符串的几种方法：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Number</span>(<span class="string">'123'</span>) <span class="comment">// 123</span></span><br><span class="line"><span class="built_in">Number</span>(<span class="string">'123jhbh'</span>) <span class="comment">// NaN</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">parseInt</span>(<span class="string">'123'</span>) <span class="comment">// 123</span></span><br><span class="line"><span class="built_in">parseInt</span>(<span class="string">'123jhbh'</span>) <span class="comment">// 123</span></span><br></pre></td></tr></table></figure></p>
+<p>如果解析浮点小数字符串：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Number</span>(<span class="string">'1.2'</span>) <span class="comment">// 1.2</span></span><br><span class="line"><span class="built_in">parseFloat</span>(<span class="string">'1.2'</span>) <span class="comment">// 1.2</span></span><br><span class="line"><span class="built_in">parseFloat</span>(<span class="string">'1.2xx'</span>) <span class="comment">// 1.2</span></span><br></pre></td></tr></table></figure></p>
+<p><code>parseInt</code>和<code>parseFloat</code> 只解析数字部分，解析到非数字部分会停止：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">parseInt</span>(<span class="string">'sd123fh'</span>) <span class="comment">// NaN</span></span><br><span class="line"><span class="built_in">parseFloat</span>(<span class="string">'sd123fh'</span>) <span class="comment">// NaN</span></span><br></pre></td></tr></table></figure></p>
+<p>还可以解析其它进制的数：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">parseInt</span>(<span class="string">'10'</span>, <span class="number">2</span>) <span class="comment">// 2</span></span><br><span class="line"><span class="built_in">parseInt</span>(<span class="string">'10'</span>, <span class="number">8</span>) <span class="comment">// 8</span></span><br><span class="line"><span class="built_in">parseInt</span>(<span class="string">'10'</span>, <span class="number">16</span>) <span class="comment">// 16</span></span><br></pre></td></tr></table></figure></p>
+<p>parseInt也是存在一些问题的：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">parseInt</span>(<span class="number">0.008</span>) <span class="comment">// 0 ，来自 0.008</span></span><br><span class="line"><span class="built_in">parseInt</span>(<span class="number">0.000000008</span>) <span class="comment">// 8，来自 8e-9</span></span><br><span class="line"><span class="built_in">parseInt</span>(<span class="built_in">parseInt</span>, <span class="number">16</span>) <span class="comment">// 15，来自 function()&#123;&#125; 的 "f"</span></span><br></pre></td></tr></table></figure></p>
+<p>为什么？因为：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">(<span class="number">0.008</span>).toString() <span class="comment">// "0.008"</span></span><br><span class="line">(<span class="number">0.000000008</span>).toString() <span class="comment">// "8e-9"</span></span><br><span class="line"><span class="built_in">parseInt</span>.toString() <span class="comment">// "function parseInt() &#123; [native code] &#125;"</span></span><br></pre></td></tr></table></figure></p>
+<hr>
+<h2 id="三、显示转换为布尔值"><a href="#三、显示转换为布尔值" class="headerlink" title="三、显示转换为布尔值"></a>三、显示转换为布尔值</h2><p>常用方法：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Boolean</span>(<span class="string">''</span>) <span class="comment">// false</span></span><br><span class="line">!!<span class="string">''</span> <span class="comment">// false</span></span><br></pre></td></tr></table></figure></p>
+<p>遵循 <code>ToBoolean</code> 转换规则：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">!!<span class="literal">undefined</span> <span class="comment">// false</span></span><br><span class="line">!!<span class="literal">null</span> <span class="comment">// false</span></span><br><span class="line">!!<span class="literal">NaN</span> <span class="comment">// false</span></span><br><span class="line">!!<span class="string">''</span> <span class="comment">// false</span></span><br><span class="line">!!<span class="number">0</span> <span class="comment">// false</span></span><br><span class="line">!!<span class="number">-0</span> <span class="comment">// false</span></span><br></pre></td></tr></table></figure></p>
+<hr>
+<p>END</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://vlzf.github.io/2018/12/13/数据类型显式转换/" data-id="cjpquokrn000mu0u3g8zpp3sm" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2018/12/13/数据类型隐式转换_等值符/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          数据类型隐式转换（等值符）
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2018/12/13/数据类型判别/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">数据类型判别</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">十二月 2018</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2018/12/16/字符串的扩展/">字符串的扩展</a>
+          </li>
+        
+          <li>
+            <a href="/2018/12/16/数组的扩展/">数组的扩展</a>
+          </li>
+        
+          <li>
+            <a href="/2018/12/16/数值的扩展/">数值的扩展</a>
+          </li>
+        
+          <li>
+            <a href="/2018/12/16/函数的扩展/">函数的扩展</a>
+          </li>
+        
+          <li>
+            <a href="/2018/12/16/Promise对象/">Promise对象</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2018 vlzf<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>

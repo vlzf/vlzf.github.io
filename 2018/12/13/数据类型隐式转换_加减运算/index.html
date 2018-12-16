@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>数据类型隐式转换（加减运算） | vlzf</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="一、加法1. String 类型的加法12&apos;123&apos; + &apos;456&apos; // &quot;123456&quot;&apos;&apos; + &apos;123&apos; // &quot;123&quot; String 类型相加时，效果是字符串拼接。  2. String 与 Number 的加法12123 + &apos;&apos; // &quot;123&quot;&apos;123&apos; + 0 // &quot;1230&quot; Number 类型的数据会被转换成字符串，再进行字符串拼接。  转换方向：Number -&amp;gt;">
+<meta property="og:type" content="article">
+<meta property="og:title" content="数据类型隐式转换（加减运算）">
+<meta property="og:url" content="https://vlzf.github.io/2018/12/13/数据类型隐式转换_加减运算/index.html">
+<meta property="og:site_name" content="vlzf">
+<meta property="og:description" content="一、加法1. String 类型的加法12&apos;123&apos; + &apos;456&apos; // &quot;123456&quot;&apos;&apos; + &apos;123&apos; // &quot;123&quot; String 类型相加时，效果是字符串拼接。  2. String 与 Number 的加法12123 + &apos;&apos; // &quot;123&quot;&apos;123&apos; + 0 // &quot;1230&quot; Number 类型的数据会被转换成字符串，再进行字符串拼接。  转换方向：Number -&amp;gt;">
+<meta property="og:locale" content="zh-cn">
+<meta property="og:updated_time" content="2018-12-16T11:53:25.626Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="数据类型隐式转换（加减运算）">
+<meta name="twitter:description" content="一、加法1. String 类型的加法12&apos;123&apos; + &apos;456&apos; // &quot;123456&quot;&apos;&apos; + &apos;123&apos; // &quot;123&quot; String 类型相加时，效果是字符串拼接。  2. String 与 Number 的加法12123 + &apos;&apos; // &quot;123&quot;&apos;123&apos; + 0 // &quot;1230&quot; Number 类型的数据会被转换成字符串，再进行字符串拼接。  转换方向：Number -&amp;gt;">
+  
+    <link rel="alternate" href="/atom.xml" title="vlzf" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">vlzf</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">个人博客</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://vlzf.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-数据类型隐式转换_加减运算" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/12/13/数据类型隐式转换_加减运算/" class="article-date">
+  <time datetime="2018-12-13T14:17:19.928Z" itemprop="datePublished">2018-12-13</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      数据类型隐式转换（加减运算）
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="一、加法"><a href="#一、加法" class="headerlink" title="一、加法"></a>一、加法</h2><h3 id="1-String-类型的加法"><a href="#1-String-类型的加法" class="headerlink" title="1. String 类型的加法"></a>1. <code>String</code> 类型的加法</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">'123'</span> + <span class="string">'456'</span> <span class="comment">// "123456"</span></span><br><span class="line"><span class="string">''</span> + <span class="string">'123'</span> <span class="comment">// "123"</span></span><br></pre></td></tr></table></figure>
+<p><code>String</code> 类型相加时，效果是字符串拼接。</p>
+<hr>
+<h3 id="2-String-与-Number-的加法"><a href="#2-String-与-Number-的加法" class="headerlink" title="2. String 与 Number 的加法"></a>2. <code>String</code> 与 <code>Number</code> 的加法</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">123</span> + <span class="string">''</span> <span class="comment">// "123"</span></span><br><span class="line"><span class="string">'123'</span> + <span class="number">0</span> <span class="comment">// "1230"</span></span><br></pre></td></tr></table></figure>
+<p><code>Number</code> 类型的数据会被转换成字符串，再进行字符串拼接。</p>
+<ul>
+<li>转换方向：<code>Number</code> -&gt; <code>String</code></li>
+</ul>
+<hr>
+<h3 id="3-String-与-Boolean-的加法"><a href="#3-String-与-Boolean-的加法" class="headerlink" title="3. String 与 Boolean 的加法"></a>3. <code>String</code> 与 <code>Boolean</code> 的加法</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="literal">true</span> + <span class="string">''</span> <span class="comment">// "true"</span></span><br><span class="line"><span class="literal">true</span> + <span class="string">'123'</span> <span class="comment">// "true123"</span></span><br></pre></td></tr></table></figure>
+<p><code>Boolean</code> 类型的数据会被转换成字符串，再进行字符串拼接。</p>
+<ul>
+<li>转换方向：<code>Boolean</code> -&gt; <code>String</code></li>
+</ul>
+<hr>
+<h3 id="4-String-与-undefined-的加法"><a href="#4-String-与-undefined-的加法" class="headerlink" title="4. String 与 undefined 的加法"></a>4. <code>String</code> 与 <code>undefined</code> 的加法</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="literal">undefined</span> + <span class="string">''</span> <span class="comment">// "undefined"</span></span><br><span class="line"><span class="literal">undefined</span> + <span class="string">'123'</span> <span class="comment">// "undefined123"</span></span><br></pre></td></tr></table></figure>
+<p><code>undefined</code> 会被转换成字符串，再进行字符串拼接。</p>
+<ul>
+<li>转换方向：<code>undefined</code> -&gt; <code>String</code></li>
+</ul>
+<hr>
+<h3 id="5-String-与-null-的加法"><a href="#5-String-与-null-的加法" class="headerlink" title="5. String 与 null 的加法"></a>5. <code>String</code> 与 <code>null</code> 的加法</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="literal">null</span> + <span class="string">''</span> <span class="comment">// "null"</span></span><br><span class="line"><span class="literal">null</span> + <span class="string">'123'</span> <span class="comment">// "null123"</span></span><br></pre></td></tr></table></figure>
+<p><code>null</code> 会被转换成字符串，再进行字符串拼接。</p>
+<ul>
+<li>转换方向：<code>null</code> -&gt; <code>String</code></li>
+</ul>
+<hr>
+<h3 id="6-Number-与-Boolean-的加法"><a href="#6-Number-与-Boolean-的加法" class="headerlink" title="6. Number 与 Boolean 的加法"></a>6. <code>Number</code> 与 <code>Boolean</code> 的加法</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">12</span> + <span class="literal">true</span> <span class="comment">// 13</span></span><br><span class="line"><span class="number">12</span> + <span class="literal">false</span> <span class="comment">// 12</span></span><br></pre></td></tr></table></figure>
+<p><code>Boolean</code> 会被转换成 0 或 1，再进行数字运算。</p>
+<ul>
+<li>转换方向：<code>Boolean</code> -&gt; <code>Number</code></li>
+</ul>
+<hr>
+<h3 id="7-Number-与-undefined-的加法"><a href="#7-Number-与-undefined-的加法" class="headerlink" title="7. Number 与 undefined 的加法"></a>7. <code>Number</code> 与 <code>undefined</code> 的加法</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">12</span> + <span class="literal">undefined</span> <span class="comment">// NaN</span></span><br></pre></td></tr></table></figure>
+<p><code>undefined</code> 在 <code>ToNumber</code> 规则里，会被转换为 <code>NaN</code>。</p>
+<ul>
+<li>转换方向：<code>undefined</code> -&gt; <code>Number</code></li>
+</ul>
+<hr>
+<h3 id="8-Number-与-null-的加法"><a href="#8-Number-与-null-的加法" class="headerlink" title="8. Number 与 null 的加法"></a>8. <code>Number</code> 与 <code>null</code> 的加法</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">12</span> + <span class="literal">null</span> <span class="comment">// 12</span></span><br></pre></td></tr></table></figure>
+<p><code>null</code> 在 <code>ToNumber</code> 规则里，会被转换为 0。</p>
+<ul>
+<li>转换方向：<code>null</code> -&gt; <code>Number</code></li>
+</ul>
+<hr>
+<h3 id="9-Boolean-与-null-的加法"><a href="#9-Boolean-与-null-的加法" class="headerlink" title="9. Boolean 与 null 的加法"></a>9. <code>Boolean</code> 与 <code>null</code> 的加法</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="literal">true</span> + <span class="literal">null</span> <span class="comment">// 1</span></span><br></pre></td></tr></table></figure>
+<p><code>true</code> 在 <code>ToNumber</code> 规则里，会被转换为 1。<br><code>null</code> 在 <code>ToNumber</code> 规则里，会被转换为 0。</p>
+<ul>
+<li>转换方向：<code>Boolean</code>、<code>null</code> -&gt; <code>Number</code></li>
+</ul>
+<hr>
+<h3 id="10-Boolean-与-undefined-的加法"><a href="#10-Boolean-与-undefined-的加法" class="headerlink" title="10. Boolean 与 undefined 的加法"></a>10. <code>Boolean</code> 与 <code>undefined</code> 的加法</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="literal">true</span> + <span class="literal">undefined</span> <span class="comment">// NaN</span></span><br></pre></td></tr></table></figure>
+<p><code>true</code> 在 <code>ToNumber</code> 规则里，会被转换为 1。<br><code>undefined</code> 在 <code>ToNumber</code> 规则里，会被转换为 NaN。</p>
+<ul>
+<li>转换方向：<code>Boolean</code>、<code>undefined</code> -&gt; <code>Number</code></li>
+</ul>
+<hr>
+<h3 id="11-null-与-undefined-的加法"><a href="#11-null-与-undefined-的加法" class="headerlink" title="11. null 与 undefined 的加法"></a>11. <code>null</code> 与 <code>undefined</code> 的加法</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="literal">null</span> + <span class="literal">undefined</span> <span class="comment">// NaN</span></span><br></pre></td></tr></table></figure>
+<p><code>null</code> 在 <code>ToNumber</code> 规则里，会被转换为 0。<br><code>undefined</code> 在 <code>ToNumber</code> 规则里，会被转换为 NaN。</p>
+<ul>
+<li>转换方向：<code>null</code>、<code>undefined</code> -&gt; <code>Number</code></li>
+</ul>
+<hr>
+<h3 id="加法总结"><a href="#加法总结" class="headerlink" title="加法总结"></a>加法总结</h3><p>加法中的类型转换优先顺序：（对象除外）</p>
+<ul>
+<li>两个加数中，若存在 <code>String</code>，优先转成 <code>String</code>。</li>
+<li>两个加数中，若不存在 <code>String</code>，优先转成 <code>Number</code>。</li>
+</ul>
+<hr>
+<h2 id="二、减法"><a href="#二、减法" class="headerlink" title="二、减法"></a>二、减法</h2><h3 id="1-含-String-的减法"><a href="#1-含-String-的减法" class="headerlink" title="1. 含 String 的减法"></a>1. 含 <code>String</code> 的减法</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">'123'</span> - <span class="string">''</span> <span class="comment">// 123</span></span><br><span class="line"><span class="string">'123'</span> - <span class="string">'23'</span> <span class="comment">// 100</span></span><br><span class="line"><span class="string">'abc'</span> - <span class="string">''</span> <span class="comment">// NaN</span></span><br><span class="line"><span class="string">'abc'</span> - <span class="string">'23'</span> <span class="comment">// NaN</span></span><br></pre></td></tr></table></figure>
+<p><code>String</code> 会通过 <code>ToNumber</code> 规则转换成数字，再进行数字运算。</p>
+<ul>
+<li>转换方向：<code>String</code> -&gt; <code>Number</code></li>
+</ul>
+<hr>
+<h3 id="2-含-Boolean-的减法"><a href="#2-含-Boolean-的减法" class="headerlink" title="2. 含 Boolean 的减法"></a>2. 含 <code>Boolean</code> 的减法</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="literal">true</span> - <span class="number">0</span> <span class="comment">// 1</span></span><br></pre></td></tr></table></figure>
+<p><code>Boolean</code> 会通过 <code>ToNumber</code> 规则转换成 0 或 1，再进行数字运算。</p>
+<ul>
+<li>转换方向：<code>Boolean</code> -&gt; <code>Number</code></li>
+</ul>
+<hr>
+<h3 id="3-含-undefined-的减法"><a href="#3-含-undefined-的减法" class="headerlink" title="3. 含 undefined 的减法"></a>3. 含 <code>undefined</code> 的减法</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="literal">undefined</span> - <span class="number">0</span> <span class="comment">// NaN</span></span><br></pre></td></tr></table></figure>
+<p><code>undefined</code> 会通过 <code>ToNumber</code> 规则转换成 <code>NaN</code>，再进行数字运算。</p>
+<ul>
+<li>转换方向：<code>undefined</code> -&gt; <code>Number</code></li>
+</ul>
+<hr>
+<h3 id="4-含-null-的减法"><a href="#4-含-null-的减法" class="headerlink" title="4. 含 null 的减法"></a>4. 含 <code>null</code> 的减法</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="literal">null</span> - <span class="number">0</span> <span class="comment">// 0</span></span><br></pre></td></tr></table></figure>
+<p><code>null</code> 会通过 <code>ToNumber</code> 规则转换成 0，再进行数字运算。</p>
+<ul>
+<li>转换方向：<code>null</code> -&gt; <code>Number</code></li>
+</ul>
+<hr>
+<h3 id="减法总结"><a href="#减法总结" class="headerlink" title="减法总结"></a>减法总结</h3><p>减法中的类型转换优先顺序：（包括对象）</p>
+<ul>
+<li>减数和被减数都会通过 <code>ToNumber</code> 规则转成数字，再进行运算。</li>
+</ul>
+<hr>
+<h2 id="三、含对象的加减法"><a href="#三、含对象的加减法" class="headerlink" title="三、含对象的加减法"></a>三、含对象的加减法</h2><p>普通对象的加减法：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> obj = &#123;&#125;</span><br><span class="line">obj + <span class="number">1</span> <span class="comment">// "[object Object]1"</span></span><br><span class="line">obj + <span class="string">''</span> <span class="comment">// "[object Object]"</span></span><br></pre></td></tr></table></figure></p>
+<p>数组对象的加减法：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[<span class="number">1</span>,<span class="number">2</span>] + [<span class="number">3</span>, <span class="number">4</span>] <span class="comment">// "1,23,4"</span></span><br><span class="line">[<span class="number">1</span>,<span class="number">2</span>] - [<span class="number">3</span>, <span class="number">4</span>] <span class="comment">// NaN</span></span><br></pre></td></tr></table></figure></p>
+<ul>
+<li>对于对象的加减运算（或者其它算式运算，乘除运算），结果由对象的 <code>valueOf</code> 和 <code>toString</code> 共同决定，如：<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a = &#123;</span><br><span class="line">    valueOf()&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">123</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">a + <span class="string">''</span> <span class="comment">// "123"</span></span><br><span class="line">a + <span class="number">1</span> <span class="comment">// 124</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> b = &#123;</span><br><span class="line">    toString()&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">456</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">b + <span class="string">''</span> <span class="comment">// "456"</span></span><br><span class="line">b + <span class="number">1</span> <span class="comment">// 457</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> c = &#123;</span><br><span class="line">    valueOf()&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">123</span></span><br><span class="line">    &#125;,</span><br><span class="line">    toString()&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">456</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">c + <span class="string">''</span> <span class="comment">// "123"</span></span><br><span class="line">c + <span class="number">1</span> <span class="comment">// 124</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>如果 valueOf 的返回值不是对象，则 <code>valueOf</code> 优先，否则 <code>toString</code> 优先：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a = &#123;</span><br><span class="line">    valueOf()&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">123</span></span><br><span class="line">    &#125;,</span><br><span class="line">    toString()&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">456</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">a + <span class="number">0</span> <span class="comment">// 123</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> b = &#123;</span><br><span class="line">    valueOf()&#123;</span><br><span class="line">        <span class="keyword">return</span> &#123;&#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    toString()&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">456</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">b + <span class="number">0</span> <span class="comment">// 456</span></span><br></pre></td></tr></table></figure></p>
+<p>乘除运算大多是（ToNumber 规则）转换成数字再运算的。这里就一笔带过了。</p>
+<hr>
+<p>END</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://vlzf.github.io/2018/12/13/数据类型隐式转换_加减运算/" data-id="cjpquokrn000ou0u3y01ctwcm" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2018/12/13/数据类型隐式转换_条件判断语句/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          数据类型隐式转换（条件判断语句）
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2018/12/13/数据类型隐式转换_等值符/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">数据类型隐式转换（等值符）</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">十二月 2018</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2018/12/16/字符串的扩展/">字符串的扩展</a>
+          </li>
+        
+          <li>
+            <a href="/2018/12/16/数组的扩展/">数组的扩展</a>
+          </li>
+        
+          <li>
+            <a href="/2018/12/16/数值的扩展/">数值的扩展</a>
+          </li>
+        
+          <li>
+            <a href="/2018/12/16/函数的扩展/">函数的扩展</a>
+          </li>
+        
+          <li>
+            <a href="/2018/12/16/Promise对象/">Promise对象</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2018 vlzf<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>

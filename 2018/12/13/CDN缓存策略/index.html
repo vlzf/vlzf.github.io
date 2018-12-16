@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>CDN 缓存策略 | vlzf</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="前言举个例子：我要从家到超市买生活用品，但唯一的超市距离我我家有20公里，我学要花费很长时间。有一天，那家超市在我家旁边开了一家分店，从此，我去买东西就能节省很多时间。CDN 缓存就是用来实现这点的。  CDN 缓存的作用网络延迟有：  传播延迟：消息从发送端到接受端的所需时间。 传输延迟：把消息发送到链路所需时间。 处理延迟：处理分组首部、检查位错误、确定分组目标所需时间。 排队延迟：到达的分组">
+<meta property="og:type" content="article">
+<meta property="og:title" content="CDN 缓存策略">
+<meta property="og:url" content="https://vlzf.github.io/2018/12/13/CDN缓存策略/index.html">
+<meta property="og:site_name" content="vlzf">
+<meta property="og:description" content="前言举个例子：我要从家到超市买生活用品，但唯一的超市距离我我家有20公里，我学要花费很长时间。有一天，那家超市在我家旁边开了一家分店，从此，我去买东西就能节省很多时间。CDN 缓存就是用来实现这点的。  CDN 缓存的作用网络延迟有：  传播延迟：消息从发送端到接受端的所需时间。 传输延迟：把消息发送到链路所需时间。 处理延迟：处理分组首部、检查位错误、确定分组目标所需时间。 排队延迟：到达的分组">
+<meta property="og:locale" content="zh-cn">
+<meta property="og:updated_time" content="2018-12-16T11:52:03.495Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="CDN 缓存策略">
+<meta name="twitter:description" content="前言举个例子：我要从家到超市买生活用品，但唯一的超市距离我我家有20公里，我学要花费很长时间。有一天，那家超市在我家旁边开了一家分店，从此，我去买东西就能节省很多时间。CDN 缓存就是用来实现这点的。  CDN 缓存的作用网络延迟有：  传播延迟：消息从发送端到接受端的所需时间。 传输延迟：把消息发送到链路所需时间。 处理延迟：处理分组首部、检查位错误、确定分组目标所需时间。 排队延迟：到达的分组">
+  
+    <link rel="alternate" href="/atom.xml" title="vlzf" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">vlzf</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">个人博客</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://vlzf.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-CDN缓存策略" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/12/13/CDN缓存策略/" class="article-date">
+  <time datetime="2018-12-13T14:17:19.552Z" itemprop="datePublished">2018-12-13</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      CDN 缓存策略
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>举个例子：我要从家到超市买生活用品，但唯一的超市距离我我家有20公里，我学要花费很长时间。有一天，那家超市在我家旁边开了一家分店，从此，我去买东西就能节省很多时间。CDN 缓存就是用来实现这点的。</p>
+<hr>
+<h2 id="CDN-缓存的作用"><a href="#CDN-缓存的作用" class="headerlink" title="CDN 缓存的作用"></a>CDN 缓存的作用</h2><p>网络延迟有：</p>
+<ul>
+<li>传播延迟：消息从发送端到接受端的所需时间。</li>
+<li>传输延迟：把消息发送到链路所需时间。</li>
+<li>处理延迟：处理分组首部、检查位错误、确定分组目标所需时间。</li>
+<li>排队延迟：到达的分组等待处理的时间。</li>
+</ul>
+<p>接受端和发送端距离越远，信息分组要经过的路由器就越多，四种网络延迟越严重，接受端接受信息所需时间就越长。所以，客户端与服务器距离越远，加载资源就越慢。</p>
+<p>而 CDN 服务器就相当于源服务器的“分店”。它可以缓存源服务器的资源，可以为离它距离较近的用户提供资源，缩短资源传输距离，减少网络延迟。</p>
+<blockquote>
+<p>《Web性能权威指南》：CDN （Content Delivery Network，内容分发网络）服务用途很多，但最重要的就是通过把内容部署在全球各地，让用户从最近的服务器加载内容，大幅降低传播分组的时间。或许我们不能让数据传输得更快，但我们可以缩短服务器与用户之间的距离！把数据托管到 CDN 能够显著提高性能。</p>
+</blockquote>
+<hr>
+<h2 id="CDN-缓存过程"><a href="#CDN-缓存过程" class="headerlink" title="CDN 缓存过程"></a>CDN 缓存过程</h2><p>CDN 缓存过程也是遵循 http 缓存策略的。</p>
+<p>客户端的资源请求过程：</p>
+<ul>
+<li>检查：查看自身是否存在该资源的缓存，没有就向服务发请求。</li>
+<li>强缓存判断：如果有缓存，通过 <code>expires</code> 或 <code>Cache-Control</code> 判断缓存是否过期。没过期就取缓存，过期就发请求（带协商缓存的相关控制首部）。</li>
+<li>协商缓存判断：根据服务器返回信息从服务器加载资源（200）或从本地读取缓存（304）。</li>
+</ul>
+<p>DNS 服务器对资源请求的处理（代理缓存）：</p>
+<ul>
+<li>接收：缓存从网络中读取抵达的请求报文。</li>
+<li>解析：缓存对请求报文进行解析；提取各种URL和各种首部；</li>
+<li>查询：缓存查看是否有本地副本可用，如果没有，就向服务器获取一份副本，保存在本地；</li>
+<li>新鲜度检测：缓存查看已缓存的副本是否新鲜，如果不新鲜，就询问源服务器是否有任何更新；</li>
+<li>创建响应</li>
+<li>发送</li>
+<li>日志</li>
+</ul>
+<p>源服务器对资源请求的处理：</p>
+<ul>
+<li>接收：缓存从网络中读取抵达的请求报文。</li>
+<li>解析：缓存对请求报文进行解析；提取各种URL和各种首部。</li>
+<li>协商缓存判断：通过对比 <code>if-none-match</code> 和 <code>etag</code>，或对比 <code>if-modified-since</code> 和 <code>last-modified</code>，查看服务器本地资源是否更改，有更改返回 200，没更改返回 304。</li>
+</ul>
+<hr>
+<p>END</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://vlzf.github.io/2018/12/13/CDN缓存策略/" data-id="cjpquokpz0001u0u3e32lcqci" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2018/12/13/jsonp请求原理及实现/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          jsonp 请求原理及封装方法
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2018/12/13/引用类型/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">js 引用类型</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">十二月 2018</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2018/12/16/字符串的扩展/">字符串的扩展</a>
+          </li>
+        
+          <li>
+            <a href="/2018/12/16/数组的扩展/">数组的扩展</a>
+          </li>
+        
+          <li>
+            <a href="/2018/12/16/数值的扩展/">数值的扩展</a>
+          </li>
+        
+          <li>
+            <a href="/2018/12/16/函数的扩展/">函数的扩展</a>
+          </li>
+        
+          <li>
+            <a href="/2018/12/16/Promise对象/">Promise对象</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2018 vlzf<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>

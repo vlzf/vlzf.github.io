@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>jsonp 请求原理及封装方法 | vlzf</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="一、前言什么是 jsonp ？jsonp 是一种跨域请求手段。众所周知，我们的浏览器为了保护用户隐式，采用了同源政策。所谓同源，即：同协议、同域名（并且同为ip地址，或同为DNS地址）、同端口号。非同源的请求是会被拦截的，而导致无法跨域。而 jsonp 则是一种可绕过同源政策的请求方法。  二、jsonp 的实现原理如下：123456789101112131415161718192021&amp;lt;!">
+<meta property="og:type" content="article">
+<meta property="og:title" content="jsonp 请求原理及封装方法">
+<meta property="og:url" content="https://vlzf.github.io/2018/12/13/jsonp请求原理及实现/index.html">
+<meta property="og:site_name" content="vlzf">
+<meta property="og:description" content="一、前言什么是 jsonp ？jsonp 是一种跨域请求手段。众所周知，我们的浏览器为了保护用户隐式，采用了同源政策。所谓同源，即：同协议、同域名（并且同为ip地址，或同为DNS地址）、同端口号。非同源的请求是会被拦截的，而导致无法跨域。而 jsonp 则是一种可绕过同源政策的请求方法。  二、jsonp 的实现原理如下：123456789101112131415161718192021&amp;lt;!">
+<meta property="og:locale" content="zh-cn">
+<meta property="og:updated_time" content="2018-12-16T11:52:14.329Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="jsonp 请求原理及封装方法">
+<meta name="twitter:description" content="一、前言什么是 jsonp ？jsonp 是一种跨域请求手段。众所周知，我们的浏览器为了保护用户隐式，采用了同源政策。所谓同源，即：同协议、同域名（并且同为ip地址，或同为DNS地址）、同端口号。非同源的请求是会被拦截的，而导致无法跨域。而 jsonp 则是一种可绕过同源政策的请求方法。  二、jsonp 的实现原理如下：123456789101112131415161718192021&amp;lt;!">
+  
+    <link rel="alternate" href="/atom.xml" title="vlzf" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">vlzf</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">个人博客</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://vlzf.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-jsonp请求原理及实现" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/12/13/jsonp请求原理及实现/" class="article-date">
+  <time datetime="2018-12-13T14:17:19.596Z" itemprop="datePublished">2018-12-13</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      jsonp 请求原理及封装方法
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="一、前言"><a href="#一、前言" class="headerlink" title="一、前言"></a>一、前言</h2><h3 id="什么是-jsonp-？"><a href="#什么是-jsonp-？" class="headerlink" title="什么是 jsonp ？"></a>什么是 jsonp ？</h3><p>jsonp 是一种跨域请求手段。众所周知，我们的浏览器为了保护用户隐式，采用了同源政策。<br>所谓同源，即：同协议、同域名（并且同为ip地址，或同为DNS地址）、同端口号。<br>非同源的请求是会被拦截的，而导致无法跨域。而 jsonp 则是一种可绕过同源政策的请求方法。</p>
+<hr>
+<h2 id="二、jsonp-的实现原理"><a href="#二、jsonp-的实现原理" class="headerlink" title="二、jsonp 的实现原理"></a>二、jsonp 的实现原理</h2><p>如下：<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE html&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">"en"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">"UTF-8"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">"viewport"</span> <span class="attr">content</span>=<span class="string">"width=device-width, initial-scale=1.0"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">http-equiv</span>=<span class="string">"X-UA-Compatible"</span> <span class="attr">content</span>=<span class="string">"ie=edge"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span><span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="javascript">    <span class="comment">// 该标签内容有前端设置</span></span></span><br><span class="line"><span class="javascript">        <span class="built_in">window</span>.jsonp1 = <span class="function"><span class="keyword">function</span>(<span class="params">data</span>)</span>&#123;</span></span><br><span class="line"><span class="undefined">            alert(data.mes)</span></span><br><span class="line"><span class="undefined">        &#125;</span></span><br><span class="line"><span class="undefined">    </span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"这里写请求用的 url"</span>&gt;</span><span class="undefined"> </span></span><br><span class="line"><span class="javascript">    <span class="comment">// 该标签内容由后台返回</span></span></span><br><span class="line"><span class="javascript">        jsonp1(&#123;<span class="attr">mes</span>: <span class="string">'Hello World!'</span>&#125;) <span class="comment">// 发请求的时候要高数后台回调函数是 jsonp1</span></span></span><br><span class="line"><span class="undefined">    </span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>jsonp 的请求就是利用 script 标签的 src 属性可跨域发请求获取脚本的原理实现跨域的。<br>以上为例，实现的思路就是：</p>
+<ol>
+<li>前端先设置好一个函数：jsonp1</li>
+<li>然后利用 script 标签的 src 属性发请求</li>
+<li>拿到后台动态创建的脚本：jsonp1({mes: ‘Hello World!’})</li>
+<li>因为是 script 标签代表 js 文件，拿到脚本后会调用函数：jsonp1({mes: ‘Hello World!’})，从而拿到数据</li>
+<li>需要注意的是 jsonp 是通过 src 属性发请求的，所以，只能发 get 请求。</li>
+</ol>
+<hr>
+<h2 id="三、jsonp-请求方法封装"><a href="#三、jsonp-请求方法封装" class="headerlink" title="三、jsonp 请求方法封装"></a>三、jsonp 请求方法封装</h2><h3 id="jsonp-js-文件（前端文件）"><a href="#jsonp-js-文件（前端文件）" class="headerlink" title="jsonp.js 文件（前端文件）"></a>jsonp.js 文件（前端文件）</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> jsonp = (<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123; <span class="comment">// 这里我们使用闭包</span></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 1. 首先定义一个计数器 count，记录 jsonp 的请求次数</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">var</span> count = <span class="number">0</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 2. 每一个 jsonp 请求都要单独占用一个 script 标签。</span></span><br><span class="line"><span class="comment">     *    因此，我们需要动态创建 script 标签为发 jsonp 请求服务。</span></span><br><span class="line"><span class="comment">     * 3. 为什么每一个 jsonp 请求都要单独占用一个 script 标签？</span></span><br><span class="line"><span class="comment">     *    因为，请求是异步的，如果该 jsonp 请求的结果还没拿到，那么它占用的 script 标签的 src 属性就不能更改，否则会请求失败。</span></span><br><span class="line"><span class="comment">     *    所以，多个 jsonp 请求不得占用同一个 script 标签。</span></span><br><span class="line"><span class="comment">     * 4. 又因为 jsonp 请求都要单独占用一个 script 标签，一旦请求结束，该 script 标签就没用了。</span></span><br><span class="line"><span class="comment">     *    所以，没用处的 script 标签要懂得在自己加载完成、执行完内容后，将自己删除。</span></span><br><span class="line"><span class="comment">     *    动态创建 script 标签的方法函数如下：</span></span><br><span class="line"><span class="comment">     */</span> </span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">createScript</span>(<span class="params">url</span>)</span>&#123; </span><br><span class="line">        <span class="keyword">var</span> script = <span class="built_in">document</span>.createElement(<span class="string">'script'</span>)</span><br><span class="line">        script.src = url</span><br><span class="line">        script.onload = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">            script.parentNode.removeChild(script)</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="built_in">document</span>.getElementsByTagName(<span class="string">'head'</span>)[<span class="number">0</span>].appendChild(script)</span><br><span class="line">        <span class="keyword">return</span> script <span class="comment">// 返回该标签，方便之后的操作</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 5. 现在我们开始将函数暴露出去</span></span><br><span class="line"><span class="comment">     *    这个函数接受一个请求 url ，一些传参组成的对象 opt，一个自定义回调函数 callback（不是全局回调函数，因为它不能暴露到全局）</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">return</span> <span class="function"><span class="keyword">function</span>(<span class="params">url, opt, callback</span>)</span>&#123;</span><br><span class="line">        <span class="comment">/**</span></span><br><span class="line"><span class="comment">         * 6. 创建全局回调函数。</span></span><br><span class="line"><span class="comment">         *    我们需要动态创建一个全局的回调函数供 jsonp 请求的回来的脚本使用。</span></span><br><span class="line"><span class="comment">         * 7. 该全局回调函数跟 script 标签的道理一样也是一次性的、被独占用的。</span></span><br><span class="line"><span class="comment">         *    因此，当该全局回调函数执行完后要把自己删除，</span></span><br><span class="line"><span class="comment">         * 8. 计数器 count++ 和 while(window[fn]) 循环保证该全局函数是唯一的，不要被下一个 jsonp 请求覆盖。</span></span><br><span class="line"><span class="comment">         */</span>  </span><br><span class="line">        count++</span><br><span class="line">        <span class="keyword">var</span> fn = <span class="string">'jsonp'</span> + count <span class="comment">// 变量 fn 存储了为全局回调函数的函数名</span></span><br><span class="line">        <span class="keyword">while</span>(<span class="built_in">window</span>[fn])&#123;</span><br><span class="line">            count++</span><br><span class="line">            fn = <span class="string">'jsonp'</span> + count</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="built_in">window</span>[fn] = <span class="function"><span class="keyword">function</span>(<span class="params">data</span>)</span>&#123;</span><br><span class="line">            callback(data)  <span class="comment">// 由全局回调函数去触发自定义回调函数</span></span><br><span class="line">            <span class="keyword">try</span>&#123; <span class="comment">// 删除全局回调函数自己</span></span><br><span class="line">                <span class="keyword">delete</span> <span class="built_in">window</span>[fn]</span><br><span class="line">            &#125;<span class="keyword">catch</span>(e) &#123;</span><br><span class="line">                <span class="built_in">window</span>[fn] = <span class="literal">undefined</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        <span class="comment">/**</span></span><br><span class="line"><span class="comment">         * 9. 因为是 jsonp 是 get 请求，我们要把传参拼接到 url 上</span></span><br><span class="line"><span class="comment">         * 10.jsonp 请求，后台默认接受传参 callback 为全局回调函数的函数名（有些要自己设置），所以，把刚才创建的全局回调函数的函数名（存在 fn 内的名称）传给后台</span></span><br><span class="line"><span class="comment">         */</span></span><br><span class="line">        <span class="keyword">var</span> strUrl = <span class="string">''</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">var</span> key <span class="keyword">in</span> opt)&#123; <span class="comment">// for 循环拼接参数</span></span><br><span class="line">            strUrl += <span class="string">'&amp;'</span> + key + <span class="string">'='</span> + opt[key]</span><br><span class="line">        &#125;</span><br><span class="line">        strUrl += <span class="string">'&amp;callback='</span> +  fn <span class="comment">// 把刚才创建的全局回调函数的函数名（存在 fn 内的名称）传给后台</span></span><br><span class="line">        strUrl = strUrl.slice(<span class="number">1</span>)  </span><br><span class="line">        strUrl = url + <span class="string">'?'</span> + strUrl <span class="comment">// 拼接完毕</span></span><br><span class="line">        </span><br><span class="line"></span><br><span class="line">        <span class="comment">/**</span></span><br><span class="line"><span class="comment">         * 11. 这时可以创建 script 标签了</span></span><br><span class="line"><span class="comment">         */</span></span><br><span class="line">        <span class="keyword">var</span> script = createScript(strUrl)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        <span class="comment">/**</span></span><br><span class="line"><span class="comment">         * 12. 请求超时处理。</span></span><br><span class="line"><span class="comment">         *     由于，全局回调函数在执行后才会删除自己，它又要在 jsonp 的 script 标签加载完成后才能执行。</span></span><br><span class="line"><span class="comment">         *     而该 script 标签也要在它加载完成后才能删除自己。</span></span><br><span class="line"><span class="comment">         *     所以，一旦请求超时即失败，就必须手动删除对应的 script 标签和全局回调函数。</span></span><br><span class="line"><span class="comment">         *     如下，设定一分钟后请求超时：</span></span><br><span class="line"><span class="comment">         */</span></span><br><span class="line">        setTimeout(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">            <span class="keyword">if</span>(<span class="built_in">window</span>.fn)&#123;</span><br><span class="line">                <span class="keyword">try</span>&#123;</span><br><span class="line">                    <span class="keyword">delete</span> <span class="built_in">window</span>[fn]</span><br><span class="line">                &#125;<span class="keyword">catch</span>(e) &#123;</span><br><span class="line">                    <span class="built_in">window</span>[fn] = <span class="literal">undefined</span></span><br><span class="line">                &#125;</span><br><span class="line">                script.parentNode.removeChild(script)</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;, <span class="number">60000</span>)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)()</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">jsonp(<span class="string">'http://localhost:8080/api/jsonp'</span>, &#123; </span><br><span class="line">    name: <span class="string">'vlzf'</span>, </span><br><span class="line">    time: <span class="keyword">new</span> <span class="built_in">Date</span>() </span><br><span class="line">&#125;, <span class="function"><span class="keyword">function</span>(<span class="params">d</span>)</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(d)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<h3 id="server-js-文件（-node-后台文件）"><a href="#server-js-文件（-node-后台文件）" class="headerlink" title="server.js 文件（ node 后台文件）"></a>server.js 文件（ node 后台文件）</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> express = <span class="built_in">require</span>(<span class="string">'express'</span>)</span><br><span class="line"><span class="keyword">const</span> app = express()</span><br><span class="line"></span><br><span class="line">app.listen(<span class="number">8080</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">'server start'</span>)</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">app.get(<span class="string">'/api/jsonp'</span>, <span class="function"><span class="keyword">function</span>(<span class="params">req,res</span>)</span>&#123;</span><br><span class="line">  <span class="keyword">var</span> &#123; </span><br><span class="line">    name,</span><br><span class="line">    time</span><br><span class="line">  &#125; = req.query</span><br><span class="line"></span><br><span class="line">  <span class="keyword">var</span> content = <span class="string">`<span class="subst">$&#123;name&#125;</span>，您的 jsonp 请求成功！！时间：<span class="subst">$&#123;time&#125;</span>`</span></span><br><span class="line"></span><br><span class="line">  res.jsonp(&#123; <span class="comment">// 请求成功</span></span><br><span class="line">    code: <span class="literal">true</span>,</span><br><span class="line">    mes: content</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<p>会使用 node 和 npm 的人跳过以下步骤：<br>安装 npm，下载 node<br>在 server.js 所在的目录下打开终端，输入:<br>npm init<br>npm install –save express<br>node server.js<br>后台就可以启动了。</p>
+<hr>
+<p>END</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://vlzf.github.io/2018/12/13/jsonp请求原理及实现/" data-id="cjpquokqt0008u0u3j4qa9o6f" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2018/12/13/node事件循环/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          node 事件循环
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2018/12/13/CDN缓存策略/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">CDN 缓存策略</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">十二月 2018</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2018/12/16/字符串的扩展/">字符串的扩展</a>
+          </li>
+        
+          <li>
+            <a href="/2018/12/16/数组的扩展/">数组的扩展</a>
+          </li>
+        
+          <li>
+            <a href="/2018/12/16/数值的扩展/">数值的扩展</a>
+          </li>
+        
+          <li>
+            <a href="/2018/12/16/函数的扩展/">函数的扩展</a>
+          </li>
+        
+          <li>
+            <a href="/2018/12/16/Promise对象/">Promise对象</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2018 vlzf<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>
