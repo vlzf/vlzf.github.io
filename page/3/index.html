@@ -103,7 +103,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://vlzf.github.io/2018/12/13/精度丢失/" data-id="cjpqvv278000vcsu3aqobj4ew" class="article-share-link">Share</a>
+      <a data-url="https://vlzf.github.io/2018/12/13/精度丢失/" data-id="cjps3vive000v5cu3pjqvonqt" class="article-share-link">Share</a>
       
       
     </footer>
@@ -170,7 +170,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://vlzf.github.io/2018/12/13/继承/" data-id="cjpqvv27d000xcsu3an1w18iv" class="article-share-link">Share</a>
+      <a data-url="https://vlzf.github.io/2018/12/13/继承/" data-id="cjps3vive000r5cu3jmp91uvl" class="article-share-link">Share</a>
       
       
     </footer>
@@ -219,7 +219,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://vlzf.github.io/2018/12/13/函数节流与函数去抖/" data-id="cjpqvv25q000dcsu3bdc1wzyu" class="article-share-link">Share</a>
+      <a data-url="https://vlzf.github.io/2018/12/13/函数节流与函数去抖/" data-id="cjps3viua000f5cu3elvvq688" class="article-share-link">Share</a>
       
       
     </footer>
@@ -300,7 +300,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://vlzf.github.io/2018/12/13/关键字this前篇/" data-id="cjpqvv25u000ecsu3ikuzyq3l" class="article-share-link">Share</a>
+      <a data-url="https://vlzf.github.io/2018/12/13/关键字this前篇/" data-id="cjps3viu000095cu368d0t0lg" class="article-share-link">Share</a>
       
       
     </footer>
@@ -370,7 +370,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://vlzf.github.io/2018/12/13/关键字this后篇/" data-id="cjpqvv25o000ccsu3skyolv6l" class="article-share-link">Share</a>
+      <a data-url="https://vlzf.github.io/2018/12/13/关键字this后篇/" data-id="cjps3viu0000a5cu3smrb2ijk" class="article-share-link">Share</a>
       
       
     </footer>
@@ -444,7 +444,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://vlzf.github.io/2018/12/13/短连接、长连接、短轮询、长轮询与WebSocket/" data-id="cjpqvv27a000wcsu3imkd65ne" class="article-share-link">Share</a>
+      <a data-url="https://vlzf.github.io/2018/12/13/短连接、长连接、短轮询、长轮询与WebSocket/" data-id="cjps3vivo000x5cu3d7fr5l6x" class="article-share-link">Share</a>
       
       
     </footer>
@@ -476,11 +476,23 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        
+        <h2 id="一、什么是闭包"><a href="#一、什么是闭包" class="headerlink" title="一、什么是闭包"></a>一、什么是闭包</h2><p>在JavaScript高级编程设计里是这么说的：有权访问其它函数的局部变量的函数就是闭包。<br>在JavaScript中，可以在局部环境直接访问外部环境的变量，但外部环境无法访问局部环境的变量。而闭包可以通过作用域链做到从外部环境访问局部环境的变量。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">var</span> a = <span class="number">100</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">bar</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">return</span> a</span><br><span class="line">&#125;</span><br><span class="line">foo()</span><br><span class="line">bar() <span class="comment">// a is not defined</span></span><br><span class="line">a <span class="comment">// a is not defined</span></span><br></pre></td></tr></table></figure></p>
+<p>外部无法访问foo函数中的变量a。下面使用闭包：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">var</span> a = <span class="number">100</span></span><br><span class="line">    <span class="keyword">return</span> <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> a</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> bar = foo()</span><br><span class="line">bar() <span class="comment">// 100</span></span><br></pre></td></tr></table></figure></p>
+<p>闭包的常见规则就是这样，通过一个函数(foo)来存储私有变量(a)，同时在内部创建另一个可访问私有变量的函数并将其返回给外部。那么，外部便可通过返回函数访问私有变量(a)。</p>
+<h2 id="二、闭包的用途"><a href="#二、闭包的用途" class="headerlink" title="二、闭包的用途"></a>二、闭包的用途</h2><p>例如，我们要做一个计数器：</p>
+<ul>
+<li>不使用闭包  <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> i = <span class="number">0</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">count</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">return</span> ++i</span><br><span class="line">&#125;</span><br><span class="line">count() <span class="comment">// 1</span></span><br><span class="line">count() <span class="comment">// 2</span></span><br><span class="line">count() <span class="comment">// 3</span></span><br><span class="line"><span class="comment">//...</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>这种做法有个问题，就是需要在外部环境定义一个变量，如果此时需要多个计时器，就要在外部定义多个不同的变量，会造成环境污染。<br>但，使用闭包可以解决这个问题：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">createCount</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">var</span> i = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">return</span> <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> ++i</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> count = createCount()</span><br><span class="line">count() <span class="comment">// 1</span></span><br><span class="line">count() <span class="comment">// 2</span></span><br><span class="line">count() <span class="comment">// 3</span></span><br><span class="line"><span class="comment">//...</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> count2 = createCount()</span><br><span class="line">count2() <span class="comment">// 1</span></span><br><span class="line">count2() <span class="comment">// 2</span></span><br><span class="line">count2() <span class="comment">// 3</span></span><br><span class="line"><span class="comment">//...</span></span><br></pre></td></tr></table></figure></p>
+<p>使用闭包，每次执行createCount都会生成一个新的计数器和新的私有变量 i。每一个计数器都有一个只有自己能够访问的私有变量 i（外部无法访问），它们之间互不干涉，并且不会污染外部环境。只要计数器没被删除，其引用的私有变量 i 就一直存在（准确的说是 i 所在的局部环境一直存在，原因请参考js的垃圾回收）。</p>
+<h2 id="三、闭包的问题"><a href="#三、闭包的问题" class="headerlink" title="三、闭包的问题"></a>三、闭包的问题</h2><p>滥用闭包会导致内存泄露。上面说过，如果计数器不被释放清空，变量 i 就一直存在，使用闭包生成的计数器越多生成的 i 越多。如果出现了大量无用或已近不需要的闭包，可能会塞满浏览器内存。虽然一般来说很少出现这样的情况，但为了浏览器的性能，还是注意点，在闭包空间不需要的时候主动释放内存。如：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> count = createCount()</span><br><span class="line"><span class="comment">// 不再使用了</span></span><br><span class="line">count = <span class="literal">null</span></span><br></pre></td></tr></table></figure></p>
+<p>计数器置空之后，由于计数器不再被访问，导致私有变量 i 及其所在的局部环境也不再被访问，js的垃圾回收机制会将其级其占用的空间回收释放。</p>
+
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://vlzf.github.io/2018/12/13/闭包/" data-id="cjpqvv27g000ycsu3t9kpgtvl" class="article-share-link">Share</a>
+      <a data-url="https://vlzf.github.io/2018/12/13/闭包/" data-id="cjps3vive000u5cu3i4fleiqm" class="article-share-link">Share</a>
       
       
     </footer>
@@ -544,7 +556,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://vlzf.github.io/2018/12/13/WebWorker/" data-id="cjpqvv24x0004csu3557nqd8b" class="article-share-link">Share</a>
+      <a data-url="https://vlzf.github.io/2018/12/13/WebWorker/" data-id="cjps3vit600035cu3hy051hp8" class="article-share-link">Share</a>
       
       
     </footer>
@@ -656,7 +668,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://vlzf.github.io/2018/12/13/V8垃圾回收机制/" data-id="cjpqvv24p0002csu37jybwqna" class="article-share-link">Share</a>
+      <a data-url="https://vlzf.github.io/2018/12/13/V8垃圾回收机制/" data-id="cjps3visx00015cu3zswpnisz" class="article-share-link">Share</a>
       
       
     </footer>
@@ -854,7 +866,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://vlzf.github.io/2018/12/13/node事件循环/" data-id="cjpqvv25j000acsu34ldf61p1" class="article-share-link">Share</a>
+      <a data-url="https://vlzf.github.io/2018/12/13/node事件循环/" data-id="cjps3viu0000c5cu3u82d47bt" class="article-share-link">Share</a>
       
       
     </footer>
